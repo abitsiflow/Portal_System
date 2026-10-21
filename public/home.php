@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traveler Portal &middot; Tourist Portal Subsystem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+    <div class="app-shell">
+        <!-- ─── Left Sidebar Navigation ─── -->
+        <aside class="sidebar">
+            <a href="home.php" class="brand-section">
+                <div class="brand-icon-wrap">
+                    <i data-lucide="compass"></i>
+                </div>
+                <div>
+                    <div class="brand-title">Tourist Portal</div>
+                    <div class="brand-subtitle">Travel discovery &amp; planning</div>
+                </div>
+            </a>
+
+            <nav class="sidebar-nav" aria-label="Primary Portal Navigation">
+                <button type="button" class="nav-item-btn active" data-screen="home" onclick="navigate('home')">
+                    <i data-lucide="home"></i>
+                    <span>Home</span>
+                </button>
+
+                <button type="button" class="nav-item-btn" data-screen="explore" onclick="navigate('explore')">
+                    <i data-lucide="map"></i>
+                    <span>Explore</span>
+                </button>
+
+                <button type="button" class="nav-item-btn" data-screen="planner" onclick="navigate('planner')">
+                    <i data-lucide="calendar-days"></i>
+                    <span>Trip Planner</span>
+                </button>
+
+                <button type="button" class="nav-item-btn" data-screen="trips" onclick="navigate('trips')">
+                    <i data-lucide="briefcase"></i>
+                    <span>My Trips</span>
+                </button>
+
+                <button type="button" class="nav-item-btn" data-screen="favorites" onclick="navigate('favorites')">
+                    <i data-lucide="heart"></i>
+                    <span>Favorites</span>
+                    <span class="nav-item-badge" id="favCountBadge">2</span>
+                </button>
+
+                <button type="button" class="nav-item-btn" data-screen="qr" onclick="navigate('qr')">
+                    <i data-lucide="qr-code"></i>
+                    <span>QR Tourist Pass</span>
+                </button>
+
+                <button type="button" class="nav-item-btn" data-screen="profile" onclick="navigate('profile')">
+                    <i data-lucide="user"></i>
+                    <span>Profile</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-pass-chip">
+                    <strong>Digital ID: TP-PH-2026-8842</strong>
+                    <span>Verified Traveler Status &middot; Ready for gate scan</span>
+                </div>
+
+                <a href="landing-page.php" class="logout-btn">
+                    <i data-lucide="log-out"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- ─── Content Shell ─── -->
+        <div class="content-shell">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <span class="topbar-kicker">Tourist Portal Subsystem</span>
+                    <h2 class="topbar-title">Traveler Workspace</h2>
+                </div>
+
+                <div class="topbar-search">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+                    </svg>
+                    <input
+                        type="text"
+                        placeholder="Search destinations, spots, or hotels..."
+                        onfocus="navigate('explore')"
+                    />
+                </div>
+
+                <div class="topbar-right">
+                    <button type="button" class="icon-btn" onclick="navigate('qr')" title="Active Passes">
+                        <i data-lucide="qr-code"></i>
+                    </button>
+
+                    <button type="button" class="icon-btn" onclick="showToast('You have 2 upcoming trip alerts.')" title="Notifications">
+                        <i data-lucide="bell"></i>
+                        <span class="notif-dot"></span>
+                    </button>
+
+                    <div class="user-profile-pill" onclick="navigate('profile')" title="View profile">
+                        <div class="avatar-initials">AT</div>
+                        <div>
+                            <div class="user-meta-name">Alex Traveler</div>
+                            <div class="user-meta-role">Verified Traveler</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Render Area -->
+            <main class="main-content" id="viewContainer" aria-live="polite">
+                <!-- Content injected dynamically via dashboard.js -->
+            </main>
+        </div>
+
+        <!-- ─── Mobile Bottom Navigation ─── -->
+        <nav class="mobile-bottom-nav">
+            <button type="button" class="mobile-nav-btn active" data-screen="home" onclick="navigate('home')">
+                <i data-lucide="home"></i>
+                <span>Home</span>
+            </button>
+            <button type="button" class="mobile-nav-btn" data-screen="explore" onclick="navigate('explore')">
+                <i data-lucide="map"></i>
+                <span>Explore</span>
+            </button>
+            <button type="button" class="mobile-nav-btn" data-screen="trips" onclick="navigate('trips')">
+                <i data-lucide="briefcase"></i>
+                <span>Trips</span>
+            </button>
+            <button type="button" class="mobile-nav-btn" data-screen="qr" onclick="navigate('qr')">
+                <i data-lucide="qr-code"></i>
+                <span>Passes</span>
+            </button>
+            <button type="button" class="mobile-nav-btn" data-screen="profile" onclick="navigate('profile')">
+                <i data-lucide="user"></i>
+                <span>Profile</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- ─── Interactive Booking Modal ─── -->
+    <div id="bookingModal" class="modal-overlay hidden" onclick="if(event.target===this) closeBookingModal()">
+        <div class="booking-modal-card" onclick="event.stopPropagation()">
+            <div class="modal-header-banner">
+                <div>
+                    <span class="eyebrow" style="color:var(--teal-light); margin:0;">Reservation &amp; Passes</span>
+                    <h3 id="bookingModalTitle">Book Vacation</h3>
+                </div>
+                <button type="button" class="modal-close-icon" onclick="closeBookingModal()">&times;</button>
+            </div>
+
+            <form class="booking-modal-body" onsubmit="processConfirmBooking(event)">
+                <!-- Target Pairing Notice -->
+                <div style="background:var(--bg-app); border:1px solid var(--line); border-radius:var(--radius-md); padding:14px 18px; display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <strong style="color:var(--navy); font-size:15px;" id="modalTargetSpotName">Attraction Name</strong>
+                        <span style="color:var(--muted); font-size:13px; display:block;">Paired with: <b id="modalTargetHotelName">Hotel Name</b></span>
+                    </div>
+                    <span class="tag tag--teal" id="modalTargetDistance">Distance</span>
+                </div>
+
+                <!-- Package Selector -->
+                <div>
+                    <label style="font-weight:700; font-size:13px; display:block; margin-bottom:8px; color:var(--ink);">Select Reservation Type</label>
+                    <div class="booking-package-select">
+                        <div class="package-choice selected" data-package="combined" onclick="selectBookingPackage('combined')">
+                            <strong>Combined Package</strong>
+                            <span>Attraction Entry Pass + Hotel Stay Room (Recommended)</span>
+                        </div>
+                        <div class="package-choice" data-package="hotel_only" onclick="selectBookingPackage('hotel_only')">
+                            <strong>Hotel Stay Only</strong>
+                            <span>Reserve room &amp; amenities at paired hotel</span>
+                        </div>
+                        <div class="package-choice" data-package="spot_only" onclick="selectBookingPackage('spot_only')">
+                            <strong>Attraction Pass Only</strong>
+                            <span>Entry ticket &amp; instant gate scan pass</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Fields Grid -->
+                <div class="booking-form-grid">
+                    <div class="explore-field">
+                        <label for="bookGuestName">Primary Traveler Name</label>
+                        <input type="text" id="bookGuestName" value="Alex Traveler" required />
+                    </div>
+
+                    <div class="explore-field">
+                        <label for="bookGuestEmail">Confirmation Email</label>
+                        <input type="email" id="bookGuestEmail" value="alex.traveler@example.com" required />
+                    </div>
+
+                    <div class="explore-field">
+                        <label for="bookCheckIn">Hotel Check-In Date</label>
+                        <input type="date" id="bookCheckIn" onchange="updateBookingSummary()" required />
+                    </div>
+
+                    <div class="explore-field">
+                        <label for="bookCheckOut">Hotel Check-Out Date</label>
+                        <input type="date" id="bookCheckOut" onchange="updateBookingSummary()" required />
+                    </div>
+
+                    <div class="explore-field">
+                        <label for="bookVisitDate">Attraction Visit Date</label>
+                        <input type="date" id="bookVisitDate" required />
+                    </div>
+
+                    <div class="explore-field">
+                        <label for="bookGuestCount">Number of Guests / Visitors</label>
+                        <select id="bookGuestCount" onchange="updateBookingSummary()">
+                            <option value="1">1 Traveler</option>
+                            <option value="2" selected>2 Travelers</option>
+                            <option value="3">3 Travelers</option>
+                            <option value="4">4 Travelers</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Booking Summary & Instant Total -->
+                <div class="booking-summary-box">
+                    <strong style="color:var(--navy); font-size:14px; display:block; margin-bottom:10px;">Booking Summary</strong>
+                    <div class="summary-row">
+                        <span id="summaryPackageName">Combined Hotel + Attraction Package</span>
+                        <span id="summaryNightsGuests">3 Nights &middot; 2 Travelers</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Attraction Entry Tickets:</span>
+                        <span id="summarySpotFee">₱150</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Hotel Accommodation Rate:</span>
+                        <span id="summaryHotelFee">₱18,600</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total Payable:</span>
+                        <span id="summaryGrandTotal" style="color:var(--teal);">₱18,750</span>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:8px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeBookingModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="confirmBookingBtn">
+                        Confirm &amp; Generate QR Passes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ─── Dual QR Code Passes Modal ─── -->
+    <div id="qrPassModal" class="modal-overlay hidden" onclick="if(event.target===this) closeQrPassModal()">
+        <div class="booking-modal-card" style="max-width:820px;" onclick="event.stopPropagation()">
+            <div class="modal-header-banner">
+                <div>
+                    <span class="eyebrow" style="color:var(--teal-light); margin:0;">Booking Confirmed &middot; Contactless Entry</span>
+                    <h3>Your Digital Travel Passes</h3>
+                </div>
+                <button type="button" class="modal-close-icon" onclick="closeQrPassModal()">&times;</button>
+            </div>
+
+            <div class="booking-modal-body">
+                <p class="subtle" style="margin-top:-6px;">
+                    Present these official digital passes on your phone screen or printed paper at the attraction entrance gate and hotel reception desk.
+                </p>
+
+                <!-- Dual Passes Grid -->
+                <div class="passes-display-grid">
+                    <!-- Attraction Pass -->
+                    <div class="pass-ticket-card">
+                        <div class="pass-ticket-header attraction-theme">
+                            <strong>Attraction Entry Pass</strong>
+                            <span class="pass-status-pill">ACTIVE &middot; VERIFIED</span>
+                        </div>
+                        <div class="pass-qr-area">
+                            <img id="passSpotQrImg" class="pass-qr-img" src="" alt="Attraction Pass QR Code" />
+                            <span id="passSpotCode" class="pass-code-label">TP-PASS-2026-XXXX</span>
+                        </div>
+                        <div class="pass-details-list">
+                            <p><strong>Attraction:</strong> <span id="passSpotName">Fort Santiago &amp; Intramuros</span></p>
+                            <p><strong>Pass Holder:</strong> <span id="passSpotHolder">Alex Traveler</span></p>
+                            <p><strong>Visit Date:</strong> <span id="passSpotDate">2026-11-15</span></p>
+                            <p><strong>Visitors:</strong> <span id="passSpotGuests">2 Guests</span></p>
+                            <p class="small subtle" style="margin-top:10px;">Scannable at security turnstiles &amp; ticket checkpoints.</p>
+                        </div>
+                    </div>
+
+                    <!-- Hotel Reservation Pass -->
+                    <div class="pass-ticket-card">
+                        <div class="pass-ticket-header hotel-theme">
+                            <strong>Hotel Check-in Pass</strong>
+                            <span class="pass-status-pill">CONFIRMED</span>
+                        </div>
+                        <div class="pass-qr-area">
+                            <img id="passHotelQrImg" class="pass-qr-img" src="" alt="Hotel Reservation QR Code" />
+                            <span id="passHotelCode" class="pass-code-label">HTL-RES-2026-YYYY</span>
+                        </div>
+                        <div class="pass-details-list">
+                            <p><strong>Hotel:</strong> <span id="passHotelName">The Manila Hotel</span></p>
+                            <p><strong>Guest Name:</strong> <span id="passHotelGuest">Alex Traveler</span></p>
+                            <p><strong>Stay Dates:</strong> <span id="passHotelDates">2026-11-14 to 2026-11-17</span></p>
+                            <p><strong>Category:</strong> <span id="passHotelRoom">5-Star Luxury Room</span></p>
+                            <p class="small subtle" style="margin-top:10px;">Scannable at hotel concierge for fast keycard issuance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Actions -->
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding-top:16px; border-top:1px solid var(--line);">
+                    <span class="small subtle">Passes are saved to your account in <b>My Trips</b> and <b>QR Tourist Pass</b>.</span>
+                    <div style="display:flex; gap:10px;">
+                        <button type="button" class="btn btn-secondary" onclick="window.print()">
+                            <i data-lucide="printer"></i>
+                            Print Passes
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="closeQrPassModal()">
+                            Done
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── Spot & Hotel Details Modal ─── -->
+    <div id="spotDetailModal" class="modal-overlay hidden" onclick="if(event.target===this) closeDetailModal()">
+        <div class="booking-modal-card" style="max-width:720px;" onclick="event.stopPropagation()">
+            <div style="position:relative; height:200px; background:#0c2d48;">
+                <img id="detailSpotImg" src="" alt="Spot Media" style="width:100%; height:100%; object-fit:cover;" />
+                <button type="button" class="modal-close-icon" style="position:absolute; top:12px; right:14px; background:rgba(0,0,0,0.6); width:32px; height:32px; border-radius:50%; display:grid; place-items:center;" onclick="closeDetailModal()">&times;</button>
+            </div>
+
+            <div class="booking-modal-body">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                    <div>
+                        <span class="eyebrow" id="detailLocation">Location</span>
+                        <h2 id="detailModalTitle" style="font-family:'Fraunces',serif; font-size:24px; color:var(--navy); margin:4px 0 0;">Destination Pair</h2>
+                    </div>
+                    <span class="tag tag--teal" id="detailDistance">Distance</span>
+                </div>
+
+                <hr style="border:0; border-top:1px solid var(--line); margin:16px 0;" />
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                    <div>
+                        <h4 style="color:var(--teal); margin-bottom:6px;">Tourist Attraction</h4>
+                        <strong id="detailSpotName" style="font-size:16px;">Spot Name</strong>
+                        <p id="detailSpotDesc" class="small subtle" style="margin-top:6px; line-height:1.5;">Description</p>
+                        <p class="small"><b>Entrance Fee:</b> <span id="detailSpotFee"></span></p>
+                        <p class="small"><b>Hours:</b> <span id="detailSpotHours"></span></p>
+                    </div>
+
+                    <div>
+                        <h4 style="color:var(--navy); margin-bottom:6px;">Adjacent Accommodation</h4>
+                        <strong id="detailHotelName" style="font-size:16px;">Hotel Name</strong>
+                        <p id="detailHotelDesc" class="small subtle" style="margin-top:6px; line-height:1.5;">Description</p>
+                        <p class="small"><b>Nightly Rate:</b> <span id="detailHotelRate" style="color:var(--teal); font-weight:700;"></span></p>
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px; padding-top:16px; border-top:1px solid var(--line);">
+                    <button type="button" class="btn btn-secondary" onclick="closeDetailModal()">Close</button>
+                    <button type="button" class="btn btn-primary" id="detailModalBookBtn">Book Vacation Pair</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notice Container -->
+    <div id="appToast" class="toast-notice hidden"></div>
+
+    <script src="../assets/scripts/dashboard.js"></script>
+</body>
+</html>
+

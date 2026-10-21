@@ -1,0 +1,796 @@
+<?php
+/**
+ * Tourist Portal Subsystem · Public Landing Page
+ * Designed for guest / non-logged in travelers.
+ * Demonstrates 10 real Philippine tourist spots paired with actual nearby hotels.
+ * Systems Integration and Architecture 1
+ */
+
+// 10 Geographically Accurate Tourist Spot & Nearby Hotel Pairs
+$travelPairs = [
+    [
+        "id" => "manila-intramuros",
+        "category" => "heritage",
+        "category_label" => "Heritage & History",
+        "location" => "Ermita & Intramuros, City of Manila",
+        "distance" => "1.1 km · 4 mins drive / 12 mins walk",
+        "searchable" => "intramuros fort santiago the manila hotel manila rizal park heritage history",
+        "spot" => [
+            "name" => "Fort Santiago & Intramuros",
+            "type" => "Historic Citadel & Walled City",
+            "image" => "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=800&q=80",
+            "description" => "A 16th-century Spanish stone fortress and historic defense citadel within the walled city of Intramuros. Home to the Jose Rizal Shrine, Plaza Roma, and storied cobblestone lanes.",
+            "hours" => "8:00 AM – 9:00 PM Daily",
+            "fee" => "₱75 General · ₱50 Students",
+            "highlights" => ["Rizal Shrine & Dungeons", "Kalesa Heritage Ride", "Plaza de Armas", "Spanish Colonial Walls"]
+        ],
+        "hotel" => [
+            "name" => "The Manila Hotel",
+            "stars" => "5-Star Luxury Heritage",
+            "rating" => "4.8 ★",
+            "image" => "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+            "price" => "₱6,200 – ₱9,800",
+            "description" => "The historic 'Grand Dame' of Philippine luxury hotels opened in 1912. Overlooks Manila Bay and Rizal Park with unmatched presidential heritage and five-star hospitality.",
+            "amenities" => ["Manila Bay Sunset View", "Outdoor Pool & Gardens", "Fine Dining Buffet", "High-speed Wi-Fi"]
+        ]
+    ],
+    [
+        "id" => "boracay-white-beach",
+        "category" => "beaches",
+        "category_label" => "Beaches & Islands",
+        "location" => "Station 1, Boracay Island, Malay, Aklan",
+        "distance" => "0.0 km · Direct beachfront (1 min to Willy's Rock)",
+        "searchable" => "boracay white beach discovery shores aklan station 1 beach island sunset",
+        "spot" => [
+            "name" => "White Beach (Station 1) & Willy's Rock",
+            "type" => "World-Famous Tropical Beach",
+            "image" => "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+            "description" => "Celebrated for powdered sugar-fine white sand and calm, crystal turquoise waters. The Station 1 strip offers wide shorelines and the volcanic grotto of Willy's Rock.",
+            "hours" => "Open 24/7 (Best for sunset at 5:00 PM)",
+            "fee" => "Free Public Beach Access",
+            "highlights" => ["Willy's Rock Grotto", "Paraw Sunset Sailing", "Crystal-clear Kayaking", "Powder White Sand"]
+        ],
+        "hotel" => [
+            "name" => "Discovery Shores Boracay",
+            "stars" => "5-Star Beachfront Luxury",
+            "rating" => "4.9 ★",
+            "image" => "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+            "price" => "₱13,500 – ₱21,000",
+            "description" => "Consistently ranked among the top resort hotels in Asia. Features a private beach deck, signature beachfront infinity pool, and the renowned Terra Wellness Spa.",
+            "amenities" => ["Direct Beachfront Deck", "Infinity Pool & Swim-up Bar", "Airport Speedboat Transfer", "Butler Service"]
+        ]
+    ],
+    [
+        "id" => "cebu-santo-nino",
+        "category" => "urban",
+        "category_label" => "Urban & Culture",
+        "location" => "Cebu City, Central Visayas",
+        "distance" => "2.4 km · 7 mins drive via S. Osmeña Blvd",
+        "searchable" => "cebu city basilica del santo nino magellan cross radisson blu cebu heritage",
+        "spot" => [
+            "name" => "Basilica del Santo Niño & Magellan's Cross",
+            "type" => "Oldest Roman Catholic Church",
+            "image" => "https://images.unsplash.com/photo-1598971861713-54ad16a7e72e?auto=format&fit=crop&w=800&q=80",
+            "description" => "Founded in 1565, this revered sanctuary houses the original Miraculous Santo Niño icon. Adjacent is Magellan's Cross kiosk commemorating the birth of Christianity in the archipelago.",
+            "hours" => "6:00 AM – 7:00 PM Daily",
+            "fee" => "Free Admission",
+            "highlights" => ["Original 1521 Magellan's Cross", "Basilica Heritage Museum", "Pilgrim Center", "Centuries-old Frescoes"]
+        ],
+        "hotel" => [
+            "name" => "Radisson Blu Hotel Cebu",
+            "stars" => "5-Star Urban Luxury",
+            "rating" => "4.7 ★",
+            "image" => "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+            "price" => "₱5,400 – ₱8,200",
+            "description" => "Strategically positioned adjacent to the Cebu South Road and port area. Offers lavish suites, an extensive lagoon swimming pool, and the acclaimed Feria international buffet.",
+            "amenities" => ["Free-form Lagoon Pool", "Full Fitness & Spa", "Executive Lounge", "Direct Mall Access"]
+        ]
+    ],
+    [
+        "id" => "baguio-mines-view",
+        "category" => "mountain",
+        "category_label" => "Mountain & Cool Escapes",
+        "location" => "Outlook Drive, Baguio City, Benguet",
+        "distance" => "1.2 km · 4 mins drive / 15 mins scenic walk",
+        "searchable" => "baguio mines view park the mansion grand sierra pines benguet mountain pines",
+        "spot" => [
+            "name" => "Mines View Park & The Mansion",
+            "type" => "Scenic Highland Viewpoint",
+            "image" => "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+            "description" => "Perched on a mountain ridge offering breathtaking panoramic views of the Cordillera gold and copper mines. Moments away from the presidential summer palace, The Mansion.",
+            "hours" => "6:00 AM – 6:00 PM Daily",
+            "fee" => "₱10 Park Entrance",
+            "highlights" => ["Panoramic Mountain Ridge", "Cordillera Handwoven Crafts", "Strawberry Taho Stalls", "The Mansion House"]
+        ],
+        "hotel" => [
+            "name" => "Grand Sierra Pines Baguio",
+            "stars" => "4-Star Mountain Eco-Resort",
+            "rating" => "4.7 ★",
+            "image" => "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80",
+            "price" => "₱4,800 – ₱7,500",
+            "description" => "An eco-friendly mountain sanctuary surrounded by preserved pine trees on Outlook Drive. Features private forest-view balconies, an in-house art gallery, and cozy wood fireplaces.",
+            "amenities" => ["Pine Forest Balconies", "Art Gallery & Mini-Library", "Fireplace Lounge", "Scenic Dining Terrace"]
+        ]
+    ],
+    [
+        "id" => "palawan-el-nido",
+        "category" => "beaches",
+        "category_label" => "Beaches & Islands",
+        "location" => "Bacuit Bay, El Nido, Palawan",
+        "distance" => "1.5 km · 8 mins boat ride across Bacuit Bay",
+        "searchable" => "el nido palawan big lagoon bacuit bay miniloc island eco resort limestone karst",
+        "spot" => [
+            "name" => "Big Lagoon & Bacuit Bay",
+            "type" => "Iconic Limestone Karst Lagoon",
+            "image" => "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=800&q=80",
+            "description" => "Soaring black limestone karst formations framing emerald-colored ocean channels. A UNESCO biosphere reserve where travelers kayak through calm, sheltered sea chambers.",
+            "hours" => "7:00 AM – 4:00 PM (Tour Hours)",
+            "fee" => "₱200 Eco-Tourism Fee (ETDF)",
+            "highlights" => ["Clear Water Kayaking", "Towering Karst Cliffs", "Sea Turtle Encounters", "Snorkeling Sanctuary"]
+        ],
+        "hotel" => [
+            "name" => "El Nido Resorts Miniloc Island",
+            "stars" => "5-Star Eco-Luxury Lodge",
+            "rating" => "4.9 ★",
+            "image" => "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+            "price" => "₱24,000 – ₱36,000",
+            "description" => "Tucked into a tranquil private cove at the foot of sheer limestone cliffs. Renowned for traditional stilt water cottages and immediate access to Bacuit Bay's prime lagoons.",
+            "amenities" => ["Overwater Stilt Cottages", "Marine Sports Center", "Private Boat Charters", "All-Inclusive Dining"]
+        ]
+    ],
+    [
+        "id" => "tagaytay-taal-ridge",
+        "category" => "mountain",
+        "category_label" => "Mountain & Cool Escapes",
+        "location" => "Aguinaldo Highway, Tagaytay City, Cavite",
+        "distance" => "0.3 km · 3 mins walk (Direct ridge vantage)",
+        "searchable" => "tagaytay taal volcano lake sky ranch taal vista hotel cavite cool ridge",
+        "spot" => [
+            "name" => "Taal Volcano Ridge & Sky Ranch",
+            "type" => "Scenic Volcanic Lake Overlook",
+            "image" => "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+            "description" => "A high-altitude vantage point providing unobstructed views of the iconic Taal Volcano island nestled inside Taal Lake. Known for cool mountain breezes and family leisure attractions.",
+            "hours" => "8:00 AM – 8:00 PM Daily",
+            "fee" => "₱100 Park Admission",
+            "highlights" => ["Taal Volcano Island View", "Sky Eye Ferris Wheel", "Crisp Highland Breeze", "Authentic Bulalo Dining"]
+        ],
+        "hotel" => [
+            "name" => "Taal Vista Hotel Tagaytay",
+            "stars" => "4-Star Historic Ridge Hotel",
+            "rating" => "4.6 ★",
+            "image" => "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80",
+            "price" => "₱5,100 – ₱8,600",
+            "description" => "Operating since 1939 with classic English Tudor architecture. Home to the most iconic viewing garden overlooking the volcanic lake, featuring heated pools and cozy lounges.",
+            "amenities" => ["Direct Volcano Ridge Deck", "Heated Swimming Pool", "Asmara Luxury Spa", "Highland Buffet Breakfast"]
+        ]
+    ],
+    [
+        "id" => "bohol-panglao-alona",
+        "category" => "beaches",
+        "category_label" => "Beaches & Islands",
+        "location" => "Panglao Island, Bohol",
+        "distance" => "0.0 km · Direct beachfront (Step onto sand)",
+        "searchable" => "bohol panglao alona beach henann resort coral reef dolphin watching diving",
+        "spot" => [
+            "name" => "Alona Beach & Coral Sanctuary",
+            "type" => "Tropical White Sand Beach & Reef",
+            "image" => "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+            "description" => "A 1.5-kilometer powdery beach fringed by coconut palms and clear waters. Jump-off point for world-class scuba diving at Balicasag Island marine sanctuary and dolphin watching.",
+            "hours" => "Open 24/7 (Vibrant evening dining)",
+            "fee" => "Free Public Beach",
+            "highlights" => ["Balicasag Island Reefs", "Dolphin Watching Boats", "Powder Sand Shoreline", "Acoustic Sunset Bars"]
+        ],
+        "hotel" => [
+            "name" => "Henann Resort Alona Beach",
+            "stars" => "5-Star Premier Beach Resort",
+            "rating" => "4.8 ★",
+            "image" => "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=800&q=80",
+            "price" => "₱7,200 – ₱12,500",
+            "description" => "The largest beach resort on Panglao Island with 6.5 hectares of landscaped gardens, 3 multi-tiered lagoon pools with swim-up bars, and direct soft-sand beachfront frontage.",
+            "amenities" => ["3 Massive Lagoon Pools", "Beachfront Sun Loungers", "Sea Breeze Cafe", "Kai Luxury Spa"]
+        ]
+    ],
+    [
+        "id" => "vigan-crisologo",
+        "category" => "heritage",
+        "category_label" => "Heritage & History",
+        "location" => "Vigan City, Ilocos Sur (UNESCO Site)",
+        "distance" => "0.15 km · 2 mins walk (Just 1 block away)",
+        "searchable" => "vigan calle crisologo ilocos sur hotel luna kalesa unesco heritage colonial",
+        "spot" => [
+            "name" => "Calle Crisologo & Heritage Village",
+            "type" => "UNESCO World Heritage Street",
+            "image" => "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+            "description" => "A preserved 16th-century Spanish colonial cobblestone avenue lined with ancestral stone houses, Capiz-shell windows, and horse-drawn kalesas illuminating softly after twilight.",
+            "hours" => "Open 24/7 (Pedestrian-only street)",
+            "fee" => "Free Heritage Promenade",
+            "highlights" => ["Cobblestone Kalesa Ride", "Ancestral Bahay na Bato", "Vigan Empanada Tasting", "Nighttime Street Lamps"]
+        ],
+        "hotel" => [
+            "name" => "Hotel Luna Vigan",
+            "stars" => "4-Star Museum Heritage Hotel",
+            "rating" => "4.7 ★",
+            "image" => "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+            "price" => "₱4,200 – ₱6,800",
+            "description" => "The Philippines' first museum hotel, set within an authentic 1882 heritage estate. Houses masterworks by Juan Luna alongside a glass-bottom swimming pool and rooftop tapas lounge.",
+            "amenities" => ["Masterwork Art Museum", "Glass-bottom Courtyard Pool", "Rooftop Belltower Lounge", "Private Kalesa Service"]
+        ]
+    ],
+    [
+        "id" => "siargao-cloud-9",
+        "category" => "beaches",
+        "category_label" => "Beaches & Islands",
+        "location" => "General Luna, Siargao Island",
+        "distance" => "0.7 km · 2 mins e-trike / 8 mins walk",
+        "searchable" => "siargao cloud 9 surfing boardwalk general luna siargao bleu resort pacific surf",
+        "spot" => [
+            "name" => "Cloud 9 Surfing Boardwalk & Tower",
+            "type" => "World-Famous Wave Break & Pier",
+            "image" => "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=800&q=80",
+            "description" => "The undisputed surfing capital of the Philippines. Features an iconic 3-story wooden viewing pier reaching out over coral reefs, witnessing legendary right-hand barrel waves.",
+            "hours" => "5:00 AM – 6:30 PM (Dawn Surf Sessions)",
+            "fee" => "₱100 Boardwalk Maintenance Fee",
+            "highlights" => ["Iconic Wooden Boardwalk Pier", "Championship Barrel Waves", "Pacific Sunrise Viewing Deck", "Surfing Lessons & Board Rentals"]
+        ],
+        "hotel" => [
+            "name" => "Siargao Bleu Resort & Spa",
+            "stars" => "4-Star Luxury Beach Resort",
+            "rating" => "4.8 ★",
+            "image" => "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80",
+            "price" => "₱6,800 – ₱10,500",
+            "description" => "Premier beachfront sanctuary in General Luna spanning a magnificent 1,600 sqm swimming pool. Offers oceanfront garden villas, surf concierges, and open-air beachfront cinemas.",
+            "amenities" => ["1,600 sqm Freeform Pool", "Free Airport Shuttle", "Surf Butler Service", "Oceanfront Seafood Bar"]
+        ]
+    ],
+    [
+        "id" => "albay-cagsawa-mayon",
+        "category" => "nature",
+        "category_label" => "Nature & Wonders",
+        "location" => "Daraga & Legazpi City, Albay (Bicol)",
+        "distance" => "4.2 km · 9 mins drive along scenic highway",
+        "searchable" => "mayon volcano cagsawa ruins legazpi albay the oriental hotel bicol perfect cone atv",
+        "spot" => [
+            "name" => "Cagsawa Ruins & Mayon Volcano",
+            "type" => "Iconic Volcano & Historic Belfry",
+            "image" => "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80",
+            "description" => "The surviving stone belltower of the 1814 Franciscan church framed against the majestic, world-famous 'perfect cone' of Mayon Volcano. Jump-off for thrilling ATV lava-trail adventures.",
+            "hours" => "6:00 AM – 6:00 PM Daily",
+            "fee" => "₱20 Environmental Fee",
+            "highlights" => ["Historic 1814 Church Belfry", "Mayon Volcano Perfect Cone", "ATV Black Lava Trail Tours", "Spicy Bicolano Food Village"]
+        ],
+        "hotel" => [
+            "name" => "The Oriental Hotel Legazpi",
+            "stars" => "4-Star Volcano View Hilltop",
+            "rating" => "4.6 ★",
+            "image" => "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+            "price" => "₱4,600 – ₱7,200",
+            "description" => "Elevated on Taysan Hill, offering unrivaled panoramic views of Mount Mayon and Albay Gulf. Features an infinity pool reflecting the volcano cone and authentic Bicol fusion gastronomy.",
+            "amenities" => ["Infinity Pool Facing Mt. Mayon", "Hilltop View Lounge", "Volcano Concierge & ATV", "Albay Gulf Panorama"]
+        ]
+    ]
+];
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover the Philippines &middot; Tourist Portal Subsystem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/landing.css">
+</head>
+<body>
+
+    <!-- ─── Top Guest Navigation Bar ─── -->
+    <header class="landing-navbar">
+        <div class="nav-container">
+            <a href="landing-page.php" class="nav-brand">
+                <svg class="nav-brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                </svg>
+                <span>Tourist Portal</span>
+            </a>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#featuredPairs" class="nav-link">Nearby Stays &amp; Spots</a></li>
+                    <li><a href="#whyProximity" class="nav-link">Why Stay Close</a></li>
+                    <li><a href="hotels.php" class="nav-link">Hotels</a></li>
+                    <li><a href="attractions.php" class="nav-link">Attractions</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-auth-actions">
+                <a href="login.php" class="btn btn-secondary">Sign in</a>
+                <a href="register.php" class="btn btn-primary">Create account</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ─── Hero Section ─── -->
+    <section class="hero-section">
+        <div class="hero-bg-graphic"></div>
+        <div class="hero-glow hero-glow-1"></div>
+        <div class="hero-glow hero-glow-2"></div>
+
+        <div class="hero-content">
+            <div class="hero-eyebrow">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+                Official Travel Discovery &middot; Verified Stays &amp; Destinations
+            </div>
+            <h1 class="hero-title">
+                Stay steps away from the places <span>you come to see.</span>
+            </h1>
+            <p class="hero-subtitle">
+                Explore 10 curated pairs of iconic Philippine destinations paired with verified nearby hotels. Zero guesswork, minimal travel transit, maximum experience.
+            </p>
+            <div class="hero-cta-group">
+                <a href="#featuredPairs" class="btn btn-primary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+                    </svg>
+                    Explore 10 Stays &amp; Spots
+                </a>
+                <a href="register.php" class="btn btn-secondary">
+                    Create Traveler Profile
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Interactive Search & Category Filter ─── -->
+    <div class="search-widget-wrapper">
+        <div class="search-widget">
+            <div class="search-bar-row">
+                <div class="search-input-group">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+                    </svg>
+                    <input
+                        type="text"
+                        id="landingSearchInput"
+                        placeholder="Search by destination, spot (e.g. Fort Santiago, Cloud 9), or hotel name..."
+                        autocomplete="off"
+                    />
+                </div>
+                <button type="button" class="btn btn-primary" onclick="document.getElementById('featuredPairs').scrollIntoView({behavior:'smooth'})">
+                    Find Stays
+                </button>
+            </div>
+
+            <div class="category-filter-bar">
+                <button type="button" class="filter-pill active" data-filter="all">All Pairs (10)</button>
+                <button type="button" class="filter-pill" data-filter="heritage">Heritage &amp; History</button>
+                <button type="button" class="filter-pill" data-filter="beaches">Beaches &amp; Islands</button>
+                <button type="button" class="filter-pill" data-filter="mountain">Mountain &amp; Escapes</button>
+                <button type="button" class="filter-pill" data-filter="urban">Urban &amp; Culture</button>
+                <button type="button" class="filter-pill" data-filter="nature">Nature &amp; Volcanoes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── Value / Stats Counters Strip ─── -->
+    <section class="stats-strip">
+        <div class="stat-box">
+            <div class="stat-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+            </div>
+            <div class="stat-info">
+                <strong>10 Iconic Pairs</strong>
+                <span>Real spots + actual adjacent stays</span>
+            </div>
+        </div>
+
+        <div class="stat-box">
+            <div class="stat-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+            </div>
+            <div class="stat-info">
+                <strong>&lt; 15 Mins Away</strong>
+                <span>Minimal commute to prime spots</span>
+            </div>
+        </div>
+
+        <div class="stat-box">
+            <div class="stat-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+            </div>
+            <div class="stat-info">
+                <strong>Verified Real-World</strong>
+                <span>Authentic Philippine geography</span>
+            </div>
+        </div>
+
+        <div class="stat-box">
+            <div class="stat-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                    <path d="M3 9h18M9 21V9"></path>
+                </svg>
+            </div>
+            <div class="stat-info">
+                <strong>Digital Tourist Pass</strong>
+                <span>Verified Travel Identification &amp; QR Pass</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── 10 Pairs Showcase Section ─── -->
+    <main class="main-section" id="featuredPairs">
+        <div class="section-header">
+            <div>
+                <p class="eyebrow">Curated Proximity Recommendations</p>
+                <h2 class="section-title">10 Real Tourist Spots &amp; Nearby Hotels</h2>
+                <p class="section-sub">
+                    Each pair represents an actual, existing destination where the hotel is walking or short driving distance to the attraction.
+                </p>
+            </div>
+            <div class="results-count-badge" id="resultsCounter">
+                Showing <?= count($travelPairs) ?> of <?= count($travelPairs) ?> pairs
+            </div>
+        </div>
+
+        <div class="pairs-grid" id="pairsContainer">
+            <?php foreach ($travelPairs as $index => $item): ?>
+                <article
+                    class="pair-card"
+                    data-category="<?= htmlspecialchars($item['category']) ?>"
+                    data-searchable="<?= htmlspecialchars($item['searchable']) ?>"
+                >
+                    <!-- Proximity Banner Bar -->
+                    <div class="proximity-banner">
+                        <div class="proximity-left">
+                            <svg class="proximity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            <span>Proximity: <strong><?= htmlspecialchars($item['distance']) ?></strong></span>
+                        </div>
+                        <span class="proximity-tag"><?= htmlspecialchars($item['category_label']) ?></span>
+                    </div>
+
+                    <!-- Left: Tourist Attraction Side -->
+                    <div class="pair-column spot-side">
+                        <div class="item-image-wrap">
+                            <img src="<?= htmlspecialchars($item['spot']['image']) ?>" alt="<?= htmlspecialchars($item['spot']['name']) ?>" loading="lazy" />
+                            <span class="item-type-badge">
+                                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"/>
+                                    <path d="M12 7v5l3 3"/>
+                                </svg>
+                                Tourist Attraction
+                            </span>
+                            <span class="item-price-chip"><?= htmlspecialchars($item['spot']['fee']) ?></span>
+                        </div>
+
+                        <span class="item-category-tag">Destination Spot</span>
+                        <h3 class="item-title"><?= htmlspecialchars($item['spot']['name']) ?></h3>
+                        <div class="item-location">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            <span><?= htmlspecialchars($item['location']) ?></span>
+                        </div>
+
+                        <p class="item-desc"><?= htmlspecialchars($item['spot']['description']) ?></p>
+
+                        <div class="item-specs">
+                            <span class="spec-pill">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 14 14"/>
+                                </svg>
+                                <?= htmlspecialchars($item['spot']['hours']) ?>
+                            </span>
+                            <?php foreach (array_slice($item['spot']['highlights'], 0, 2) as $hl): ?>
+                                <span class="spec-pill">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                    <?= htmlspecialchars($hl) ?>
+                                </span>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+
+                    <!-- Right: Adjacent Hotel Side -->
+                    <div class="pair-column hotel-side">
+                        <div class="item-image-wrap">
+                            <img src="<?= htmlspecialchars($item['hotel']['image']) ?>" alt="<?= htmlspecialchars($item['hotel']['name']) ?>" loading="lazy" />
+                            <span class="item-type-badge hotel-badge">
+                                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                    <polyline points="9 22 9 12 15 12 15 22"/>
+                                </svg>
+                                Nearby Stay
+                            </span>
+                            <span class="item-price-chip" style="color:var(--teal)">
+                                <?= htmlspecialchars($item['hotel']['price']) ?> / night
+                            </span>
+                        </div>
+
+                        <span class="item-category-tag" style="color:var(--navy)">
+                            <?= htmlspecialchars($item['hotel']['stars']) ?> &middot; <?= htmlspecialchars($item['hotel']['rating']) ?>
+                        </span>
+                        <h3 class="item-title"><?= htmlspecialchars($item['hotel']['name']) ?></h3>
+                        <div class="item-location">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                            </svg>
+                            <span><?= htmlspecialchars($item['distance']) ?> to Spot</span>
+                        </div>
+
+                        <p class="item-desc"><?= htmlspecialchars($item['hotel']['description']) ?></p>
+
+                        <div class="item-specs">
+                            <?php foreach ($item['hotel']['amenities'] as $am): ?>
+                                <span class="spec-pill">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                    <?= htmlspecialchars($am) ?>
+                                </span>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Integrated Action Footer -->
+                    <div class="pair-footer-bar">
+                        <div class="pair-footer-left">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--teal)">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 14 14"/>
+                            </svg>
+                            <span>Travel synergy: Stay at <strong><?= htmlspecialchars($item['hotel']['name']) ?></strong> while discovering <strong><?= htmlspecialchars($item['spot']['name']) ?></strong></span>
+                        </div>
+
+                        <div class="pair-action-btns">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                onclick="openPairModal(<?= $index ?>)"
+                            >
+                                Quick details
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                onclick="promptLoginForAction('save this pair to your Trip Planner')"
+                            >
+                                Plan trip with this pair
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+        </div>
+
+        <!-- Empty state placeholder when searching -->
+        <div id="noResultsState" class="form-panel hidden" style="text-align:center; padding: 48px 24px; margin-top:24px;">
+            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--muted); margin: 0 auto 16px;">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+            </svg>
+            <h3>No matching destinations found</h3>
+            <p class="subtle">Try adjusting your search terms or select "All Pairs" from the category filter.</p>
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('landingSearchInput').value=''; document.querySelector('.filter-pill[data-filter=\'all\']').click();">
+                Reset Filters
+            </button>
+        </div>
+    </main>
+
+    <!-- ─── Why Stay Near Tourist Spots (Value Section) ─── -->
+    <section class="value-section" id="whyProximity">
+        <div class="value-header">
+            <p class="eyebrow">Smart Traveler Architecture</p>
+            <h2>Why book accommodations next to attractions?</h2>
+            <p class="subtle">
+                The Tourist Portal Subsystem prioritizes spatial proximity so you spend less time in transit and more time soaking in culture.
+            </p>
+        </div>
+
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="value-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 14 14"></polyline>
+                    </svg>
+                </div>
+                <h3>Beat Peak Crowd Windows</h3>
+                <p>
+                    Staying within 5–15 minutes allows you to reach heritage sites and island lagoons during golden hour before tourist tour buses arrive.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                </div>
+                <h3>Save on Local Commute</h3>
+                <p>
+                    Eliminate hefty taxi, van, and trike round-trip fares. Enjoy walkable access or short scenic transfers arranged directly by the hotel.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                </div>
+                <h3>Effortless Midday Rest</h3>
+                <p>
+                    Take a refreshing break, shower, or recharge at your hotel before heading out for evening sunsets and night markets.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Call To Action Banner for Non-Logged In Travelers ─── -->
+    <section class="cta-banner-section">
+        <div class="cta-banner">
+            <div class="cta-content">
+                <p class="eyebrow" style="color:var(--teal-light)">Get Started Today</p>
+                <h2>Ready to build your personalized Philippine itinerary?</h2>
+                <p>
+                    Create your traveler account to save favorite destinations, generate smart travel recommendations, schedule daily itineraries, and activate your official QR Tourist Pass.
+                </p>
+            </div>
+            <div class="cta-buttons">
+                <a href="register.php" class="btn btn-cta-light">
+                    Create Free Account
+                </a>
+                <a href="login.php" class="btn btn-cta-outline">
+                    Sign in to Portal
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Footer ─── -->
+    <footer class="landing-footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div style="display:flex; align-items:center; gap:8px; font-weight:700; font-size:18px;">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--teal-light)">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                        </svg>
+                        <span>Tourist Portal Subsystem</span>
+                    </div>
+                    <p>
+                        A dedicated travel discovery, itinerary planning, and digital pass subsystem developed for Systems Integration and Architecture 1.
+                    </p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Portal Navigation</h4>
+                    <ul>
+                        <li><a href="landing-page.php">Discover Stays &amp; Spots</a></li>
+                        <li><a href="hotels.php">Hotels Directory</a></li>
+                        <li><a href="attractions.php">Attractions Directory</a></li>
+                        <li><a href="../index.html">Interactive Workspace</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Account &amp; Security</h4>
+                    <ul>
+                        <li><a href="login.php">Sign In</a></li>
+                        <li><a href="register.php">Create Account</a></li>
+                        <li><a href="register.php">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>System Security</h4>
+                    <p style="font-size:13px; color:#829ab1; line-height:1.5; margin:0;">
+                        Secure traveler authentication, protected reservations, and verified direct partner hotel listings.
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2026 Tourist Portal Subsystem &middot; All Rights Reserved</span>
+                <span>Philippine Tourism &amp; Hospitality Directory</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ─── Quick Details Modal ─── -->
+    <div id="landingDetailModal" class="landing-modal-overlay hidden" onclick="closePairModal(event)">
+        <div class="landing-modal-card" onclick="event.stopPropagation()">
+            <div class="landing-modal-header">
+                <img id="modalSpotImg" src="" alt="Destination" />
+                <button type="button" class="landing-modal-close" onclick="closePairModal()">&times;</button>
+            </div>
+            <div class="landing-modal-body">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+                    <div>
+                        <span class="eyebrow" id="modalLocation">Location</span>
+                        <h2 id="modalTitle" style="font-family:'Fraunces',serif; font-size:24px; color:var(--navy); margin:4px 0 0;">Pair Details</h2>
+                    </div>
+                    <span class="tag tag--teal" id="modalDistance">Distance</span>
+                </div>
+
+                <hr style="border:0; border-top:1px solid var(--line); margin:18px 0;" />
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                    <div>
+                        <h4 style="color:var(--teal); margin-bottom:6px;">Attraction Information</h4>
+                        <strong id="modalSpotName" style="font-size:16px;">Spot Name</strong>
+                        <p id="modalSpotDesc" class="small subtle" style="margin-top:6px; line-height:1.5;">Spot description</p>
+                        <p class="small"><b>Operating Schedule:</b> <span id="modalSpotHours"></span></p>
+                    </div>
+
+                    <div>
+                        <h4 style="color:var(--navy); margin-bottom:6px;">Nearby Accommodation</h4>
+                        <strong id="modalHotelName" style="font-size:16px;">Hotel Name</strong>
+                        <p id="modalHotelDesc" class="small subtle" style="margin-top:6px; line-height:1.5;">Hotel description</p>
+                        <p class="small"><b>Estimated Range:</b> <span id="modalHotelPrice" style="color:var(--teal); font-weight:700;"></span> / night</p>
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:24px; padding-top:16px; border-top:1px solid var(--line);">
+                    <button type="button" class="btn btn-secondary" onclick="closePairModal()">Close</button>
+                    <a href="register.php" class="btn btn-primary">Sign up to Plan this Trip</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── Guest Prompt Modal ─── -->
+    <div id="authPromptModal" class="landing-modal-overlay hidden" onclick="closeAuthPromptModal(event)">
+        <div class="landing-modal-card" style="max-width:440px;" onclick="event.stopPropagation()">
+            <div style="padding:28px 24px; text-align:center;">
+                <div style="width:52px; height:52px; border-radius:50%; background:var(--teal-light); color:var(--teal); display:grid; place-items:center; margin:0 auto 16px;">
+                    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                    </svg>
+                </div>
+                <h3 style="font-family:'Fraunces',serif; font-size:22px; color:var(--navy); margin-bottom:8px;">Traveler Account Required</h3>
+                <p id="authPromptText" class="subtle small" style="margin-bottom:24px; line-height:1.5;">
+                    Sign in or register an account to save this pair to your custom Trip Planner and generate a Digital Pass.
+                </p>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                    <a href="register.php" class="btn btn-primary" style="width:100%;">Create Account</a>
+                    <a href="login.php" class="btn btn-secondary" style="width:100%;">Sign In</a>
+                    <button type="button" class="btn btn-secondary" style="border:none; color:var(--muted);" onclick="closeAuthPromptModal()">Continue Browsing</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pass JSON data to JavaScript for interactive modal inspection -->
+    <script>
+        const pairedData = <?= json_encode($travelPairs, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
+    </script>
+    <script src="../assets/scripts/landing.js"></script>
+</body>
+</html>
+

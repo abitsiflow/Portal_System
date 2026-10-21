@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account &middot; Tourist Portal Subsystem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/register.css">
+</head>
+<body>
+    <div class="auth-screen">
+        <!-- Floating ambient decorative shapes -->
+        <div class="bg-shape bg-shape--1"></div>
+        <div class="bg-shape bg-shape--2"></div>
+        <div class="bg-shape bg-shape--3"></div>
+
+        <div class="register-container">
+            <!-- Left Info Panel (Professional feature highlight) -->
+            <aside class="register-sidebar">
+                <a href="landing-page.php" class="brand-badge" style="text-decoration: none;">
+                    <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                    </svg>
+                    <span>Tourist Portal</span>
+                </a>
+
+                <div class="sidebar-content">
+                    <p class="sidebar-kicker">Philippine Tourist Portal</p>
+                    <h2 class="sidebar-title">Begin your next journey with clarity.</h2>
+                    <p class="sidebar-description">
+                        Join our verified tourist portal to build custom itineraries, discover iconic destinations, and access your verified digital tourist pass.
+                    </p>
+
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/>
+                                </svg>
+                            </div>
+                            <div class="feature-text">
+                                <strong>Smart Recommendations</strong>
+                                <span>Curated suggestions based on your personal pace and budget.</span>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/>
+                                    <line x1="16" x2="16" y1="2" y2="6"/>
+                                    <line x1="8" x2="8" y1="2" y2="6"/>
+                                    <line x1="3" x2="21" y1="10" y2="10"/>
+                                </svg>
+                            </div>
+                            <div class="feature-text">
+                                <strong>Interactive Trip Planner</strong>
+                                <span>Day-by-day scheduling for attractions, dining, and scenic stops.</span>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="5" height="5" x="3" y="3" rx="1"/>
+                                    <rect width="5" height="5" x="16" y="3" rx="1"/>
+                                    <rect width="5" height="5" x="3" y="16" rx="1"/>
+                                    <path d="M21 16h-3a2 2 0 0 0-2 2v3"/>
+                                    <path d="M21 21v.01"/>
+                                    <path d="M12 7v3a2 2 0 0 1-2 2H7"/>
+                                    <path d="M3 12h.01"/>
+                                    <path d="M12 3h.01"/>
+                                    <path d="M12 16v.01"/>
+                                    <path d="M16 12h1"/>
+                                    <path d="M21 12v.01"/>
+                                    <path d="M12 21v-1"/>
+                                </svg>
+                            </div>
+                            <div class="feature-text">
+                                <strong>Digital Tourist Pass</strong>
+                                <span>Instant identification for regional attractions and partner stays.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-footnote">
+                    <span>Verified Traveler Portal &middot; Secured &middot; Official Directory</span>
+                </div>
+            </aside>
+
+            <!-- Main Register Form Card -->
+            <main class="register-main" aria-live="polite">
+                <div class="form-header">
+                    <p class="eyebrow">Tourist Registration</p>
+                    <h1 class="auth-title">Create your account</h1>
+                    <p class="auth-description">
+                        Fill in your traveler profile to get started with the portal.
+                    </p>
+                </div>
+
+                <form id="registerForm" class="auth-form" novalidate>
+                    <!-- Full Name -->
+                    <div class="field">
+                        <label for="regName">Full name</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <input
+                                id="regName"
+                                name="name"
+                                type="text"
+                                placeholder="Alex Traveler"
+                                autocomplete="name"
+                                required
+                            />
+                        </div>
+                        <span class="field-error" id="nameError"></span>
+                    </div>
+
+                    <!-- Email Address -->
+                    <div class="field">
+                        <label for="regEmail">Email address</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                            </svg>
+                            <input
+                                id="regEmail"
+                                name="email"
+                                type="email"
+                                placeholder="alex@example.com"
+                                autocomplete="email"
+                                required
+                            />
+                        </div>
+                        <span class="field-error" id="emailError"></span>
+                    </div>
+
+                    <!-- Travel Style / Preference (Enhances the tourist persona) -->
+                    <div class="field">
+                        <label for="regTravelStyle">Primary travel preference</label>
+                        <div class="input-wrapper select-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                            </svg>
+                            <select id="regTravelStyle" name="travel_style">
+                                <option value="balanced" selected>Balanced Pace (Culture &amp; Coast)</option>
+                                <option value="relaxed">Relaxed Leisure (Beaches &amp; Waterfront)</option>
+                                <option value="active">Active Exploration (Nature &amp; Walking Trails)</option>
+                                <option value="cultural">Heritage &amp; Architecture (Historic Quarters)</option>
+                            </select>
+                            <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m6 9 6 6 6-6"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Password and Confirm Password Row -->
+                    <div class="grid-2-col">
+                        <!-- Password -->
+                        <div class="field">
+                            <label for="regPassword">Password</label>
+                            <div class="input-wrapper">
+                                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                <input
+                                    id="regPassword"
+                                    name="password"
+                                    type="password"
+                                    placeholder="Create password"
+                                    autocomplete="new-password"
+                                    required
+                                />
+                                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('regPassword', this)" aria-label="Toggle password visibility">
+                                    <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    <svg class="eye-closed hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                                        <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                                        <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                                        <line x1="2" x2="22" y1="2" y2="22"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="field">
+                            <label for="regConfirm">Confirm password</label>
+                            <div class="input-wrapper">
+                                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m9 11 3 3L22 4"></path>
+                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                </svg>
+                                <input
+                                    id="regConfirm"
+                                    name="confirm_password"
+                                    type="password"
+                                    placeholder="Repeat password"
+                                    autocomplete="new-password"
+                                    required
+                                />
+                                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('regConfirm', this)" aria-label="Toggle password visibility">
+                                    <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    <svg class="eye-closed hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                                        <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                                        <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                                        <line x1="2" x2="22" y1="2" y2="22"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Password Strength Meter -->
+                    <div class="password-meter-container" id="passwordMeterContainer">
+                        <div class="meter-bar">
+                            <div class="meter-fill" id="meterFill"></div>
+                        </div>
+                        <div class="meter-labels">
+                            <span class="meter-text" id="meterText">Password strength</span>
+                            <span class="meter-rule" id="meterRule">Min. 6 characters</span>
+                        </div>
+                    </div>
+
+                    <span class="field-error" id="passwordError"></span>
+
+                    <!-- Terms & Agreement Checkbox -->
+                    <div class="terms-group">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="regTerms" required />
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label">
+                                I agree to the <a href="#" onclick="showTermsModal(event)" class="inline-link">Terms of Service</a> and Privacy Policy.
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- System Banner / Notification Message -->
+                    <div id="registerMessage" class="auth-message-banner hidden"></div>
+
+                    <!-- Action Buttons -->
+                    <div class="form-actions">
+                        <button class="btn btn-primary" type="submit" id="submitBtn">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <line x1="19" x2="19" y1="8" y2="14"></line>
+                                <line x1="22" x2="16" y1="11" y2="11"></line>
+                            </svg>
+                            <span>Create account</span>
+                        </button>
+                    </div>
+
+                    <!-- Back to Login Footer -->
+                    <div class="auth-footer">
+                        <p>
+                            Already have an account?
+                            <a href="login.php" class="auth-link">Sign in here</a>
+                        </p>
+                    </div>
+                </form>
+            </main>
+        </div>
+
+        <!-- Footer Copyright -->
+        <footer class="auth-copyright">
+            &copy; 2026 Tourist Portal Subsystem &middot; All Rights Reserved
+        </footer>
+    </div>
+
+    <!-- Terms Modal -->
+    <div id="termsModal" class="modal-overlay hidden" onclick="closeTermsModal(event)">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3>Terms of Service &amp; Privacy Policy</h3>
+                <button type="button" class="modal-close" onclick="closeTermsModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Welcome to the <strong>Tourist Portal Subsystem</strong>. By registering an account, you agree to our standard platform terms:</p>
+                <ul>
+                    <li>Your account credentials are confidential and used to secure your saved itineraries and digital passes.</li>
+                    <li>Accommodation rates, distance calculations, and attraction schedules are based on verified destination data.</li>
+                    <li>Direct booking arrangements and digital passes are subject to individual partner hotel and attraction policies.</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeTermsModal()">Understood</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/scripts/register.js"></script>
+</body>
+</html>
