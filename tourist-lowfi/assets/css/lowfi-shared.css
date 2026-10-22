@@ -1,0 +1,1144 @@
+/* ============================================================
+   LOW-FIDELITY WIREFRAME — SHARED STYLESHEET
+   Tourist Portal · Grayscale only
+   ============================================================ */
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #333;
+    background: #f5f5f5;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button, input, select, textarea { font: inherit; color: inherit; }
+ul, ol { list-style: none; }
+
+/* ---------- App Shell ---------- */
+.app-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+    width: 250px;
+    min-width: 250px;
+    background: #222;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.brand-section {
+    padding: 24px 20px 20px;
+    border-bottom: 1px solid #333;
+}
+
+.brand-section h1 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.brand-section .brand-subtitle {
+    font-size: 11px;
+    color: #999;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 10px;
+    gap: 2px;
+    flex: 1;
+}
+
+.nav-item-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #ccc;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.15s;
+    text-decoration: none;
+    width: 100%;
+    text-align: left;
+}
+
+.nav-item-btn:hover {
+    background: #333;
+    color: #fff;
+}
+
+.nav-item-btn.active {
+    background: #666;
+    color: #fff;
+}
+
+.nav-item-btn .nav-icon {
+    font-size: 16px;
+    width: 22px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.sidebar-footer {
+    padding: 16px 18px;
+    border-top: 1px solid #333;
+    font-size: 12px;
+    color: #999;
+}
+
+.sidebar-footer .digital-id-chip {
+    background: #333;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: #aaa;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: #999;
+    font-size: 13px;
+    cursor: pointer;
+    width: 100%;
+    text-decoration: none;
+    transition: background 0.15s;
+}
+
+.logout-btn:hover {
+    background: #333;
+    color: #fff;
+}
+
+/* ---------- Content Shell ---------- */
+.content-shell {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* ---------- Top Bar ---------- */
+.topbar {
+    height: 64px;
+    min-height: 64px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 16px;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.topbar-search {
+    flex: 1;
+    max-width: 400px;
+}
+
+.topbar-search input {
+    width: 100%;
+    padding: 8px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f5f5f5;
+    font-size: 14px;
+    outline: none;
+}
+
+.topbar-search input:focus {
+    border-color: #999;
+}
+
+.topbar-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ---------- Main Content ---------- */
+.main-content {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ---------- Dashboard Hero ---------- */
+.dashboard-hero {
+    background: linear-gradient(135deg, #666 0%, #444 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 24px;
+}
+
+.dashboard-hero h2 {
+    font-size: 22px;
+    margin-bottom: 6px;
+}
+
+.dashboard-hero p {
+    font-size: 14px;
+    color: #ccc;
+}
+
+/* ---------- Metrics Row ---------- */
+.metrics-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.metric-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+.metric-card .metric-label {
+    font-size: 12px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.metric-card .metric-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+}
+
+.metric-card .metric-sub {
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+}
+
+/* ---------- Section Head ---------- */
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.section-head h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* ---------- Cards Grid ---------- */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+/* ---------- Destination Card ---------- */
+.dest-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: box-shadow 0.15s;
+}
+
+.dest-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.dest-card-media {
+    height: 180px;
+    background: #ddd;
+    position: relative;
+}
+
+.dest-card-body {
+    padding: 16px;
+}
+
+.dest-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #333;
+}
+
+.dest-location-row {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.dest-card-desc {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.dest-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-tag-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #fff;
+    color: #333;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.fav-toggle-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ---------- Active Trip Panel ---------- */
+.active-trip-panel {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+/* ---------- Explore Controls ---------- */
+.explore-controls-bar {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.explore-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.explore-field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.explore-field input,
+.explore-field select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 14px;
+    outline: none;
+}
+
+.explore-field input:focus,
+.explore-field select:focus {
+    border-color: #999;
+}
+
+.explore-type-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.type-pill {
+    padding: 7px 16px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.type-pill:hover {
+    background: #eee;
+}
+
+.type-pill.active {
+    background: #333;
+    color: #fff;
+    border-color: #333;
+}
+
+/* ---------- Paired Hotel Chip ---------- */
+.paired-hotel-chip {
+    border: 1px dashed #999;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.15s;
+    line-height: 1;
+}
+
+.btn:hover { opacity: 0.85; }
+
+.btn-primary {
+    background: #333;
+    color: #fff;
+}
+
+.btn-secondary {
+    background: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.btn-coral {
+    background: #999;
+    color: #fff;
+}
+
+/* ---------- Modal ---------- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+}
+
+.booking-modal-card {
+    background: #fff;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 680px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header-banner {
+    background: #333;
+    color: #fff;
+    padding: 20px 24px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header-banner h3 {
+    font-size: 18px;
+}
+
+.booking-modal-body {
+    padding: 24px;
+}
+
+.booking-package-select {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.package-choice {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s;
+}
+
+.package-choice:hover {
+    border-color: #999;
+}
+
+.package-choice.selected {
+    border-color: #333;
+}
+
+.booking-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.booking-form-grid label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.booking-form-grid input,
+.booking-form-grid select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+}
+
+.booking-summary-box {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+.summary-row + .summary-row {
+    border-top: 1px solid #eee;
+}
+
+/* ---------- Passes ---------- */
+.passes-display-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.pass-ticket-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.pass-ticket-header {
+    background: #444;
+    color: #fff;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pass-ticket-header h4 {
+    font-size: 15px;
+}
+
+.pass-qr-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    border-bottom: 1px dashed #ddd;
+}
+
+.pass-qr-img {
+    width: 120px;
+    height: 120px;
+    background: #eee;
+    border-radius: 8px;
+}
+
+.pass-details-list {
+    padding: 16px;
+    font-size: 13px;
+}
+
+.pass-details-list dt {
+    color: #999;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.pass-details-list dd {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.pass-status-pill {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: #eee;
+    color: #666;
+    font-weight: 600;
+}
+
+.pass-code-label {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+/* ---------- Toast ---------- */
+.toast-notice {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #333;
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    z-index: 2000;
+    animation: slideToast 0.3s ease;
+}
+
+/* ---------- Mobile Bottom Nav ---------- */
+.mobile-bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    z-index: 900;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.mobile-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    font-size: 11px;
+    color: #999;
+    text-decoration: none;
+    padding: 4px 0;
+}
+
+.mobile-nav-btn.active {
+    color: #333;
+}
+
+.mobile-nav-btn span:first-child {
+    font-size: 18px;
+}
+
+/* ---------- Planner / Chat Layout ---------- */
+.planner-chat-layout {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 20px;
+}
+
+.chat-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 680px;
+    overflow: hidden;
+}
+
+.chat-header {
+    background: #333;
+    color: #fff;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.chat-header h4 {
+    font-size: 15px;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.chat-row {
+    display: flex;
+    gap: 10px;
+    max-width: 85%;
+}
+
+.chat-row.user-row {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.chat-row.bot-row {
+    align-self: flex-start;
+}
+
+.chat-bubble {
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.chat-row.user-row .chat-bubble {
+    background: #444;
+    color: #fff;
+    border-bottom-right-radius: 4px;
+}
+
+.chat-row.bot-row .chat-bubble {
+    background: #f5f5f5;
+    color: #333;
+    border-bottom-left-radius: 4px;
+}
+
+.chat-time {
+    font-size: 10px;
+    color: #999;
+    margin-top: 4px;
+}
+
+.chat-input-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    border-top: 1px solid #ddd;
+    flex-shrink: 0;
+}
+
+.chat-input-bar input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+}
+
+.chat-input-bar input:focus {
+    border-color: #999;
+}
+
+.chat-send-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.chat-reset-btn {
+    font-size: 12px;
+    color: #999;
+    cursor: pointer;
+    background: none;
+    border: none;
+    text-decoration: underline;
+}
+
+.chat-quick-prompts {
+    display: flex;
+    gap: 8px;
+    padding: 10px 20px;
+    border-top: 1px solid #eee;
+    overflow-x: auto;
+    flex-shrink: 0;
+}
+
+.prompt-pill {
+    padding: 6px 14px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background: #fff;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+}
+
+.prompt-pill:hover {
+    background: #eee;
+}
+
+.bot-avatar-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #666;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.online-beacon {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #888;
+    display: inline-block;
+}
+
+/* ---------- Live Itinerary Card ---------- */
+.live-itinerary-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 680px;
+    overflow: hidden;
+}
+
+.itinerary-hero-header {
+    background: #555;
+    color: #fff;
+    padding: 24px 20px;
+    position: relative;
+}
+
+.itinerary-hero-header h4 {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.itinerary-hero-header p {
+    font-size: 13px;
+    color: #ccc;
+}
+
+.itinerary-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 14px 20px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.itinerary-stats-row .stat-value {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.itinerary-stats-row .stat-label {
+    font-size: 11px;
+    color: #999;
+    text-transform: uppercase;
+}
+
+.itinerary-timeline-feed {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px;
+}
+
+.timeline-day-block {
+    border-left: 2px solid #ddd;
+    padding-left: 16px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.timeline-day-block::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #999;
+    position: absolute;
+    left: -6px;
+    top: 4px;
+}
+
+.timeline-day-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.timeline-item-row {
+    font-size: 13px;
+    color: #666;
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.itinerary-action-box {
+    padding: 14px 20px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+/* ---------- Form Panel ---------- */
+.form-panel {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 24px;
+}
+
+/* ---------- Avatar / User Pill ---------- */
+.avatar-initials {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #666;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.user-profile-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px 4px 4px;
+    border: 1px solid #ddd;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 13px;
+    background: #fff;
+}
+
+/* ---------- Icon Button ---------- */
+.icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    position: relative;
+}
+
+.notif-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #888;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+}
+
+/* ---------- Utility Classes ---------- */
+.eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+    font-weight: 600;
+}
+
+.subtle {
+    color: #999;
+}
+
+.small {
+    font-size: 13px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    background: #eee;
+    color: #666;
+}
+
+.tag--teal {
+    background: #ddd;
+    color: #444;
+}
+
+.tag--coral {
+    background: #ccc;
+    color: #444;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ---------- Animations ---------- */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes slideToast {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+/* ---- Medium screens ---- */
+@media (max-width: 1080px) {
+    .metrics-row          { grid-template-columns: repeat(2, 1fr); }
+    .cards-grid           { grid-template-columns: repeat(2, 1fr); }
+    .passes-display-grid  { grid-template-columns: repeat(2, 1fr); }
+    .explore-filter-grid  { grid-template-columns: repeat(2, 1fr); }
+    .booking-package-select { grid-template-columns: repeat(2, 1fr); }
+    .planner-chat-layout  { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---- Small screens ---- */
+@media (max-width: 840px) {
+    .sidebar {
+        display: none;
+    }
+
+    .mobile-bottom-nav {
+        display: flex;
+    }
+
+    body {
+        padding-bottom: 60px;
+    }
+
+    .metrics-row          { grid-template-columns: 1fr; }
+    .cards-grid           { grid-template-columns: 1fr; }
+    .passes-display-grid  { grid-template-columns: 1fr; }
+    .explore-filter-grid  { grid-template-columns: 1fr; }
+    .booking-package-select { grid-template-columns: 1fr; }
+    .booking-form-grid    { grid-template-columns: 1fr; }
+    .planner-chat-layout  { grid-template-columns: 1fr; }
+
+    .chat-card,
+    .live-itinerary-card {
+        height: auto;
+        min-height: 400px;
+    }
+
+    .topbar {
+        padding: 0 16px;
+    }
+
+    .main-content {
+        padding: 16px;
+    }
+}

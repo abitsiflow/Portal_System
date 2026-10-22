@@ -1,0 +1,330 @@
+/* =========================================
+   TOURIST PORTAL — LOGIN LOW FIDELITY
+   ========================================= */
+
+:root {
+  --wire-bg: #e8e8e8;
+  --wire-card: #f8f8f8;
+  --wire-line: #777777;
+  --wire-dark: #444444;
+  --wire-text: #333333;
+  --wire-muted: #666666;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--wire-text);
+  background: var(--wire-bg);
+}
+
+/* Main Screen */
+
+.auth-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 16px;
+}
+
+/* Prototype Label */
+
+.prototype-note {
+  width: min(460px, 100%);
+  margin: 0 0 14px;
+  padding: 10px;
+  border: 1px dashed var(--wire-line);
+  background: #f5f5f5;
+  color: var(--wire-muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+/* Login Card */
+
+.auth-card {
+  width: min(460px, 100%);
+  padding: 32px;
+  background: var(--wire-card);
+  border: 2px solid var(--wire-line);
+}
+
+/* Brand */
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 26px;
+  color: var(--wire-text);
+  text-decoration: none;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--wire-line);
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.auth-brand-name {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Heading */
+
+.auth-title {
+  margin: 0 0 10px;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.auth-description {
+  margin: 0 0 26px;
+  color: var(--wire-muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* Form */
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.field label {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Inputs */
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper input {
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 55px 11px 12px;
+  border: 1.5px solid var(--wire-line);
+  border-radius: 0;
+  background: #ffffff;
+  color: var(--wire-text);
+  font-size: 14px;
+}
+
+.input-wrapper input::placeholder {
+  color: #777777;
+}
+
+.input-wrapper input:focus {
+  outline: 2px solid var(--wire-dark);
+  outline-offset: 2px;
+}
+
+/* Password Toggle */
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  padding: 5px;
+  border: none;
+  background: transparent;
+  color: var(--wire-text);
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Remember and Forgot Password */
+
+.auth-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.remember-me {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.remember-me input {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+}
+
+.text-button,
+.auth-link {
+  color: var(--wire-text);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.text-button {
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+/* Message */
+
+.auth-message {
+  display: none;
+  margin: 0;
+  padding: 10px;
+  border: 1px dashed var(--wire-line);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.auth-message.visible {
+  display: block;
+}
+
+/* Buttons */
+
+.btn {
+  width: 100%;
+  min-height: 45px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border: 2px solid var(--wire-dark);
+  border-radius: 0;
+  background: #d4d4d4;
+  color: #222222;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #c9c9c9;
+}
+
+.btn:hover {
+  background: #bdbdbd;
+}
+
+.btn:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+/* Social Login */
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0 16px;
+  color: var(--wire-muted);
+  font-size: 12px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--wire-line);
+}
+
+.social-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.btn-social {
+  background: #f3f3f3;
+  font-weight: 600;
+}
+
+/* Register */
+
+.auth-footer {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px dashed #999999;
+  text-align: center;
+  font-size: 13px;
+}
+
+.auth-footer p {
+  margin: 0 0 8px;
+  line-height: 1.7;
+}
+
+.auth-link {
+  font-weight: 700;
+}
+
+/* Copyright */
+
+.auth-copyright {
+  margin: 18px 0 0;
+  color: #555555;
+  text-align: center;
+  font-size: 11px;
+}
+
+/* Keyboard Accessibility */
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #222222;
+  outline-offset: 2px;
+}
+
+/* Responsive */
+
+@media (max-width: 520px) {
+  .auth-card {
+    padding: 25px 20px;
+  }
+
+  .auth-title {
+    font-size: 24px;
+  }
+
+  .social-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-options {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
