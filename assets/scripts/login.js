@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Immediately navigate to home.php
       setTimeout(() => {
-        window.location.href = "home.php";
+        window.location.href = "/public/home.html";
       }, 250);
     });
   }
