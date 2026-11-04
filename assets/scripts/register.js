@@ -1,6 +1,6 @@
 /**
- * Tourist Portal Subsystem · Register Script
- * Handles real-time validation, password strength checking, and onboarding feedback.
+ * Tourist Portal Subsystem · Register Script (Supabase version)
+ * Real-time validation, password strength, and Supabase Auth sign-up.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -15,36 +15,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const meterText = document.getElementById("meterText");
   const meterRule = document.getElementById("meterRule");
 
-  // Real-time password strength evaluation
   if (passwordInput) {
     passwordInput.addEventListener("input", () => {
-      const val = passwordInput.value;
-      evaluatePasswordStrength(val, meterFill, meterText, meterRule);
-      
-      // If confirm field is populated, check match
-      if (confirmInput && confirmInput.value) {
-        checkPasswordMatch();
-      }
+      evaluatePasswordStrength(passwordInput.value, meterFill, meterText, meterRule);
+      if (confirmInput && confirmInput.value) checkPasswordMatch();
     });
   }
 
-  // Real-time confirmation matching
-  if (confirmInput) {
-    confirmInput.addEventListener("input", checkPasswordMatch);
-  }
+  if (confirmInput) confirmInput.addEventListener("input", checkPasswordMatch);
 
-  // Clear errors on input
   [nameInput, emailInput, passwordInput, confirmInput].forEach((input) => {
-    if (input) {
-      input.addEventListener("input", () => {
-        clearFieldError(input);
-      });
-    }
+    if (input) input.addEventListener("input", () => clearFieldError(input));
   });
 
-  // Handle form submission
   if (form) {
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       clearBannerMessage();
 
@@ -52,36 +37,32 @@ document.addEventListener("DOMContentLoaded", () => {
       const email = emailInput.value.trim();
       const password = passwordInput.value;
       const confirm = confirmInput.value;
+      const travelStyle = document.getElementById("regTravelStyle").value;
       const termsAccepted = termsCheckbox ? termsCheckbox.checked : true;
 
       let hasError = false;
 
-      // 1. Validate Name
       if (!name || name.length < 2) {
         setFieldError(nameInput, "nameError", "Please enter your full name.");
         hasError = true;
       }
 
-      // 2. Validate Email
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!email || !emailPattern.test(email)) {
         setFieldError(emailInput, "emailError", "Please enter a valid email address.");
         hasError = true;
       }
 
-      // 3. Validate Password
       if (!password || password.length < 6) {
         setFieldError(passwordInput, "passwordError", "Password must be at least 6 characters.");
         hasError = true;
       }
 
-      // 4. Validate Passwords Match
       if (password !== confirm) {
         setFieldError(confirmInput, "passwordError", "Passwords do not match.");
         hasError = true;
       }
 
-      // 5. Validate Terms
       if (!termsAccepted) {
         showBannerMessage("Please agree to the Terms of Service to continue.", "error");
         hasError = true;
@@ -89,7 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (hasError) return;
 
-      // Process Registration (Simulation for prototype)
       const submitBtn = document.getElementById("submitBtn");
       const originalHtml = submitBtn.innerHTML;
 
@@ -102,14 +82,39 @@ document.addEventListener("DOMContentLoaded", () => {
         <span>Creating account…</span>
       `;
 
-      setTimeout(() => {
-        showBannerMessage("Account created successfully! Preparing your traveler dashboard…", "success");
+      // ─── Supabase sign-up ───
+      const { data, error } = await window.sb.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { full_name: name, travel_style: travelStyle },
+        },
+      });
 
-        // Redirect to login or index after a brief delay
-        setTimeout(() => {
-          window.location.href = "login.php?registered=1";
-        }, 1200);
-      }, 1000);
+      if (error) {
+        showBannerMessage(error.message, "error");
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalHtml;
+        return;
+      }
+
+      // Supabase returns an empty identities array when the email is already registered
+      if (data.user && data.user.identities && data.user.identities.length === 0) {
+        showBannerMessage("This email is already registered. Try signing in instead.", "error");
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalHtml;
+        return;
+      }
+
+      if (data.session) {
+        // Email confirmation is OFF: user is already signed in
+        showBannerMessage("Account created successfully! Preparing your traveler dashboard…", "success");
+        setTimeout(() => { window.location.href = "home.html"; }, 1200);
+      } else {
+        // Email confirmation is ON: user must confirm first
+        showBannerMessage("Account created! Check your email to confirm, then sign in.", "success");
+        setTimeout(() => { window.location.href = "login.html?registered=1"; }, 2500);
+      }
     });
   }
 });
@@ -187,7 +192,6 @@ function clearFieldError(inputEl) {
   const wrapper = inputEl.closest(".input-wrapper");
   if (wrapper) wrapper.classList.remove("has-error");
 
-  // Clear any related active error
   const field = inputEl.closest(".field");
   if (field) {
     const errorEl = field.querySelector(".field-error");
@@ -235,7 +239,7 @@ function togglePasswordVisibility(inputId, btn) {
   }
 }
 
-/* ─── Prototype Terms Modal ─── */
+/* ─── Terms Modal ─── */
 function showTermsModal(e) {
   if (e) e.preventDefault();
   const modal = document.getElementById("termsModal");
@@ -247,4 +251,3 @@ function closeTermsModal(e) {
   const modal = document.getElementById("termsModal");
   if (modal) modal.classList.add("hidden");
 }
-
