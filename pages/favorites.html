@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Favorites &middot; Tourist Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/dashboard.css" />
+    <link rel="stylesheet" href="../assets/css/cssPages/favorites.css" />
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+  </head>
+  <body data-page="favorites">
+    <!-- Sidebar, topbar, mobile nav and modals are injected by Shared/shell.js and Shared/modals.js -->
+    <div class="app-shell">
+      <div class="content-shell">
+        <main class="main-content" id="viewContainer" aria-live="polite">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Saved Travel Ideas</p>
+              <h2>Your Favorite Destinations</h2>
+              <p>Quick access to destinations and hotels you've bookmarked.</p>
+            </div>
+          </div>
+
+          <div id="favoritesContent"></div>
+        </main>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/scripts/Shared/supabase-client.js"></script>
+    <script src="../assets/scripts/Shared/data.js"></script>
+    <script src="../assets/scripts/Shared/shell.js"></script>
+    <script src="../assets/scripts/Shared/modals.js"></script>
+    <script src="../assets/scripts/scriptingPages/favorites.js"></script>
+  </body>
+</html>

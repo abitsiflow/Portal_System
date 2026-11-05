@@ -1,0 +1,31 @@
+/* QR Tourist Pass page styles */
+.qr-page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 420px));
+  gap: 24px;
+}
+
+.pass-detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.pass-detail-row:last-child { border-bottom: none; }
+.pass-detail-row span { color: var(--muted); }
+.pass-detail-row strong { text-align: right; }
+
+.pass-ticket-footer {
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #ffffff;
+  border-top: 2px dashed var(--line);
+}
+
+.pass-ticket-footer small { color: var(--muted); }
+
+.pass-qr-area small { margin-top: 6px; color: var(--muted); text-align: center; }

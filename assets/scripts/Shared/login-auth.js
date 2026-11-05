@@ -2,7 +2,11 @@
  * Tourist Portal Subsystem · Login via Supabase Auth
  * Load AFTER your existing login.js. It runs first on submit (capture phase)
  * and blocks any old redirect logic, so your login.js can stay as is.
+ *
+ * login.html lives in /public, the dashboard pages live in /pages.
  */
+
+const HOME_PAGE = "../pages/home.html";
 
 function loginMessage(text, type) {
   if (typeof showMessage === "function") {
@@ -17,13 +21,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Already signed in? Skip the login page.
   const { data } = await window.sb.auth.getSession();
   if (data.session) {
-    window.location.replace("home.html");
+    window.location.replace(HOME_PAGE);
     return;
   }
 
   // Arrived from the register page
   if (new URLSearchParams(window.location.search).get("registered") === "1") {
-    loginMessage("Account created! Confirm your email if asked, then sign in.", "success");
+    loginMessage(
+      "Account created! Confirm your email if asked, then sign in.",
+      "success",
+    );
   }
 
   // Replace the "Forgot password?" demo message with a real reset email
@@ -33,14 +40,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     forgotBtn.addEventListener("click", async () => {
       const email = document.getElementById("loginEmail").value.trim();
       if (!email) {
-        loginMessage("Enter your email address first, then click Forgot password.", "error");
+        loginMessage(
+          "Enter your email address first, then click Forgot password.",
+          "error",
+        );
         return;
       }
       const { error } = await window.sb.auth.resetPasswordForEmail(email, {
-        redirectTo: window.location.origin + "/login.html",
+        redirectTo: window.location.href.split("?")[0],
       });
       if (error) loginMessage(error.message, "error");
-      else loginMessage("Password reset instructions have been sent to your email address.", "success");
+      else
+        loginMessage(
+          "Password reset instructions have been sent to your email address.",
+          "success",
+        );
     });
   }
 });
@@ -59,7 +73,10 @@ document.addEventListener(
 
     if (btn) btn.disabled = true;
 
-    const { error } = await window.sb.auth.signInWithPassword({ email, password });
+    const { error } = await window.sb.auth.signInWithPassword({
+      email,
+      password,
+    });
 
     if (error) {
       const msg =
@@ -71,7 +88,7 @@ document.addEventListener(
       return;
     }
 
-    window.location.href = "home.html";
+    window.location.href = HOME_PAGE;
   },
-  true
+  true,
 );

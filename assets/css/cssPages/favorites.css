@@ -1,0 +1,19 @@
+/* Favorites page styles */
+.empty-panel {
+  background: #ffffff;
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--radius-xl);
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.empty-panel h3 {
+  font-family: "Fraunces", Georgia, serif;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.empty-panel p {
+  color: var(--muted);
+  margin-bottom: 18px;
+}

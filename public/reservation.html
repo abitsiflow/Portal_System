@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Reservation &middot; Tourist Portal Subsystem</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- QR Code library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+    <style>
+      /* ─── CSS Variables ─── */
+      :root {
+        --purple: #7655b5;
+        --purple-dark: #5e3fa3;
+        --purple-light: #f0ebfa;
+        --purple-glow: rgba(118, 85, 181, 0.15);
+        --lavender: #b49ae8;
+        --dark: #211a35;
+        --dark-soft: #29213d;
+        --muted: #8e879d;
+        --border: #eeeaf4;
+        --white: #ffffff;
+        --bg: #f6f4fa;
+        --success: #20824d;
+        --success-bg: #e3f7ed;
+        --warning: #a66a00;
+        --warning-bg: #fff2d9;
+        --error: #c33d3d;
+        --error-bg: #ffe6e6;
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --shadow-sm: 0 1px 3px rgba(33, 26, 53, 0.06), 0 1px 2px rgba(33, 26, 53, 0.04);
+        --shadow-md: 0 4px 16px rgba(33, 26, 53, 0.08), 0 2px 4px rgba(33, 26, 53, 0.04);
+        --shadow-lg: 0 12px 32px -4px rgba(33, 26, 53, 0.14);
+        --transition: 220ms ease;
+      }
+
+      /* ─── Reset ─── */
+      *, *::before, *::after { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: var(--bg);
+        color: var(--dark-soft);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ─── Top Navigation Bar ─── */
+      .navbar {
+        background: var(--dark);
+        padding: 0 40px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 12px rgba(33, 26, 53, 0.2);
+      }
+
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--white);
+      }
+
+      .nav-brand-icon {
+        width: 38px;
+        height: 38px;
+        background: var(--lavender);
+        color: var(--dark);
+        display: grid;
+        place-items: center;
+        border-radius: 10px;
+        font-size: 18px;
+      }
+
+      .nav-brand-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      .nav-brand-sub {
+        font-size: 10px;
+        color: #b8abc9;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 8px;
+      }
+
+      .nav-links a {
+        color: #c9c0d9;
+        text-decoration: none;
+        font-size: 13px;
+        padding: 8px 14px;
+        border-radius: var(--radius-sm);
+        transition: all var(--transition);
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--white);
+        background: rgba(180, 154, 232, 0.15);
+      }
+
+      /* ─── Page Layout ─── */
+      .page-container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 32px 24px 60px;
+      }
+
+      /* ─── Page Header ─── */
+      .page-header {
+        text-align: center;
+        margin-bottom: 36px;
+      }
+
+      .page-header .eyebrow {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--purple);
+        margin-bottom: 10px;
+      }
+
+      .page-header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--dark);
+        margin: 0 0 8px;
+      }
+
+      .page-header p {
+        color: var(--muted);
+        font-size: 14px;
+        margin: 0;
+      }
+
+      /* ─── Progress Steps ─── */
+      .progress-bar {
+        display: flex;
+        justify-content: center;
+        gap: 0;
+        margin-bottom: 36px;
+      }
+
+      .progress-step {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--muted);
+        padding: 10px 16px;
+        position: relative;
+      }
+
+      .progress-step .step-num {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 12px;
+        font-weight: 700;
+        background: var(--border);
+        color: var(--muted);
+        transition: all var(--transition);
+      }
+
+      .progress-step.active .step-num {
+        background: var(--purple);
+        color: var(--white);
+        box-shadow: 0 0 0 4px var(--purple-glow);
+      }
+
+      .progress-step.completed .step-num {
+        background: var(--success);
+        color: var(--white);
+      }
+
+      .progress-step.active {
+        color: var(--dark);
+      }
+
+      .progress-step.completed {
+        color: var(--success);
+      }
+
+      .progress-connector {
+        width: 40px;
+        height: 2px;
+        background: var(--border);
+        align-self: center;
+      }
+
+      .progress-connector.active {
+        background: var(--purple);
+      }
+
+      /* ─── Card ─── */
+      .card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 28px;
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 20px;
+        transition: box-shadow var(--transition);
+      }
+
+      .card:hover {
+        box-shadow: var(--shadow-md);
+      }
+
+      .card-heading {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+
+      .card-heading .icon-wrap {
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        border-radius: 10px;
+        background: var(--purple-light);
+        color: var(--purple);
+        font-size: 16px;
+      }
+
+      .card-heading h2 {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--dark);
+        margin: 0;
+      }
+
+      .card-heading p {
+        font-size: 11px;
+        color: var(--muted);
+        margin: 3px 0 0;
+      }
+
+      /* ─── Form Grid ─── */
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-group.full {
+        grid-column: 1 / -1;
+      }
+
+      .form-group label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--dark-soft);
+        margin-bottom: 7px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .form-group label .required {
+        color: var(--error);
+        font-size: 14px;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 13px;
+        color: var(--dark);
+        background: var(--white);
+        outline: none;
+        transition: all var(--transition);
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: var(--purple);
+        box-shadow: 0 0 0 3px var(--purple-glow);
+      }
+
+      .form-group input::placeholder {
+        color: #c5bdd4;
+      }
+
+      .form-group input.invalid,
+      .form-group select.invalid {
+        border-color: var(--error);
+        box-shadow: 0 0 0 3px rgba(195, 61, 61, 0.1);
+      }
+
+      /* ─── Billing Summary ─── */
+      .billing-card {
+        background: linear-gradient(135deg, #f8f5ff 0%, #f0ebfa 100%);
+        border: 1px solid #ddd4f0;
+      }
+
+      .billing-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        font-size: 13px;
+      }
+
+      .billing-row span {
+        color: var(--muted);
+      }
+
+      .billing-row strong {
+        font-weight: 600;
+        color: var(--dark);
+      }
+
+      .billing-divider {
+        height: 1px;
+        background: #ddd4f0;
+        margin: 6px 0;
+      }
+
+      .billing-total {
+        padding: 14px 0 4px;
+        font-size: 16px;
+      }
+
+      .billing-total strong {
+        color: var(--purple);
+        font-size: 18px;
+      }
+
+      .billing-highlight {
+        background: var(--white);
+        border: 1.5px solid var(--purple);
+        border-radius: var(--radius-md);
+        padding: 16px 20px;
+        margin-top: 14px;
+      }
+
+      .billing-highlight .billing-row {
+        padding: 6px 0;
+      }
+
+      .billing-highlight .billing-row strong {
+        color: var(--purple);
+      }
+
+      .billing-highlight .billing-row:last-child strong {
+        color: var(--dark);
+      }
+
+      /* ─── Payment Method Cards ─── */
+      .payment-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 10px;
+      }
+
+      .payment-option {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 16px;
+        border: 1.5px solid var(--border);
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        transition: all var(--transition);
+        background: var(--white);
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .payment-option:hover {
+        border-color: var(--lavender);
+        background: #faf8ff;
+      }
+
+      .payment-option.selected {
+        border-color: var(--purple);
+        background: var(--purple-light);
+        color: var(--purple-dark);
+        box-shadow: 0 0 0 3px var(--purple-glow);
+      }
+
+      .payment-option input[type="radio"] {
+        display: none;
+      }
+
+      .payment-radio {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid var(--border);
+        display: grid;
+        place-items: center;
+        transition: all var(--transition);
+        flex-shrink: 0;
+      }
+
+      .payment-option.selected .payment-radio {
+        border-color: var(--purple);
+        background: var(--purple);
+      }
+
+      .payment-option.selected .payment-radio::after {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--white);
+      }
+
+      .payment-status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        background: var(--warning-bg);
+        color: var(--warning);
+        margin-top: 16px;
+      }
+
+      /* ─── Submit Button ─── */
+      .submit-section {
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .btn-submit {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 16px 48px;
+        background: var(--purple);
+        color: var(--white);
+        border: none;
+        border-radius: var(--radius-md);
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all var(--transition);
+        box-shadow: 0 4px 14px rgba(118, 85, 181, 0.3);
+      }
+
+      .btn-submit:hover {
+        background: var(--purple-dark);
+        box-shadow: 0 6px 20px rgba(118, 85, 181, 0.4);
+        transform: translateY(-1px);
+      }
+
+      .btn-submit:active {
+        transform: translateY(0);
+      }
+
+      .btn-submit:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .btn-submit .spinner {
+        display: none;
+        width: 18px;
+        height: 18px;
+        border: 2.5px solid rgba(255,255,255,0.3);
+        border-top-color: var(--white);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+
+      .btn-submit.loading .spinner {
+        display: block;
+      }
+
+      .btn-submit.loading .btn-text {
+        display: none;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* ─── Alert Messages ─── */
+      .alert {
+        padding: 14px 18px;
+        border-radius: var(--radius-md);
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 20px;
+        display: none;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .alert.show { display: flex; }
+
+      .alert-error {
+        background: var(--error-bg);
+        color: var(--error);
+        border: 1px solid #f5c6c6;
+      }
+
+      .alert-success {
+        background: var(--success-bg);
+        color: var(--success);
+        border: 1px solid #b7e4c7;
+      }
+
+      /* ─── Confirmation View ─── */
+      .confirmation-view {
+        display: none;
+      }
+
+      .confirmation-view.show {
+        display: block;
+      }
+
+      .confirmation-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 40px;
+        text-align: center;
+        box-shadow: var(--shadow-md);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .confirmation-icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: var(--success-bg);
+        color: var(--success);
+        display: grid;
+        place-items: center;
+        font-size: 32px;
+        margin: 0 auto 20px;
+      }
+
+      .confirmation-card h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 26px;
+        color: var(--dark);
+        margin: 0 0 8px;
+      }
+
+      .confirmation-card .subtitle {
+        color: var(--muted);
+        font-size: 14px;
+        margin-bottom: 28px;
+      }
+
+      .ref-box {
+        background: var(--purple-light);
+        border: 2px dashed var(--lavender);
+        border-radius: var(--radius-md);
+        padding: 20px;
+        margin-bottom: 28px;
+      }
+
+      .ref-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted);
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+
+      .ref-code {
+        font-family: 'DM Sans', monospace;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--purple);
+        letter-spacing: 2px;
+      }
+
+      .qr-container {
+        display: flex;
+        justify-content: center;
+        margin: 24px 0;
+      }
+
+      .qr-container canvas {
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .confirmation-details {
+        text-align: left;
+        background: #faf8ff;
+        border-radius: var(--radius-md);
+        padding: 24px;
+        margin-top: 24px;
+      }
+
+      .confirmation-details h3 {
+        font-size: 14px;
+        font-weight: 700;
+        margin: 0 0 14px;
+        color: var(--dark);
+      }
+
+      .detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .detail-item label {
+        display: block;
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 3px;
+      }
+
+      .detail-item p {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--dark);
+        margin: 0;
+      }
+
+      .btn-new-reservation {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 28px;
+        padding: 12px 28px;
+        background: var(--white);
+        color: var(--purple);
+        border: 1.5px solid var(--purple);
+        border-radius: var(--radius-md);
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all var(--transition);
+      }
+
+      .btn-new-reservation:hover {
+        background: var(--purple-light);
+      }
+
+      /* ─── Footer ─── */
+      .page-footer {
+        text-align: center;
+        padding: 24px;
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      /* ─── Responsive ─── */
+      @media (max-width: 768px) {
+        .navbar { padding: 0 16px; }
+        .nav-links { display: none; }
+        .page-container { padding: 20px 16px 40px; }
+        .page-header h1 { font-size: 24px; }
+        .form-grid { grid-template-columns: 1fr; }
+        .payment-options { grid-template-columns: 1fr 1fr; }
+        .progress-bar { flex-wrap: wrap; justify-content: center; }
+        .progress-step span { display: none; }
+        .progress-connector { width: 20px; }
+        .card { padding: 20px; }
+        .confirmation-card { padding: 24px; }
+        .detail-grid { grid-template-columns: 1fr; }
+        .billing-highlight { padding: 12px 14px; }
+      }
+
+      @media (max-width: 480px) {
+        .payment-options { grid-template-columns: 1fr; }
+        .ref-code { font-size: 22px; }
+      }
+    </style>
+</head>
+
+<body>
+
+  <!-- ─── Navigation Bar ─── -->
+  <nav class="navbar">
+    <a href="landing-page.html" class="nav-brand">
+      <div class="nav-brand-icon">
+        <i class="fa-solid fa-hotel"></i>
+      </div>
+      <div>
+        <div class="nav-brand-title">Tourist Portal</div>
+        <div class="nav-brand-sub">Hotel Reservation</div>
+      </div>
+    </a>
+
+    <div class="nav-links">
+      <a href="landing-page.html">Home</a>
+      <a href="home.html">Dashboard</a>
+      <a href="reservation.html" class="active">Reserve</a>
+    </div>
+  </nav>
+
+  <!-- ─── Main Page Container ─── -->
+  <div class="page-container">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="eyebrow">Tourist Portal · Online Reservation</div>
+      <h1>Hotel Room Reservation</h1>
+      <p>Complete the form below to reserve your room. A 10% downpayment is required to confirm your booking.</p>
+    </div>
+
+    <!-- Progress Steps -->
+    <div class="progress-bar" id="progressBar">
+      <div class="progress-step active" data-step="1">
+        <div class="step-num">1</div>
+        <span>Guest Info</span>
+      </div>
+      <div class="progress-connector"></div>
+      <div class="progress-step" data-step="2">
+        <div class="step-num">2</div>
+        <span>Room &amp; Dates</span>
+      </div>
+      <div class="progress-connector"></div>
+      <div class="progress-step" data-step="3">
+        <div class="step-num">3</div>
+        <span>Payment</span>
+      </div>
+      <div class="progress-connector"></div>
+      <div class="progress-step" data-step="4">
+        <div class="step-num">4</div>
+        <span>Confirmation</span>
+      </div>
+    </div>
+
+    <!-- Alert Messages -->
+    <div class="alert alert-error" id="alertError">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span id="alertErrorText">An error occurred.</span>
+    </div>
+    <div class="alert alert-success" id="alertSuccess">
+      <i class="fa-solid fa-circle-check"></i>
+      <span id="alertSuccessText">Success!</span>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- RESERVATION FORM                                           -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <form id="reservationForm" novalidate>
+
+      <!-- ─── Section A: Guest Information ─── -->
+      <div class="card">
+        <div class="card-heading">
+          <div class="icon-wrap">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div>
+            <h2>Guest Information</h2>
+            <p>Provide your personal details for the reservation</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Full Name <span class="required">*</span></label>
+            <input type="text" id="guestName" placeholder="e.g. Juan Dela Cruz" required>
+          </div>
+
+          <div class="form-group">
+            <label>Contact Number <span class="required">*</span></label>
+            <input type="tel" id="contactNumber" placeholder="e.g. 09171234567" required>
+          </div>
+
+          <div class="form-group">
+            <label>Email Address <span class="required">*</span></label>
+            <input type="email" id="emailAddress" placeholder="e.g. juan@email.com" required>
+          </div>
+
+          <div class="form-group">
+            <label>Complete Address <span class="required">*</span></label>
+            <input type="text" id="address" placeholder="e.g. 123 Main St, Quezon City" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── Section B: Reservation Details ─── -->
+      <div class="card">
+        <div class="card-heading">
+          <div class="icon-wrap">
+            <i class="fa-solid fa-calendar-days"></i>
+          </div>
+          <div>
+            <h2>Reservation Details</h2>
+            <p>Select your preferred room type and dates</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Room Type <span class="required">*</span></label>
+            <select id="roomType" required>
+              <option value="">Select a room type</option>
+              <option value="Standard" data-rate="2500">Standard — ₱2,500 / night</option>
+              <option value="Deluxe" data-rate="3500">Deluxe — ₱3,500 / night</option>
+              <option value="Suite" data-rate="5000">Suite — ₱5,000 / night</option>
+              <option value="Family" data-rate="4000">Family — ₱4,000 / night</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Number of Guests <span class="required">*</span></label>
+            <input type="number" id="numGuests" min="1" max="10" value="1" required>
+          </div>
+
+          <div class="form-group">
+            <label>Check-in Date <span class="required">*</span></label>
+            <input type="date" id="checkIn" required>
+          </div>
+
+          <div class="form-group">
+            <label>Check-out Date <span class="required">*</span></label>
+            <input type="date" id="checkOut" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── Section C: Billing Summary ─── -->
+      <div class="card billing-card">
+        <div class="card-heading">
+          <div class="icon-wrap">
+            <i class="fa-solid fa-receipt"></i>
+          </div>
+          <div>
+            <h2>Billing Summary</h2>
+            <p>Automatically calculated based on your selection</p>
+          </div>
+        </div>
+
+        <div class="billing-row">
+          <span>Room Rate</span>
+          <strong id="dispRate">₱0.00</strong>
+        </div>
+        <div class="billing-row">
+          <span>Number of Nights</span>
+          <strong id="dispNights">0</strong>
+        </div>
+        <div class="billing-divider"></div>
+        <div class="billing-row">
+          <span>Subtotal</span>
+          <strong id="dispSubtotal">₱0.00</strong>
+        </div>
+        <div class="billing-row">
+          <span>VAT (12%)</span>
+          <strong id="dispVat">₱0.00</strong>
+        </div>
+        <div class="billing-divider"></div>
+        <div class="billing-row billing-total">
+          <span>Total Amount</span>
+          <strong id="dispTotal">₱0.00</strong>
+        </div>
+
+        <div class="billing-highlight">
+          <div class="billing-row">
+            <span><i class="fa-solid fa-hand-holding-dollar"></i> Downpayment (10%)</span>
+            <strong id="dispDownpayment">₱0.00</strong>
+          </div>
+          <div class="billing-row">
+            <span>Remaining Balance</span>
+            <strong id="dispBalance">₱0.00</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── Section D: Payment Information ─── -->
+      <div class="card">
+        <div class="card-heading">
+          <div class="icon-wrap">
+            <i class="fa-solid fa-credit-card"></i>
+          </div>
+          <div>
+            <h2>Payment Method</h2>
+            <p>Select your preferred payment method for the downpayment</p>
+          </div>
+        </div>
+
+        <div class="payment-options" id="paymentOptions">
+          <label class="payment-option" data-method="GCash">
+            <input type="radio" name="paymentMethod" value="GCash">
+            <div class="payment-radio"></div>
+            <span>GCash</span>
+          </label>
+
+          <label class="payment-option" data-method="Maya">
+            <input type="radio" name="paymentMethod" value="Maya">
+            <div class="payment-radio"></div>
+            <span>Maya</span>
+          </label>
+
+          <label class="payment-option" data-method="Credit/Debit Card">
+            <input type="radio" name="paymentMethod" value="Credit/Debit Card">
+            <div class="payment-radio"></div>
+            <span>Card</span>
+          </label>
+
+          <label class="payment-option" data-method="Cash">
+            <input type="radio" name="paymentMethod" value="Cash">
+            <div class="payment-radio"></div>
+            <span>Cash</span>
+          </label>
+
+          <label class="payment-option" data-method="MariBank">
+            <input type="radio" name="paymentMethod" value="MariBank">
+            <div class="payment-radio"></div>
+            <span>MariBank</span>
+          </label>
+
+          <label class="payment-option" data-method="GoTyme">
+            <input type="radio" name="paymentMethod" value="GoTyme">
+            <div class="payment-radio"></div>
+            <span>GoTyme</span>
+          </label>
+
+          <label class="payment-option" data-method="CIMB">
+            <input type="radio" name="paymentMethod" value="CIMB">
+            <div class="payment-radio"></div>
+            <span>CIMB</span>
+          </label>
+        </div>
+
+        <div class="payment-status-badge">
+          <i class="fa-solid fa-clock"></i>
+          Payment status: Pending Verification — Payment will be verified after submission.
+        </div>
+      </div>
+
+      <!-- ─── Submit Button ─── -->
+      <div class="submit-section">
+        <button type="submit" class="btn-submit" id="btnSubmit">
+          <span class="btn-text"><i class="fa-solid fa-paper-plane"></i> Submit Reservation</span>
+          <span class="spinner"></span>
+        </button>
+      </div>
+
+    </form>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- CONFIRMATION VIEW (shown after successful insertion)       -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div class="confirmation-view" id="confirmationView">
+      <div class="confirmation-card">
+        <div class="confirmation-icon">
+          <i class="fa-solid fa-check"></i>
+        </div>
+
+        <h2>Reservation Submitted!</h2>
+        <p class="subtitle">Your reservation has been successfully recorded. Please present your booking reference at check-in.</p>
+
+        <div class="ref-box">
+          <div class="ref-label">Booking Reference</div>
+          <div class="ref-code" id="confirmRefCode">—</div>
+        </div>
+
+        <div class="qr-container" id="qrContainer"></div>
+
+        <div class="confirmation-details">
+          <h3>Reservation Summary</h3>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <label>Guest Name</label>
+              <p id="confirmName">—</p>
+            </div>
+            <div class="detail-item">
+              <label>Room Type</label>
+              <p id="confirmRoom">—</p>
+            </div>
+            <div class="detail-item">
+              <label>Check-in</label>
+              <p id="confirmCheckIn">—</p>
+            </div>
+            <div class="detail-item">
+              <label>Check-out</label>
+              <p id="confirmCheckOut">—</p>
+            </div>
+            <div class="detail-item">
+              <label>Total Amount</label>
+              <p id="confirmTotal">—</p>
+            </div>
+            <div class="detail-item">
+              <label>Downpayment (10%)</label>
+              <p id="confirmDown">—</p>
+            </div>
+            <div class="detail-item">
+              <label>Payment Method</label>
+              <p id="confirmPayment">—</p>
+            </div>
+            <div class="detail-item">
+              <label>Payment Status</label>
+              <p style="color: var(--warning);">Pending Verification</p>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-new-reservation" onclick="resetForm()">
+          <i class="fa-solid fa-plus"></i> Make Another Reservation
+        </button>
+      </div>
+    </div>
+
+  </div><!-- end .page-container -->
+
+  <!-- Footer -->
+  <div class="page-footer">
+    Tourist Portal Subsystem · Systems Integration and Architecture 1 · Prototype © 2026
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- JAVASCRIPT                                                  -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <script>
+    // ─── Supabase Configuration ───
+    // Uses the same Supabase project as the rest of the Tourist Portal Subsystem.
+    // Only the anon (public) key is used here. Never expose the service_role key in frontend code.
+    const SUPABASE_URL  = 'https://fgyktjjewtcdeavhksnl.supabase.co';
+    const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZneWt0ampld3RjZGVhdmhrc25sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMwNzc3NjYsImV4cCI6MjEwODY1Mzc2Nn0.2igl1UOOeCuy2E8hZWfIvnBMOk40V5yPaeBD0ZuhZGA';
+
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+    // ─── DOM References ───
+    const form            = document.getElementById('reservationForm');
+    const roomTypeEl      = document.getElementById('roomType');
+    const checkInEl       = document.getElementById('checkIn');
+    const checkOutEl      = document.getElementById('checkOut');
+    const btnSubmit       = document.getElementById('btnSubmit');
+    const alertError      = document.getElementById('alertError');
+    const alertErrorText  = document.getElementById('alertErrorText');
+    const alertSuccess    = document.getElementById('alertSuccess');
+    const confirmView     = document.getElementById('confirmationView');
+
+    // ─── Room Rates Map ───
+    const ROOM_RATES = {
+      'Standard': 2500,
+      'Deluxe':   3500,
+      'Suite':    5000,
+      'Family':   4000,
+    };
+
+    // ─── Currency Formatter ───
+    function money(amount) {
+      return '₱' + amount.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    // ─── Date Formatter ───
+    function formatDate(dateStr) {
+      if (!dateStr) return '—';
+      const d = new Date(dateStr + 'T00:00:00');
+      return d.toLocaleDateString('en-PH', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    // ─── Set minimum date to today ───
+    function setMinDates() {
+      const today = new Date().toISOString().split('T')[0];
+      checkInEl.setAttribute('min', today);
+      checkOutEl.setAttribute('min', today);
+    }
+    setMinDates();
+
+    // ─── Billing Calculation ───
+    function calculateBilling() {
+      const roomType = roomTypeEl.value;
+      const rate = ROOM_RATES[roomType] || 0;
+      let nights = 0;
+
+      if (checkInEl.value && checkOutEl.value) {
+        const start = new Date(checkInEl.value + 'T00:00:00');
+        const end   = new Date(checkOutEl.value + 'T00:00:00');
+        nights = Math.max(0, Math.round((end - start) / (1000 * 60 * 60 * 24)));
+      }
+
+      const subtotal    = rate * nights;
+      const vat         = subtotal * 0.12;
+      const total       = subtotal + vat;
+      const downpayment = total * 0.10;
+      const balance     = total - downpayment;
+
+      document.getElementById('dispRate').textContent      = money(rate);
+      document.getElementById('dispNights').textContent    = nights;
+      document.getElementById('dispSubtotal').textContent  = money(subtotal);
+      document.getElementById('dispVat').textContent       = money(vat);
+      document.getElementById('dispTotal').textContent     = money(total);
+      document.getElementById('dispDownpayment').textContent = money(downpayment);
+      document.getElementById('dispBalance').textContent   = money(balance);
+
+      // Update check-out min when check-in changes
+      if (checkInEl.value) {
+        const nextDay = new Date(checkInEl.value + 'T00:00:00');
+        nextDay.setDate(nextDay.getDate() + 1);
+        checkOutEl.setAttribute('min', nextDay.toISOString().split('T')[0]);
+      }
+
+      return { rate, nights, subtotal, vat, total, downpayment, balance };
+    }
+
+    // Live billing updates
+    roomTypeEl.addEventListener('change', calculateBilling);
+    checkInEl.addEventListener('change', calculateBilling);
+    checkOutEl.addEventListener('change', calculateBilling);
+
+    // ─── Payment Method Selection ───
+    const paymentOptions = document.querySelectorAll('.payment-option');
+    paymentOptions.forEach(opt => {
+      opt.addEventListener('click', () => {
+        paymentOptions.forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        opt.querySelector('input[type="radio"]').checked = true;
+      });
+    });
+
+    // ─── Progress Bar ───
+    function updateProgress(step) {
+      document.querySelectorAll('.progress-step').forEach((el, i) => {
+        const s = i + 1;
+        el.classList.remove('active', 'completed');
+        if (s < step) el.classList.add('completed');
+        if (s === step) el.classList.add('active');
+      });
+      document.querySelectorAll('.progress-connector').forEach((el, i) => {
+        el.classList.toggle('active', i + 1 < step);
+      });
+    }
+
+    // Track which section the user is on
+    const sections = form.querySelectorAll('.card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const idx = Array.from(sections).indexOf(entry.target);
+          if (idx >= 0) updateProgress(idx + 1);
+        }
+      });
+    }, { threshold: 0.5 });
+    sections.forEach(s => observer.observe(s));
+
+    // ─── Alert Helpers ───
+    function showError(msg) {
+      alertError.classList.add('show');
+      alertErrorText.textContent = msg;
+      alertSuccess.classList.remove('show');
+      alertError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function hideAlerts() {
+      alertError.classList.remove('show');
+      alertSuccess.classList.remove('show');
+    }
+
+    // ─── Generate Booking Reference ───
+    // Pattern: HTL-YYYY-NNN (e.g., HTL-2026-001)
+    async function generateBookingReference() {
+      const year = new Date().getFullYear();
+      const prefix = `HTL-${year}-`;
+
+      // Count existing records for this year to determine the next sequence number
+      const { count, error } = await sb
+        .from('hotel_records')
+        .select('*', { count: 'exact', head: true })
+        .like('booking_reference', `${prefix}%`);
+
+      if (error) {
+        console.error('Error counting records:', error);
+        // Fallback to timestamp-based reference
+        return `HTL-${year}-${Date.now().toString().slice(-5)}`;
+      }
+
+      const seq = (count || 0) + 1;
+      return `${prefix}${String(seq).padStart(3, '0')}`;
+    }
+
+    // ─── QR Code Generation ───
+    function generateQRCode(text, container) {
+      container.innerHTML = '';
+      const canvas = document.createElement('canvas');
+      container.appendChild(canvas);
+      QRCode.toCanvas(canvas, text, {
+        width: 180,
+        margin: 2,
+        color: {
+          dark:  '#211a35',
+          light: '#ffffff',
+        }
+      }, function (err) {
+        if (err) console.error('QR Error:', err);
+      });
+    }
+
+    // ─── Form Validation ───
+    function validateForm() {
+      hideAlerts();
+
+      const guestName  = document.getElementById('guestName').value.trim();
+      const contact    = document.getElementById('contactNumber').value.trim();
+      const email      = document.getElementById('emailAddress').value.trim();
+      const address    = document.getElementById('address').value.trim();
+      const roomType   = roomTypeEl.value;
+      const numGuests  = document.getElementById('numGuests').value;
+      const checkIn    = checkInEl.value;
+      const checkOut   = checkOutEl.value;
+      const paymentEl  = document.querySelector('input[name="paymentMethod"]:checked');
+
+      // Clear previous invalid states
+      form.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+
+      // Required fields
+      if (!guestName) {
+        document.getElementById('guestName').classList.add('invalid');
+        showError('Please enter the guest\'s full name.');
+        return null;
+      }
+      if (!contact) {
+        document.getElementById('contactNumber').classList.add('invalid');
+        showError('Please enter a contact number.');
+        return null;
+      }
+      if (!email) {
+        document.getElementById('emailAddress').classList.add('invalid');
+        showError('Please enter an email address.');
+        return null;
+      }
+      // Basic email validation
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById('emailAddress').classList.add('invalid');
+        showError('Please enter a valid email address.');
+        return null;
+      }
+      if (!address) {
+        document.getElementById('address').classList.add('invalid');
+        showError('Please enter your complete address.');
+        return null;
+      }
+      if (!roomType) {
+        roomTypeEl.classList.add('invalid');
+        showError('Please select a room type.');
+        return null;
+      }
+      if (!numGuests || numGuests < 1) {
+        document.getElementById('numGuests').classList.add('invalid');
+        showError('Please enter the number of guests (minimum 1).');
+        return null;
+      }
+      if (!checkIn) {
+        checkInEl.classList.add('invalid');
+        showError('Please select a check-in date.');
+        return null;
+      }
+      if (!checkOut) {
+        checkOutEl.classList.add('invalid');
+        showError('Please select a check-out date.');
+        return null;
+      }
+
+      // Validate check-out is after check-in
+      const startDate = new Date(checkIn + 'T00:00:00');
+      const endDate   = new Date(checkOut + 'T00:00:00');
+      if (endDate <= startDate) {
+        checkOutEl.classList.add('invalid');
+        showError('Check-out date must be later than the check-in date.');
+        return null;
+      }
+
+      if (!paymentEl) {
+        showError('Please select a payment method.');
+        return null;
+      }
+
+      // Calculate billing
+      const billing = calculateBilling();
+
+      if (billing.nights <= 0) {
+        showError('Invalid date range. Please check your check-in and check-out dates.');
+        return null;
+      }
+
+      return {
+        guestName,
+        contact,
+        email,
+        address,
+        roomType,
+        numGuests: parseInt(numGuests),
+        checkIn,
+        checkOut,
+        paymentMethod: paymentEl.value,
+        ...billing
+      };
+    }
+
+    // ─── Form Submission ───
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const data = validateForm();
+      if (!data) return;
+
+      // Set loading state
+      btnSubmit.classList.add('loading');
+      btnSubmit.disabled = true;
+      hideAlerts();
+
+      try {
+        // Generate unique booking reference
+        const bookingReference = await generateBookingReference();
+
+        // Prepare the record for insertion into hotel_records
+        const record = {
+          guest_name:          data.guestName,
+          contact_number:      data.contact,
+          email:               data.email,
+          address:             data.address,
+          booking_reference:   bookingReference,
+          booking_type:        'online',
+          booking_status:      'pending',
+          room_number:         null,
+          room_type:           data.roomType,
+          floor_number:        null,
+          number_of_guests:    data.numGuests,
+          check_in:            data.checkIn,
+          check_out:           data.checkOut,
+          total_amount:        parseFloat(data.total.toFixed(2)),
+          payment_method:      data.paymentMethod,
+          payment_status:      'pending',
+          subtotal:            parseFloat(data.subtotal.toFixed(2)),
+          vat_amount:          parseFloat(data.vat.toFixed(2)),
+          downpayment_amount:  parseFloat(data.downpayment.toFixed(2)),
+          remaining_balance:   parseFloat(data.balance.toFixed(2)),
+          reservation_qr_code: bookingReference,
+          keycard_number:      null,
+          keycard_status:      'inactive',
+          // created_at uses database default (now())
+        };
+
+        // Insert into Supabase
+        const { data: insertedData, error } = await sb
+          .from('hotel_records')
+          .insert([record])
+          .select();
+
+        if (error) {
+          console.error('Supabase insertion error:', error);
+          showError('Failed to submit reservation: ' + (error.message || 'Database error. Please try again.'));
+          return;
+        }
+
+        // ─── SUCCESS: Show Confirmation ───
+        form.style.display = 'none';
+        confirmView.classList.add('show');
+        updateProgress(4);
+
+        // Populate confirmation details
+        document.getElementById('confirmRefCode').textContent  = bookingReference;
+        document.getElementById('confirmName').textContent     = data.guestName;
+        document.getElementById('confirmRoom').textContent     = data.roomType;
+        document.getElementById('confirmCheckIn').textContent  = formatDate(data.checkIn);
+        document.getElementById('confirmCheckOut').textContent = formatDate(data.checkOut);
+        document.getElementById('confirmTotal').textContent    = money(data.total);
+        document.getElementById('confirmDown').textContent     = money(data.downpayment);
+        document.getElementById('confirmPayment').textContent  = data.paymentMethod;
+
+        // Generate QR code with the booking reference
+        generateQRCode(bookingReference, document.getElementById('qrContainer'));
+
+        // Scroll to top to show confirmation
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      } catch (err) {
+        console.error('Unexpected error:', err);
+        showError('An unexpected error occurred. Please try again.');
+      } finally {
+        btnSubmit.classList.remove('loading');
+        btnSubmit.disabled = false;
+      }
+    });
+
+    // ─── Reset Form for New Reservation ───
+    function resetForm() {
+      form.reset();
+      form.style.display = '';
+      confirmView.classList.remove('show');
+      hideAlerts();
+      updateProgress(1);
+      calculateBilling();
+      paymentOptions.forEach(o => o.classList.remove('selected'));
+      document.getElementById('qrContainer').innerHTML = '';
+      setMinDates();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
+

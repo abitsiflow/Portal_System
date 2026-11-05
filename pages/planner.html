@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trip Planner &middot; Tourist Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/dashboard.css" />
+    <link rel="stylesheet" href="../assets/css/cssPages/planner.css" />
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+  </head>
+  <body data-page="planner">
+    <!-- Sidebar, topbar, mobile nav and modals are injected by Shared/shell.js and Shared/modals.js -->
+    <div class="app-shell">
+      <div class="content-shell">
+        <main class="main-content" id="viewContainer" aria-live="polite">
+          <div class="section-head" style="margin-bottom: 18px">
+            <div>
+              <p class="eyebrow">AI Travel Assistant &middot; Conversational Itinerary Builder</p>
+              <h2>Trip Planner Chatbot</h2>
+              <p>Chat with our AI bot to generate custom day-by-day itineraries, estimate budgets, and generate booking QR passes.</p>
+            </div>
+            <button type="button" class="btn btn-primary" id="bookActiveBtn">Book Active Itinerary</button>
+          </div>
+
+          <div class="planner-chat-layout">
+            <!-- Chatbot -->
+            <div class="chat-card">
+              <div class="chat-header">
+                <div class="chat-bot-identity">
+                  <div class="bot-avatar-circle">
+                    <i data-lucide="bot"></i>
+                    <span class="online-beacon" title="Online & Ready"></span>
+                  </div>
+                  <div class="bot-title-group">
+                    <h3>TravelBot AI Assistant</h3>
+                    <span><i data-lucide="sparkles" style="width: 12px; height: 12px"></i> AI Trip Planner &middot; Active</span>
+                  </div>
+                </div>
+                <button type="button" class="chat-reset-btn" onclick="resetChatConversation()">Clear Chat</button>
+              </div>
+
+              <div class="chat-messages" id="chatMessagesFeed"></div>
+
+              <div class="chat-quick-prompts">
+                <button type="button" class="prompt-pill" onclick="sendQuickPrompt('Plan 3 days in Boracay with beach activities')">🏖️ 3 Days in Boracay</button>
+                <button type="button" class="prompt-pill" onclick="sendQuickPrompt('Create 2 days Baguio mountain getaway')">🏔️ 2 Days in Baguio</button>
+                <button type="button" class="prompt-pill" onclick="sendQuickPrompt('4 days luxury island hopping in El Nido Palawan')">🌊 4 Days in El Nido</button>
+                <button type="button" class="prompt-pill" onclick="sendQuickPrompt('1 day historical walking tour in Manila Intramuros')">🏰 1 Day in Intramuros</button>
+                <button type="button" class="prompt-pill" onclick="sendQuickPrompt('Weekend relaxing trip in Tagaytay Volcano Ridge')">🌋 Weekend in Tagaytay</button>
+                <button type="button" class="prompt-pill" onclick="sendQuickPrompt('2 days heritage cobblestone walk in Vigan')">🏛️ 2 Days in Vigan</button>
+                <button type="button" class="prompt-pill" onclick="sendQuickPrompt('3 days surfing and beach in Siargao Cloud 9')">🏄 3 Days in Siargao</button>
+              </div>
+
+              <form class="chat-input-bar" onsubmit="handleChatSubmit(event)">
+                <input type="text" id="chatUserInput" placeholder="Tell AI where you want to go (e.g. 'Plan 3 days in Boracay under 15k')..." autocomplete="off" />
+                <button type="submit" class="chat-send-btn" title="Send request"><i data-lucide="send"></i></button>
+              </form>
+            </div>
+
+            <!-- Live itinerary -->
+            <div class="live-itinerary-card" id="liveItineraryContainer"></div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/scripts/Shared/supabase-client.js"></script>
+    <script src="../assets/scripts/Shared/data.js"></script>
+    <script src="../assets/scripts/Shared/shell.js"></script>
+    <script src="../assets/scripts/Shared/modals.js"></script>
+    <script src="../assets/scripts/scriptingPages/planner.js"></script>
+  </body>
+</html>

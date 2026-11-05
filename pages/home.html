@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home &middot; Tourist Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/dashboard.css" />
+    <link rel="stylesheet" href="../assets/css/cssPages/home.css" />
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+  </head>
+  <body data-page="home">
+    <!-- Sidebar, topbar, mobile nav and modals are injected by Shared/shell.js and Shared/modals.js -->
+    <div class="app-shell">
+      <div class="content-shell">
+        <main class="main-content" id="viewContainer" aria-live="polite">
+          <!-- Hero -->
+          <div class="dashboard-hero">
+            <div class="hero-left">
+              <p
+                class="eyebrow"
+                style="color: var(--teal-light); margin-bottom: 6px"
+              >
+                Traveler Dashboard &middot; Verified Status
+              </p>
+              <h1>Welcome back, <span data-user="firstName">Traveler</span></h1>
+              <p>
+                Your portal for discovering verified Philippine destinations,
+                reserving nearby stays, and accessing scannable digital passes.
+              </p>
+            </div>
+            <div class="hero-action-box">
+              <a
+                href="explore.html"
+                class="btn btn-primary"
+                style="background: #fff; color: var(--navy); border-color: #fff"
+                >Explore Destinations</a
+              >
+              <a
+                href="qr.html"
+                class="btn btn-secondary"
+                style="
+                  background: transparent;
+                  color: #fff;
+                  border-color: rgba(255, 255, 255, 0.4);
+                "
+                >View My Passes</a
+              >
+            </div>
+          </div>
+
+          <!-- Quick metric cards -->
+          <div class="metrics-row">
+            <div
+              class="metric-card"
+              onclick="window.location.href = 'explore.html'"
+            >
+              <div class="metric-icon-box"><i data-lucide="compass"></i></div>
+              <strong>Explore 10 Pairs</strong>
+              <p>
+                Discover iconic attractions matched with adjacent verified
+                hotels.
+              </p>
+              <span class="btn btn-secondary">Explore Now</span>
+            </div>
+
+            <div
+              class="metric-card"
+              onclick="openBookingModal(4, 'hotel_only')"
+            >
+              <div class="metric-icon-box purple">
+                <i data-lucide="ticket"></i>
+              </div>
+              <strong>Book Stay &amp; Spot</strong>
+              <p>
+                Reserve accommodations and instant entrance tickets in one flow.
+              </p>
+              <span class="btn btn-primary">Book Vacation</span>
+            </div>
+
+            <div class="metric-card" onclick="window.location.href = 'qr.html'">
+              <div class="metric-icon-box amber">
+                <i data-lucide="qr-code"></i>
+              </div>
+              <strong>Digital QR Passes</strong>
+              <p>
+                Instant verification passes for attraction entry and hotel
+                check-in.
+              </p>
+              <span class="btn btn-secondary">Open Passes</span>
+            </div>
+
+            <div
+              class="metric-card"
+              onclick="window.location.href = 'trips.html'"
+            >
+              <div class="metric-icon-box coral">
+                <i data-lucide="briefcase"></i>
+              </div>
+              <strong>My Active Bookings</strong>
+              <p id="homeBookingCount">
+                Confirmed trip reservations with digital passes.
+              </p>
+              <span class="btn btn-secondary">View Bookings</span>
+            </div>
+          </div>
+
+          <!-- Upcoming trip (filled by home.js) -->
+          <div class="active-trip-panel" id="upcomingTrip"></div>
+
+          <!-- Featured -->
+          <div class="section-head">
+            <div>
+              <h2>Featured Destinations &amp; Stays</h2>
+              <p>
+                Verified close-proximity spots paired with premier
+                accommodations.
+              </p>
+            </div>
+            <a href="explore.html" class="btn btn-secondary"
+              >View All 10 Pairs &rarr;</a
+            >
+          </div>
+
+          <div class="cards-grid" id="featuredGrid"></div>
+        </main>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/scripts/Shared/supabase-client.js"></script>
+    <script src="../assets/scripts/Shared/data.js"></script>
+    <script src="../assets/scripts/Shared/shell.js"></script>
+    <script src="../assets/scripts/Shared/modals.js"></script>
+    <script src="../assets/scripts/scriptingPages/home.js"></script>
+  </body>
+</html>
