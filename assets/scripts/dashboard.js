@@ -105,7 +105,7 @@ const destinationsData = [
       name: "Mines View Park & The Mansion",
       tag: "Highland Pine Mountain Overlook",
       image:
-        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+        "https://upload.wikimedia.org/wikipedia/commons/d/da/Mines_View_Park%2C_Baguio_City_Philippines.jpg",
       desc: "Panoramic mountain view of the Cordillera gold mines and presidential summer palace.",
       fee: 10,
       hours: "6:00 AM – 6:00 PM",
@@ -163,7 +163,7 @@ const destinationsData = [
       name: "Taal Volcano Ridge & Sky Ranch",
       tag: "Highland Volcano Overlook",
       image:
-        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+        "https://res.klook.com/image/upload/fl_lossy.progressive%2Cq_85/c_fill%2Cw_1000/v1619064676/blog/jftd5xa1wvu1e6eloadc.jpg",
       desc: "Spectacular ridge view of Taal Volcano inside Taal Lake with cool highland climate.",
       fee: 100,
       hours: "8:00 AM – 8:00 PM",
