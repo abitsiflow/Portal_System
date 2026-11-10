@@ -1,0 +1,434 @@
+/* ─── Chatbot Trip Planner Styles ─── */
+.planner-chat-layout {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 24px;
+  align-items: flex-start;
+  min-height: calc(100vh - 180px);
+}
+
+/* Chat Card Container */
+.chat-card {
+  background: #ffffff;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  height: 680px;
+  overflow: hidden;
+}
+
+.chat-header {
+  padding: 16px 22px;
+  background: linear-gradient(135deg, var(--navy), #0f766e);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-bot-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bot-avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1.5px solid var(--teal-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--teal-light);
+  position: relative;
+}
+
+.online-beacon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10b981;
+  border: 2px solid #ffffff;
+}
+
+.bot-title-group h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.bot-title-group span {
+  font-size: 11.5px;
+  color: #c9dbe9;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chat-reset-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.chat-reset-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* Chat Messages Feed */
+.chat-messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #f8fafb;
+}
+
+.chat-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 86%;
+}
+
+.chat-row.user-row {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+
+.chat-bubble {
+  padding: 14px 18px;
+  border-radius: 18px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.chat-row.bot-row .chat-bubble {
+  background: #ffffff;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-top-left-radius: 4px;
+}
+
+.chat-row.user-row .chat-bubble {
+  background: var(--navy);
+  color: #ffffff;
+  border-top-right-radius: 4px;
+}
+
+.chat-time {
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-top: 4px;
+  display: block;
+}
+
+.chat-row.user-row .chat-time {
+  text-align: right;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Typing Indicator Animation */
+.typing-bubble {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 18px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  border-top-left-radius: 4px;
+}
+
+.typing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  animation: typingBounce 1.2s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-5px); opacity: 1; }
+}
+
+/* Quick Prompt Suggestions */
+.chat-quick-prompts {
+  padding: 10px 16px;
+  background: #ffffff;
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.chat-quick-prompts::-webkit-scrollbar {
+  display: none;
+}
+
+.prompt-pill {
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  background: var(--bg-app);
+  border: 1px solid var(--line);
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.prompt-pill:hover {
+  background: var(--teal);
+  color: #ffffff;
+  border-color: var(--teal);
+}
+
+/* Chat Input Bar */
+.chat-input-bar {
+  padding: 12px 16px;
+  background: #ffffff;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chat-input-bar input {
+  flex: 1;
+  padding: 11px 16px;
+  background: var(--bg-app);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-full);
+  font-size: 13.5px;
+  color: var(--ink);
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.chat-input-bar input:focus {
+  background: #ffffff;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
+}
+
+.chat-send-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.chat-send-btn:hover {
+  background: var(--teal-hover);
+  transform: scale(1.05);
+}
+
+/* ─── Live Itinerary Panel (Right Side) ─── */
+.live-itinerary-card {
+  background: #ffffff;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.itinerary-hero-header {
+  position: relative;
+  height: 180px;
+  background: var(--navy);
+}
+
+.itinerary-hero-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.itinerary-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(16, 42, 67, 0.2) 0%, rgba(16, 42, 67, 0.9) 100%);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: #ffffff;
+}
+
+.itinerary-hero-overlay h3 {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 20px;
+  color: #ffffff;
+  margin: 4px 0 2px;
+}
+
+.itinerary-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--sand);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+  padding: 12px 10px;
+}
+
+.itinerary-stat-item strong {
+  display: block;
+  font-size: 14px;
+  color: var(--navy);
+}
+
+.itinerary-stat-item span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Itinerary Timeline */
+.itinerary-timeline-feed {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.timeline-day-block {
+  border-left: 2px solid var(--teal);
+  padding-left: 14px;
+  position: relative;
+}
+
+.timeline-day-block::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--teal);
+}
+
+.timeline-day-title {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.timeline-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.timeline-item-row {
+  font-size: 12.5px;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.timeline-item-row b {
+  color: var(--teal);
+}
+
+/* Itinerary Bottom Action Box */
+.itinerary-action-box {
+  padding: 16px 20px;
+  background: #ffffff;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ─── Responsive Adjustments ─── */
+@media (max-width: 1080px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .metrics-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .planner-chat-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 840px) {
+  .sidebar {
+    display: none;
+  }
+  .mobile-bottom-nav {
+    display: flex;
+  }
+  .main-content {
+    padding: 20px 16px 80px;
+  }
+  .topbar {
+    padding: 0 16px;
+  }
+  .topbar-search {
+    display: none;
+  }
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .passes-display-grid {
+    grid-template-columns: 1fr;
+  }
+  .booking-package-select {
+    grid-template-columns: 1fr;
+  }
+  .booking-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
+
