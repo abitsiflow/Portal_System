@@ -22,7 +22,8 @@ const destinationsData = [
       name: "Fort Santiago & Intramuros",
       tag: "Spanish Stone Fortress & Citadel",
       image:
-        "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1736122094944-da4deea774ab?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+      fee: 75,
       desc: "16th-century Spanish stone fortress, Jose Rizal Shrine, and historic cobblestone lanes.",
       fee: 75,
       hours: "8:00 AM – 9:00 PM",
@@ -31,7 +32,7 @@ const destinationsData = [
       name: "The Manila Hotel",
       tag: "5-Star Luxury Heritage",
       image:
-        "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+        "https://www.bambootravel.co.uk/files/img_cache/50374/1400__1509985537_Capture.JPG?1509985539",
       desc: "Historic luxury hotel opened in 1912 overlooking Manila Bay and Rizal Park.",
       rate: 6200,
       amenities: ["Bay View", "Outdoor Pool", "Spa & Gym", "Buffet Breakfast"],
@@ -75,7 +76,7 @@ const destinationsData = [
       name: "Basilica del Santo Niño & Magellan's Cross",
       tag: "Oldest Roman Catholic Church",
       image:
-        "https://images.unsplash.com/photo-1598971861713-54ad16a7e72e?auto=format&fit=crop&w=800&q=80",
+        "https://upload.wikimedia.org/wikipedia/commons/a/a3/Santo_Nino_Basilica.jpg",
       desc: "Founded in 1565, housing the revered Santo Niño image and neighboring Magellan's Cross.",
       fee: 0,
       hours: "6:00 AM – 7:00 PM",
@@ -104,7 +105,7 @@ const destinationsData = [
       name: "Mines View Park & The Mansion",
       tag: "Highland Pine Mountain Overlook",
       image:
-        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+        "https://upload.wikimedia.org/wikipedia/commons/d/da/Mines_View_Park%2C_Baguio_City_Philippines.jpg",
       desc: "Panoramic mountain view of the Cordillera gold mines and presidential summer palace.",
       fee: 10,
       hours: "6:00 AM – 6:00 PM",
@@ -162,7 +163,7 @@ const destinationsData = [
       name: "Taal Volcano Ridge & Sky Ranch",
       tag: "Highland Volcano Overlook",
       image:
-        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+        "https://res.klook.com/image/upload/fl_lossy.progressive%2Cq_85/c_fill%2Cw_1000/v1619064676/blog/jftd5xa1wvu1e6eloadc.jpg",
       desc: "Spectacular ridge view of Taal Volcano inside Taal Lake with cool highland climate.",
       fee: 100,
       hours: "8:00 AM – 8:00 PM",
