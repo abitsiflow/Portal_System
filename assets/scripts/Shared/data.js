@@ -14,7 +14,7 @@ const destinationsData = [
       name: "Fort Santiago & Intramuros",
       tag: "Spanish Stone Fortress & Citadel",
       image:
-        "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=800&q=80",
+        "https://upload.wikimedia.org/wikipedia/commons/7/7d/Fort_Santiago%2C_Intramuros.JPG?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original",
       desc: "16th-century Spanish stone fortress, Jose Rizal Shrine, and historic cobblestone lanes.",
       fee: 75,
       hours: "8:00 AM – 9:00 PM",
@@ -38,7 +38,7 @@ const destinationsData = [
       name: "White Beach (Station 1) & Willy's Rock",
       tag: "World-Class White Sand",
       image:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+        "https://primer.com.ph/travel/wp-content/uploads/sites/6/2025/10/Feature-Image-Template-1-2.png",
       desc: "Powder-fine white sand, crystal turquoise waters, and Willy's Rock volcanic grotto.",
       fee: 0,
       hours: "Open 24/7",
@@ -67,7 +67,7 @@ const destinationsData = [
       name: "Basilica del Santo Niño & Magellan's Cross",
       tag: "Oldest Roman Catholic Church",
       image:
-        "https://images.unsplash.com/photo-1598971861713-54ad16a7e72e?auto=format&fit=crop&w=800&q=80",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfcg-fgl3cvGqrk2gfyaIStpnBsmFL1qYyytAYJkK2vi4fHJuJOcD8X6c&s=10",
       desc: "Founded in 1565, housing the revered Santo Niño image and neighboring Magellan's Cross.",
       fee: 0,
       hours: "6:00 AM – 7:00 PM",
@@ -96,7 +96,7 @@ const destinationsData = [
       name: "Mines View Park & The Mansion",
       tag: "Highland Pine Mountain Overlook",
       image:
-        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+        "https://baguiotransient.net/_next/image?url=%2Fminesview.webp&w=1920&q=75",
       desc: "Panoramic mountain view of the Cordillera gold mines and presidential summer palace.",
       fee: 10,
       hours: "6:00 AM – 6:00 PM",
@@ -125,7 +125,7 @@ const destinationsData = [
       name: "Big Lagoon & Bacuit Bay",
       tag: "Limestone Karst Sea Lagoon",
       image:
-        "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=800&q=80",
+        "https://www.journeyera.com/wp-content/uploads/2019/05/big-lagoon-el-nido-palawan-5.jpg",
       desc: "Dramatic soaring limestone cliffs surrounding emerald waters ideal for clear kayaking.",
       fee: 200,
       hours: "7:00 AM – 4:00 PM",
@@ -154,7 +154,7 @@ const destinationsData = [
       name: "Taal Volcano Ridge & Sky Ranch",
       tag: "Highland Volcano Overlook",
       image:
-        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNdWgcQ0_RRbdXZ-reB22dBKQeAECD-1AnjreNa7VdsT2dNlt5QGnSPOTr&s=10",
       desc: "Spectacular ridge view of Taal Volcano inside Taal Lake with cool highland climate.",
       fee: 100,
       hours: "8:00 AM – 8:00 PM",
@@ -183,7 +183,7 @@ const destinationsData = [
       name: "Alona Beach & Coral Sanctuary",
       tag: "White Sand Beach & Marine Sanctuary",
       image:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+        "https://img.cnt.traveloka.com/tvlk/blog/2022/09/shutterstock_1672848061.jpg",
       desc: "1.5 km of soft white sand and coral reefs. Jump-off point for Balicasag sea turtles.",
       fee: 0,
       hours: "Open 24/7",
@@ -212,7 +212,7 @@ const destinationsData = [
       name: "Calle Crisologo & Heritage Village",
       tag: "UNESCO World Heritage Street",
       image:
-        "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/1d/55/bd/calle-crisologo-vigan.jpg?w=1200&h=-1&s=1",
       desc: "Spanish colonial cobblestone thoroughfare with ancestral stone houses and horse kalesas.",
       fee: 0,
       hours: "Open 24/7",
@@ -241,7 +241,7 @@ const destinationsData = [
       name: "Cloud 9 Surfing Boardwalk & Tower",
       tag: "Surfing Capital Boardwalk & Reef",
       image:
-        "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=800&q=80",
+        "https://siargaohotels.ph/wp-content/uploads/2026/08/Cloud-9-Siargao-Island-Philippines-768x512.jpeg",
       desc: "Famous 3-story wooden viewing pier watching world-championship Pacific barrel waves.",
       fee: 100,
       hours: "5:00 AM – 6:30 PM",
@@ -270,7 +270,7 @@ const destinationsData = [
       name: "Cagsawa Ruins & Mayon Volcano",
       tag: "Perfect Cone Volcano & Historic Belfry",
       image:
-        "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80",
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/8c/40/87/cagsawa-ruins-park.jpg?w=1200&h=1200&s=1",
       desc: "Surviving 1814 belfry ruins with Mayon Volcano perfect cone in the background.",
       fee: 20,
       hours: "6:00 AM – 6:00 PM",
