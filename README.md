@@ -1,1 +1,1 @@
-This branch is for only pulling only before pushing to main.
+This branch is for pulling only before pushing to main.
