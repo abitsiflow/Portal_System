@@ -14,7 +14,7 @@ const destinationsData = [
       name: "Fort Santiago & Intramuros",
       tag: "Spanish Stone Fortress & Citadel",
       image:
-        "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1736122094944-da4deea774ab?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
       desc: "16th-century Spanish stone fortress, Jose Rizal Shrine, and historic cobblestone lanes.",
       fee: 75,
       hours: "8:00 AM – 9:00 PM",
@@ -38,7 +38,7 @@ const destinationsData = [
       name: "White Beach (Station 1) & Willy's Rock",
       tag: "World-Class White Sand",
       image:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+        "https://imgs.search.brave.com/9VEPErgpPaNZ99U6T2G4FHCUS6Pw_ukwzXKdEaq2U-U/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/bmV3d2F2ZWRpdmVy/c2JvcmFjYXkuY29t/L2FwaS9tZWRpYS9m/aWxlL3dpbGx5c3Jv/Y2sud2VicD9mbT13/ZWJwJnc9MTIwMA",
       desc: "Powder-fine white sand, crystal turquoise waters, and Willy's Rock volcanic grotto.",
       fee: 0,
       hours: "Open 24/7",
@@ -47,7 +47,7 @@ const destinationsData = [
       name: "Discovery Shores Boracay",
       tag: "5-Star Beachfront Luxury",
       image:
-        "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/688928868.jpg?k=9f5c8118d0c3ffa45f51c76bad903ce720e22fe4c412b8386689ee1931d0b64d&o=",
       desc: "Premier beachfront resort featuring infinity pool and Terra Wellness Spa.",
       rate: 13500,
       amenities: [
@@ -67,7 +67,7 @@ const destinationsData = [
       name: "Basilica del Santo Niño & Magellan's Cross",
       tag: "Oldest Roman Catholic Church",
       image:
-        "https://images.unsplash.com/photo-1598971861713-54ad16a7e72e?auto=format&fit=crop&w=800&q=80",
+        "https://www.shutterstock.com/image-photo/cebuphilippines-march-24-2016-magellans-260nw-753774622.jpg",
       desc: "Founded in 1565, housing the revered Santo Niño image and neighboring Magellan's Cross.",
       fee: 0,
       hours: "6:00 AM – 7:00 PM",
@@ -76,7 +76,7 @@ const destinationsData = [
       name: "Radisson Blu Hotel Cebu",
       tag: "5-Star Urban Luxury",
       image:
-        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+        "https://media.radissonhotels.net/image/radisson-blu-hotel-cebu/exterior/16256-116570-f64875903_3XL.jpg",
       desc: "Upscale hotel near Cebu port with resort-style lagoon pool and Feria buffet.",
       rate: 5400,
       amenities: [
@@ -96,7 +96,7 @@ const destinationsData = [
       name: "Mines View Park & The Mansion",
       tag: "Highland Pine Mountain Overlook",
       image:
-        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+        "https://baguiotransient.net/_next/image?url=%2Fminesview.webp&w=1920&q=75",
       desc: "Panoramic mountain view of the Cordillera gold mines and presidential summer palace.",
       fee: 10,
       hours: "6:00 AM – 6:00 PM",
@@ -105,7 +105,7 @@ const destinationsData = [
       name: "Grand Sierra Pines Baguio",
       tag: "4-Star Eco Mountain Retreat",
       image:
-        "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80",
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/f1/b4/e8/sierra-pines-baguio.jpg?w=900&h=500&s=1",
       desc: "Eco-friendly boutique resort surrounded by pine trees with private forest balconies.",
       rate: 4800,
       amenities: [
@@ -125,7 +125,7 @@ const destinationsData = [
       name: "Big Lagoon & Bacuit Bay",
       tag: "Limestone Karst Sea Lagoon",
       image:
-        "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=800&q=80",
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/3c/4b/7a/fb-img-1541228626751.jpg?w=1200&h=1200&s=1",
       desc: "Dramatic soaring limestone cliffs surrounding emerald waters ideal for clear kayaking.",
       fee: 200,
       hours: "7:00 AM – 4:00 PM",
@@ -134,7 +134,7 @@ const destinationsData = [
       name: "El Nido Resorts Miniloc Island",
       tag: "5-Star Overwater Eco Lodge",
       image:
-        "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+        "https://images.trvl-media.com/lodging/5000000/4340000/4333700/4333673/d1395c44.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill",
       desc: "Cottages built on stilts overwater nestled against sheer karst cliffs.",
       rate: 24000,
       amenities: [
@@ -154,7 +154,7 @@ const destinationsData = [
       name: "Taal Volcano Ridge & Sky Ranch",
       tag: "Highland Volcano Overlook",
       image:
-        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+        "https://img.cnt.traveloka.com/tvlk/blog/2024/10/shutterstock_1898972338-1.jpg",
       desc: "Spectacular ridge view of Taal Volcano inside Taal Lake with cool highland climate.",
       fee: 100,
       hours: "8:00 AM – 8:00 PM",
@@ -163,7 +163,7 @@ const destinationsData = [
       name: "Taal Vista Hotel Tagaytay",
       tag: "4-Star Historic View Hotel",
       image:
-        "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80",
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0a/a2/f4/9f/facade-front.jpg?w=800&h=500&s=1",
       desc: "Classic Tudor-style hotel established in 1939 with panoramic ridge viewing gardens.",
       rate: 5100,
       amenities: [
@@ -183,7 +183,7 @@ const destinationsData = [
       name: "Alona Beach & Coral Sanctuary",
       tag: "White Sand Beach & Marine Sanctuary",
       image:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+        "https://img.cnt.traveloka.com/tvlk/blog/2022/09/shutterstock_1672848061.jpg",
       desc: "1.5 km of soft white sand and coral reefs. Jump-off point for Balicasag sea turtles.",
       fee: 0,
       hours: "Open 24/7",
@@ -192,7 +192,7 @@ const destinationsData = [
       name: "Henann Resort Alona Beach",
       tag: "5-Star Premier Beach Resort",
       image:
-        "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=800&q=80",
+        "https://www.henann.com/bohol/henannalonabeach/uploads/slider/720/overview1.jpg",
       desc: "Massive beachfront resort with 3 lagoon swimming pools directly along the sand.",
       rate: 7200,
       amenities: [
@@ -212,7 +212,7 @@ const destinationsData = [
       name: "Calle Crisologo & Heritage Village",
       tag: "UNESCO World Heritage Street",
       image:
-        "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-Pl8W0SAuBmq8bz63ktONQxC0kLJ75YTYTtbWg3jtKQ&s=10",
       desc: "Spanish colonial cobblestone thoroughfare with ancestral stone houses and horse kalesas.",
       fee: 0,
       hours: "Open 24/7",
@@ -241,7 +241,7 @@ const destinationsData = [
       name: "Cloud 9 Surfing Boardwalk & Tower",
       tag: "Surfing Capital Boardwalk & Reef",
       image:
-        "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=800&q=80",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm2BYZh7Nmt5T65znwZ54OV5mTtMOv4C18qp-Gm3SuiA&s=10",
       desc: "Famous 3-story wooden viewing pier watching world-championship Pacific barrel waves.",
       fee: 100,
       hours: "5:00 AM – 6:30 PM",
@@ -250,7 +250,7 @@ const destinationsData = [
       name: "Siargao Bleu Resort & Spa",
       tag: "4-Star Luxury Beach Resort",
       image:
-        "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80",
+        "https://images.trvl-media.com/lodging/14000000/13210000/13202900/13202830/cda9ee9d.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill",
       desc: "Oceanfront villas surrounding a 1,600 sqm lagoon pool in General Luna.",
       rate: 6800,
       amenities: [
@@ -270,7 +270,7 @@ const destinationsData = [
       name: "Cagsawa Ruins & Mayon Volcano",
       tag: "Perfect Cone Volcano & Historic Belfry",
       image:
-        "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTahlKL8V7zsQlEABLTFyeGDjb6UvB9Eh_gGLmnMTYEHA&s=10",
       desc: "Surviving 1814 belfry ruins with Mayon Volcano perfect cone in the background.",
       fee: 20,
       hours: "6:00 AM – 6:00 PM",
@@ -279,7 +279,7 @@ const destinationsData = [
       name: "The Oriental Hotel Legazpi",
       tag: "4-Star Volcano View Hilltop",
       image:
-        "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT49qBfmKF3G3BMEnFUCY5756HaWBDJ9mG_nfXwXKGvLQ5E5Qh4FNYU6ZY&s=10",
       desc: "Perched atop Taysan Hill with infinity pool directly reflecting Mount Mayon.",
       rate: 4600,
       amenities: [
