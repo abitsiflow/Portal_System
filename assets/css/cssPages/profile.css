@@ -36,6 +36,19 @@
   margin: 16px 0;
 }
 
-@media (max-width: 840px) {
-  .profile-layout, .profile-fields { grid-template-columns: 1fr; }
+@media (max-width: 992px) {
+  .profile-layout { 
+    grid-template-columns: 1fr; 
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .profile-fields { 
+    grid-template-columns: 1fr; 
+  }
+  .profile-head {
+    flex-direction: column;
+    text-align: center;
+  }
 }

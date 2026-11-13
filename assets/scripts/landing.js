@@ -132,3 +132,18 @@ function closeAuthPromptModal(e) {
   if (modal) modal.classList.add("hidden");
 }
 
+/* ─── Mobile Navbar Menu Toggle ─── */
+function toggleLandingMenu() {
+  const menu = document.getElementById("landingMobileMenu");
+  if (menu) {
+    menu.classList.toggle("open");
+  }
+}
+
+function closeLandingMenu() {
+  const menu = document.getElementById("landingMobileMenu");
+  if (menu) {
+    menu.classList.remove("open");
+  }
+}
+

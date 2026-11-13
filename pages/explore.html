@@ -22,17 +22,26 @@
         <main class="main-content" id="viewContainer" aria-live="polite">
           <div class="section-head" style="margin-bottom: 16px">
             <div>
-              <p class="eyebrow">Explore Destinations &amp; Verified Stays</p>
-              <h2>Find Your Perfect Match</h2>
-              <p>Discover attractions and hotels positioned next to each other across the Philippines.</p>
+              <p class="eyebrow">Tourist Destinations</p>
+              <h2>Explore Tourist Attractions</h2>
+              <p>
+                Discover historical landmarks, pristine beaches, natural
+                wonders, and cultural spots across the Philippines.
+              </p>
             </div>
           </div>
 
           <div class="explore-controls-bar">
             <div class="explore-filter-grid">
               <div class="explore-field">
-                <label for="exploreSearchInput">Search Destinations, Spots, or Hotels</label>
-                <input type="text" id="exploreSearchInput" placeholder="Try 'Boracay', 'Calle Crisologo', 'Intramuros'..." />
+                <label for="exploreSearchInput"
+                  >Search Tourist Attractions</label
+                >
+                <input
+                  type="text"
+                  id="exploreSearchInput"
+                  placeholder="Try 'Intramuros', 'Boracay', 'Mayon'..."
+                />
               </div>
 
               <div class="explore-field">
@@ -49,17 +58,36 @@
 
               <div class="explore-field">
                 <label>Filter Reset</label>
-                <button type="button" class="btn btn-secondary" style="width: 100%" id="clearFiltersBtn">Clear Filters</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  style="width: 100%"
+                  id="clearFiltersBtn"
+                >
+                  Clear Filters
+                </button>
               </div>
             </div>
 
             <div class="explore-type-pills" id="explorePills">
-              <button type="button" class="type-pill active" data-filter="all">All (10)</button>
-              <button type="button" class="type-pill" data-filter="heritage">Heritage &amp; History</button>
-              <button type="button" class="type-pill" data-filter="beaches">Beaches &amp; Islands</button>
-              <button type="button" class="type-pill" data-filter="mountain">Mountain Escapes</button>
-              <button type="button" class="type-pill" data-filter="urban">Urban &amp; Culture</button>
-              <button type="button" class="type-pill" data-filter="nature">Nature &amp; Volcanoes</button>
+              <button type="button" class="type-pill active" data-filter="all">
+                All
+              </button>
+              <button type="button" class="type-pill" data-filter="heritage">
+                Heritage &amp; History
+              </button>
+              <button type="button" class="type-pill" data-filter="beaches">
+                Beaches &amp; Islands
+              </button>
+              <button type="button" class="type-pill" data-filter="mountain">
+                Mountain Escapes
+              </button>
+              <button type="button" class="type-pill" data-filter="urban">
+                Urban &amp; Culture
+              </button>
+              <button type="button" class="type-pill" data-filter="nature">
+                Nature &amp; Wonders
+              </button>
             </div>
           </div>
 
@@ -73,6 +101,7 @@
     <script src="../assets/scripts/Shared/data.js"></script>
     <script src="../assets/scripts/Shared/shell.js"></script>
     <script src="../assets/scripts/Shared/modals.js"></script>
+    <script src="../assets/scripts/Shared/spot-reservation.js"></script>
     <script src="../assets/scripts/scriptingPages/explore.js"></script>
   </body>
 </html>

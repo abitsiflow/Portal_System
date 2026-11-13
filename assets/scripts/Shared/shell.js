@@ -23,6 +23,13 @@ const NAV_ITEMS = [
     mobile: "Explore",
   },
   {
+    page: "hotels",
+    href: "hotels.html",
+    icon: "hotel",
+    label: "Hotels",
+    mobile: "Hotels",
+  },
+  {
     page: "planner",
     href: "planner.html",
     icon: "calendar-days",
@@ -61,22 +68,31 @@ const NAV_ITEMS = [
 function buildSidebarHtml(activePage) {
   const items = NAV_ITEMS.map(
     (item) => `
-      <a href="${item.href}" class="nav-item-btn ${item.page === activePage ? "active" : ""}" data-screen="${item.page}">
+      <a href="${item.href}" class="nav-item-btn ${item.page === activePage ? "active" : ""}" data-screen="${item.page}" title="${item.label}">
         <i data-lucide="${item.icon}"></i>
-        <span>${item.label}</span>
+        <span class="nav-item-label">${item.label}</span>
         ${item.badge ? `<span class="nav-item-badge" id="favCountBadge">${favoritesStore.size}</span>` : ""}
       </a>`,
   ).join("");
 
   return `
-    <aside class="sidebar">
-      <a href="home.html" class="brand-section">
-        <div class="brand-icon-wrap"><i data-lucide="compass"></i></div>
-        <div>
-          <div class="brand-title">Tourist Portal</div>
-          <div class="brand-subtitle">Travel discovery &amp; planning</div>
-        </div>
-      </a>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebarMobile()"></div>
+    <aside class="sidebar" id="appSidebar">
+      <div class="sidebar-header">
+        <a href="home.html" class="brand-section">
+          <div class="brand-icon-wrap"><i data-lucide="compass"></i></div>
+          <div class="brand-text">
+            <div class="brand-title">Tourist Portal</div>
+            <div class="brand-subtitle">Travel discovery &amp; planning</div>
+          </div>
+        </a>
+        <button type="button" class="sidebar-collapse-btn" id="sidebarCollapseBtn" onclick="toggleSidebarDesktop()" aria-label="Collapse sidebar" title="Minimize sidebar">
+          <i data-lucide="menu"></i>
+        </button>
+        <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" onclick="closeSidebarMobile()" aria-label="Close sidebar" title="Close sidebar">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
 
       <nav class="sidebar-nav" aria-label="Primary Portal Navigation">${items}</nav>
 
@@ -85,9 +101,9 @@ function buildSidebarHtml(activePage) {
           <strong>Digital ID: TP-PH-2026-8842</strong>
           <span>Verified Traveler Status &middot; Ready for gate scan</span>
         </div>
-        <a href="../public/landing-page.html" class="logout-btn" id="signOutBtn">
+        <a href="../public/landing-page.html" class="logout-btn" id="signOutBtn" title="Sign Out">
           <i data-lucide="log-out"></i>
-          <span>Sign Out</span>
+          <span class="logout-label">Sign Out</span>
         </a>
       </div>
     </aside>`;
@@ -97,8 +113,13 @@ function buildTopbarHtml() {
   return `
     <header class="topbar">
       <div class="topbar-left">
-        <span class="topbar-kicker">Tourist Portal Subsystem</span>
-        <h2 class="topbar-title">Traveler Workspace</h2>
+        <button type="button" class="sidebar-toggle-btn" id="sidebarToggleBtn" onclick="openSidebarMobile()" aria-label="Open Navigation Menu" title="Open Menu">
+          <i data-lucide="menu"></i>
+        </button>
+        <div class="topbar-title-wrap">
+          <span class="topbar-kicker">Tourist Portal Subsystem</span>
+          <h2 class="topbar-title">Traveler Workspace</h2>
+        </div>
       </div>
 
       <div class="topbar-search">
@@ -187,7 +208,44 @@ function initShell() {
     });
   }
 
+  // Restore sidebar collapsed state for desktop if saved
+  if (window.innerWidth > 992) {
+    const isCollapsed = localStorage.getItem("sidebar_collapsed") === "true";
+    if (isCollapsed) {
+      document.body.classList.add("sidebar-collapsed");
+    }
+  }
+
+  // Handle window resize cleanly
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 992) {
+      closeSidebarMobile();
+    }
+  });
+
   refreshIcons();
+}
+
+/* ─── Sidebar Toggle & Mobile Drawer Functions ─── */
+function toggleSidebarDesktop() {
+  const isCollapsed = document.body.classList.toggle("sidebar-collapsed");
+  localStorage.setItem("sidebar_collapsed", isCollapsed ? "true" : "false");
+}
+
+function openSidebarMobile() {
+  document.body.classList.add("sidebar-mobile-open");
+  const backdrop = document.getElementById("sidebarBackdrop");
+  if (backdrop) {
+    backdrop.classList.add("active");
+  }
+}
+
+function closeSidebarMobile() {
+  document.body.classList.remove("sidebar-mobile-open");
+  const backdrop = document.getElementById("sidebarBackdrop");
+  if (backdrop) {
+    backdrop.classList.remove("active");
+  }
 }
 
 /* ─── Signed-in user ─── */

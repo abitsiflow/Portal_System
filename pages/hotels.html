@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotels &middot; Tourist Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/dashboard.css" />
+    <link rel="stylesheet" href="../assets/css/cssPages/hotels.css" />
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+  </head>
+  <body data-page="hotels">
+    <!-- Sidebar, topbar, mobile nav and modals are injected by Shared/shell.js and Shared/modals.js -->
+    <div class="app-shell">
+      <div class="content-shell">
+        <main class="main-content" id="viewContainer" aria-live="polite">
+          <div class="section-head" style="margin-bottom: 16px">
+            <div>
+              <p class="eyebrow">Verified Accommodations</p>
+              <h2>Hotels &amp; Resorts</h2>
+              <p>Find premier accommodations near major tourist attractions across the Philippines and reserve directly.</p>
+            </div>
+          </div>
+
+          <!-- Controls Bar -->
+          <div class="hotel-controls-bar">
+            <div class="hotel-filter-grid">
+              <div class="hotel-field">
+                <label for="hotelSearchInput">Search Hotels, Resorts, or Locations</label>
+                <input type="text" id="hotelSearchInput" placeholder="Try 'Manila', 'Boracay', 'Discovery'..." />
+              </div>
+
+              <div class="hotel-field">
+                <label for="starFilter">Star Rating</label>
+                <select id="starFilter">
+                  <option value="all">All Ratings</option>
+                  <option value="5">5-Star Luxury</option>
+                  <option value="4">4-Star Premium</option>
+                  <option value="3">3-Star Standard</option>
+                </select>
+              </div>
+
+              <div class="hotel-field">
+                <label>Filter Reset</label>
+                <button type="button" class="btn btn-secondary" style="width: 100%" id="clearHotelFiltersBtn">Clear Filters</button>
+              </div>
+            </div>
+
+            <!-- Rating / Category Pills -->
+            <div class="hotel-rating-pills" id="hotelRatingPills">
+              <button type="button" class="type-pill active" data-rating="all">All Hotels</button>
+              <button type="button" class="type-pill" data-rating="5">5 Stars</button>
+              <button type="button" class="type-pill" data-rating="4">4 Stars</button>
+              <button type="button" class="type-pill" data-rating="3">3 Stars</button>
+            </div>
+          </div>
+
+          <!-- Hotels Cards Grid -->
+          <div class="hotels-cards-grid" id="hotelsCardsGrid"></div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Details Modal for Hotel -->
+    <div id="hotelDetailModal" class="modal-overlay hidden" onclick="if (event.target === this) closeHotelDetailModal();">
+      <div class="booking-modal-card" style="max-width: 680px" onclick="event.stopPropagation()">
+        <div class="modal-header-banner">
+          <div>
+            <span class="eyebrow" style="color: var(--teal-light); margin: 0">Hotel Details</span>
+            <h3 id="hotelDetailTitle">Hotel Overview</h3>
+          </div>
+          <button type="button" class="modal-close-icon" onclick="closeHotelDetailModal()">&times;</button>
+        </div>
+
+        <div class="booking-modal-body">
+          <div id="hotelDetailImageWrap" style="height: 220px; border-radius: var(--radius-md); overflow: hidden; margin-bottom: 18px; background: #eee;">
+            <img id="hotelDetailImage" src="" alt="Hotel" style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+            <div>
+              <h3 id="hotelDetailName" style="font-family: 'Fraunces', serif; font-size: 22px; color: var(--navy); margin: 0 0 4px;"></h3>
+              <p id="hotelDetailLocation" style="color: var(--muted); font-size: 13px; display: flex; align-items: center; gap: 4px; margin: 0;">
+                <i data-lucide="map-pin"></i> <span></span>
+              </p>
+            </div>
+            <div id="hotelDetailRating" class="hotel-rating-badge"></div>
+          </div>
+
+          <p id="hotelDetailDesc" style="color: var(--ink); font-size: 14px; line-height: 1.6; margin-bottom: 18px;"></p>
+
+          <div class="hotel-detail-specs" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
+            <div style="background: var(--bg-app); padding: 12px 14px; border-radius: var(--radius-md);">
+              <span style="font-size: 11px; color: var(--muted); display: block;">Price Range</span>
+              <strong id="hotelDetailPrice" style="color: var(--teal); font-size: 15px;"></strong>
+            </div>
+            <div style="background: var(--bg-app); padding: 12px 14px; border-radius: var(--radius-md);">
+              <span style="font-size: 11px; color: var(--muted); display: block;">Proximity / Nearest Spot</span>
+              <strong id="hotelDetailNearest" style="color: var(--navy); font-size: 13px;"></strong>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 24px;">
+            <h4 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 10px;">Amenities &amp; Features</h4>
+            <div id="hotelDetailAmenities" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid var(--line); padding-top: 16px;">
+            <button type="button" class="btn btn-secondary" onclick="closeHotelDetailModal()">Close</button>
+            <button type="button" class="btn btn-primary" id="hotelDetailBookBtn">
+              <i data-lucide="calendar"></i> Book Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/scripts/Shared/supabase-client.js"></script>
+    <script src="../assets/scripts/Shared/data.js"></script>
+    <script src="../assets/scripts/Shared/shell.js"></script>
+    <script src="../assets/scripts/Shared/modals.js"></script>
+    <script src="../assets/scripts/scriptingPages/hotels.js"></script>
+  </body>
+</html>
+

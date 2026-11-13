@@ -386,49 +386,24 @@
 
 /* ─── Responsive Adjustments ─── */
 @media (max-width: 1080px) {
-  .cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .metrics-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
   .planner-chat-layout {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 }
 
-@media (max-width: 840px) {
-  .sidebar {
-    display: none;
+@media (max-width: 768px) {
+  .chat-card {
+    height: 540px;
   }
-  .mobile-bottom-nav {
-    display: flex;
+  .chat-header {
+    padding: 14px 16px;
   }
-  .main-content {
-    padding: 20px 16px 80px;
+  .chat-messages-scroll {
+    padding: 16px 14px;
   }
-  .topbar {
-    padding: 0 16px;
-  }
-  .topbar-search {
-    display: none;
-  }
-  .cards-grid {
-    grid-template-columns: 1fr;
-  }
-  .passes-display-grid {
-    grid-template-columns: 1fr;
-  }
-  .booking-package-select {
-    grid-template-columns: 1fr;
-  }
-  .booking-form-grid {
-    grid-template-columns: 1fr;
-  }
-  .dashboard-hero {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+  .planner-composer-area {
+    padding: 12px 14px;
   }
 }
 

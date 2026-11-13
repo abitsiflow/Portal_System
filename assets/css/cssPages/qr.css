@@ -29,3 +29,10 @@
 .pass-ticket-footer small { color: var(--muted); }
 
 .pass-qr-area small { margin-top: 6px; color: var(--muted); text-align: center; }
+
+@media (max-width: 640px) {
+  .qr-page-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
