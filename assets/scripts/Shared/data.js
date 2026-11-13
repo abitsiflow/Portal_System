@@ -23,7 +23,7 @@ const destinationsData = [
       name: "The Manila Hotel",
       tag: "5-Star Luxury Heritage",
       image:
-        "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+        "https://www.bambootravel.co.uk/files/img_cache/50374/1400__1509985537_Capture.JPG?1509985539",
       desc: "Historic luxury hotel opened in 1912 overlooking Manila Bay and Rizal Park.",
       rate: 6200,
       amenities: ["Bay View", "Outdoor Pool", "Spa & Gym", "Buffet Breakfast"],
