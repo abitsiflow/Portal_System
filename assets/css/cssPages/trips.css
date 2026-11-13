@@ -34,3 +34,78 @@
   display: flex;
   gap: 10px;
 }
+
+.trip-card-actions {
+  flex-wrap: wrap;
+  align-items: center;
+}
+.trip-card-actions .btn[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.feedback-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(13, 43, 56, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.feedback-dialog {
+  background: #fff;
+  width: 100%;
+  max-width: 440px;
+  border-radius: 20px;
+  padding: 28px;
+  color: var(--ink);
+}
+.feedback-dialog h3 {
+  font-family: "Fraunces", Georgia, serif;
+  color: var(--navy);
+  margin: 0 0 4px;
+}
+.feedback-sub {
+  margin: 0 0 18px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.feedback-stars {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+.feedback-star {
+  background: none;
+  border: 0;
+  font-size: 34px;
+  line-height: 1;
+  cursor: pointer;
+  color: #cbd5e1;
+  transition: transform 0.1s;
+}
+.feedback-star:hover { transform: scale(1.12); }
+.feedback-star.active { color: #f5a623; }
+.feedback-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.feedback-dialog textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+  resize: vertical;
+}
+.feedback-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}

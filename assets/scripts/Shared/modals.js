@@ -934,17 +934,20 @@ async function processConfirmBooking(e) {
     }
 
     closeBookingModal();
-    showToast("Reservation saved successfully!");
+    showToast("Reservation saved. Pay the downpayment to confirm it.");
 
-    showHotelReservationQR({
-      bookingReference: data.booking_reference,
-      hotelName: item.hotel.name,
-      guestName,
-      checkInDate,
-      checkOutDate,
-      rooms,
-      paymentStatus: data.payment_status,
-    });
+    const paid = await openDownpaymentModal(data.booking_reference);
+    if (paid) {
+      showHotelReservationQR({
+        bookingReference: data.booking_reference,
+        hotelName: item.hotel.name,
+        guestName,
+        checkInDate,
+        checkOutDate,
+        rooms,
+        paymentStatus: "partial",
+      });
+    }
 
     // Let the current page refresh its own data (Trips, QR…).
     if (typeof onReservationCreated === "function") onReservationCreated();
@@ -958,7 +961,95 @@ async function processConfirmBooking(e) {
     confirmButton.textContent = "Confirm Hotel Reservation";
   }
 }
+/* ─── Downpayment (QR) payment modal ─── */
+const DOWNPAYMENT_WINDOW_SECONDS = 15 * 60;
 
+// Resolves true when the downpayment is confirmed, false when cancelled or expired.
+async function openDownpaymentModal(bookingReference) {
+  const { data: res, error } = await window.sb
+    .from("hotel_reservations")
+    .select("downpayment_amount")
+    .eq("booking_reference", bookingReference)
+    .single();
+
+  if (error || !res) {
+    showToast("Could not load the downpayment amount.");
+    return false;
+  }
+
+  document.getElementById("downpaymentModal")?.remove();
+  document.body.insertAdjacentHTML(
+    "beforeend",
+    `
+    <div id="downpaymentModal" style="position:fixed; inset:0; z-index:2000; background:rgba(13,43,56,.7); display:flex; align-items:center; justify-content:center; padding:16px;">
+      <div style="background:#fff; width:100%; max-width:400px; border-radius:20px; padding:28px; text-align:center; color:#0f172a;">
+        <h3 style="margin:0 0 4px;">Pay Downpayment</h3>
+        <p style="margin:0 0 16px; font-size:13px; color:#64748b;">Scan the QR Ph code to confirm your reservation</p>
+        <img id="dpQrImg" alt="Payment QR" style="width:180px; height:180px; margin:0 auto 12px; display:block;" />
+        <div style="font-size:22px; font-weight:700; color:#0f766e;">${formatPeso(Number(res.downpayment_amount))}</div>
+        <div style="font-size:12px; color:#64748b; margin:4px 0;">Ref: ${bookingReference}</div>
+        <div style="font-size:13px; margin:8px 0 16px;">Time left: <strong id="dpTimer">15:00</strong></div>
+        <button type="button" id="dpPayBtn" class="btn btn-primary" style="width:100%; margin-bottom:8px;">Simulate successful payment</button>
+        <button type="button" id="dpCancelBtn" class="btn btn-secondary" style="width:100%;">Cancel reservation</button>
+      </div>
+    </div>`,
+  );
+  document.body.style.overflow = "hidden";
+
+  const overlay = document.getElementById("downpaymentModal");
+  const timerEl = document.getElementById("dpTimer");
+  const payBtn = document.getElementById("dpPayBtn");
+  const cancelBtn = document.getElementById("dpCancelBtn");
+  document.getElementById("dpQrImg").src = qrImageUrl(
+    "HOTEL-DOWNPAYMENT|REF:" + bookingReference + "|AMOUNT:" + res.downpayment_amount,
+  );
+
+  return new Promise((resolve) => {
+    let remaining = DOWNPAYMENT_WINDOW_SECONDS;
+    let finished = false;
+
+    const finish = async (paid, message) => {
+      if (finished) return;
+      finished = true;
+      clearInterval(timer);
+      if (!paid) {
+        await window.sb.rpc("cancel_unpaid_hotel_reservation", {
+          p_booking_reference: bookingReference,
+        });
+      }
+      overlay.remove();
+      document.body.style.overflow = "";
+      showToast(message);
+      resolve(paid);
+    };
+
+    const timer = setInterval(() => {
+      remaining--;
+      const m = String(Math.floor(remaining / 60)).padStart(2, "0");
+      const s = String(remaining % 60).padStart(2, "0");
+      timerEl.textContent = m + ":" + s;
+      if (remaining <= 0) finish(false, "Payment time expired. Reservation cancelled.");
+    }, 1000);
+
+    payBtn.onclick = async () => {
+      payBtn.disabled = true;
+      payBtn.textContent = "Verifying payment...";
+      const { error: payError } = await window.sb.rpc("confirm_hotel_downpayment", {
+        p_booking_reference: bookingReference,
+        p_payment_method: "QR Ph",
+      });
+      if (payError) {
+        payBtn.disabled = false;
+        payBtn.textContent = "Simulate successful payment";
+        showToast(payError.message || "Payment could not be confirmed.");
+        return;
+      }
+      finish(true, "Downpayment received. Reservation confirmed!");
+    };
+
+    cancelBtn.onclick = () => finish(false, "Reservation cancelled.");
+  });
+}
 /* ─── QR pass modal ─── */
 function showHotelReservationQR(booking) {
   const modal = document.getElementById("qrPassModal");
@@ -984,7 +1075,9 @@ function showHotelReservationQR(booking) {
   if (heading) heading.textContent = "Your Hotel Reservation QR";
 
   const statusPill = passCards[1]?.querySelector(".pass-status-pill");
-  if (statusPill) statusPill.textContent = "PENDING PAYMENT";
+   if (statusPill)
+    statusPill.textContent =
+      booking.paymentStatus === "partial" ? "DOWNPAYMENT PAID" : "PENDING PAYMENT";
 
   modal.classList.remove("hidden");
   document.body.style.overflow = "hidden";
