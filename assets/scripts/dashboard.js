@@ -22,7 +22,7 @@ const destinationsData = [
       name: "Fort Santiago & Intramuros",
       tag: "Spanish Stone Fortress & Citadel",
       image:
-        "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1736122094944-da4deea774ab?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
       desc: "16th-century Spanish stone fortress, Jose Rizal Shrine, and historic cobblestone lanes.",
       fee: 75,
       hours: "8:00 AM – 9:00 PM",
@@ -46,7 +46,7 @@ const destinationsData = [
       name: "White Beach (Station 1) & Willy's Rock",
       tag: "World-Class White Sand",
       image:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+        "https://imgs.search.brave.com/9VEPErgpPaNZ99U6T2G4FHCUS6Pw_ukwzXKdEaq2U-U/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/bmV3d2F2ZWRpdmVy/c2JvcmFjYXkuY29t/L2FwaS9tZWRpYS9m/aWxlL3dpbGx5c3Jv/Y2sud2VicD9mbT13/ZWJwJnc9MTIwMA",
       desc: "Powder-fine white sand, crystal turquoise waters, and Willy's Rock volcanic grotto.",
       fee: 0,
       hours: "Open 24/7",
