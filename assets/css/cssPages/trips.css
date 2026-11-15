@@ -34,3 +34,16 @@
   display: flex;
   gap: 10px;
 }
+
+@media (max-width: 640px) {
+  .trip-card {
+    padding: 16px 18px;
+  }
+  .trip-card-actions {
+    flex-direction: column;
+  }
+  .trip-card-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+}

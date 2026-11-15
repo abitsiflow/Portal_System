@@ -13,7 +13,7 @@ const MODALS_HTML = `
         <!-- HEADER -->
         <div class="modal-header-banner">
           <div>
-            <span class="eyebrow" style="color: var(--teal-light); margin: 0">
+            <span class="eyebrow" id="bookingModalEyebrow" style="color: var(--teal-light); margin: 0">
               Hotel Reservation
             </span>
             <h3 id="bookingModalTitle">Book Hotel</h3>
@@ -57,7 +57,7 @@ const MODALS_HTML = `
           </div>
 
           <!-- RESERVATION TYPE -->
-          <div>
+          <div id="reservationTypeSection">
             <label
               style="
                 font-weight: 700;
@@ -129,7 +129,7 @@ const MODALS_HTML = `
                   id="bookGuestContact"
                   placeholder="09XXXXXXXXX"
                   required
-                  max="11"
+                  
                 />
               </div>
 
@@ -336,7 +336,7 @@ const MODALS_HTML = `
         </div>
 
         <div class="booking-modal-body">
-          <p class="subtle" style="margin-top: -6px">
+          <p class="subtle" id="qrPassDescription" style="margin-top: -6px">
             Present these official digital passes on your phone screen or
             printed paper at the attraction entrance gate and hotel reception
             desk.
@@ -617,6 +617,7 @@ function initModals() {
 const bookingState = {
   target: null,
   packageType: "hotel_only", // 'hotel_only' | 'spot_only'
+  bookingMode: "both", // 'hotel' | 'spot' | 'both'
 };
 
 let roomLines = [];
@@ -712,24 +713,122 @@ function renderRoomSelections() {
 
 /* ─── Open / close booking modal ─── */
 function openBookingModal(pairIndex, defaultPackage = "hotel_only") {
-  const item = destinationsData[pairIndex];
-  if (!item) {
-    showToast("Destination not found.");
+  let item = null;
+
+  // Support passing either an index into destinationsData OR a direct hotel/destination object
+  if (typeof pairIndex === "number") {
+    item = destinationsData[pairIndex];
+  } else if (typeof pairIndex === "string" && !isNaN(Number(pairIndex))) {
+    item = destinationsData[Number(pairIndex)];
+  } else if (typeof pairIndex === "object" && pairIndex !== null) {
+    if (pairIndex.hotel) {
+      item = pairIndex;
+    } else {
+      // It's a raw hotel record from Supabase
+      item = {
+        id: pairIndex.id || "hotel-" + Date.now(),
+        location:
+          [pairIndex.city, pairIndex.province].filter(Boolean).join(", ") ||
+          pairIndex.location ||
+          "Philippines",
+        distance: pairIndex.nearest_spot
+          ? `Near ${pairIndex.nearest_spot}`
+          : "Central Location",
+        spot: {
+          name: pairIndex.nearest_spot || "Nearby Tourist Destination",
+          tag: "Verified Spot",
+          image: pairIndex.image_url || "",
+          fee: 0,
+          hours: "Open Daily",
+        },
+        hotel: {
+          id: pairIndex.id,
+          name: pairIndex.name,
+          tag: pairIndex.star_rating
+            ? `${pairIndex.star_rating}-Star Hotel`
+            : "Verified Stay",
+          image: pairIndex.image_url || "",
+          desc: pairIndex.description || "",
+          rate: pairIndex.price_min || pairIndex.rate || 3500,
+          amenities: Array.isArray(pairIndex.amenities)
+            ? pairIndex.amenities
+            : ["Free Wi-Fi", "Air Conditioning", "24/7 Front Desk"],
+        },
+      };
+    }
+  }
+
+  if (!item || !item.hotel) {
+    showToast("Hotel information not found.");
     return;
   }
+
+  bookingState.target = item;
+
+  /* -- Determine booking mode -- */
+  let mode = "both";
+  if (defaultPackage === "spot_only") {
+    mode = "spot";
+  } else if (
+    typeof pairIndex === "object" &&
+    pairIndex !== null &&
+    !pairIndex.hotel
+  ) {
+    // Raw hotel object passed directly (from hotels page)
+    mode = "hotel";
+  } else if (defaultPackage === "hotel_only") {
+    const hasRealSpot =
+      item.spot &&
+      item.spot.name &&
+      item.spot.name !== "Nearby Tourist Destination";
+    if (!hasRealSpot) mode = "hotel";
+  }
+
+  bookingState.bookingMode = mode;
 
   // The planner used to pass 'combined', which the modal has no UI for.
   if (defaultPackage !== "spot_only") defaultPackage = "hotel_only";
 
-  bookingState.target = item;
-
   const modal = document.getElementById("bookingModal");
   if (!modal) return;
 
+  /* -- Update header text based on mode -- */
+  const eyebrow = document.getElementById("bookingModalEyebrow");
+  if (eyebrow) {
+    eyebrow.textContent =
+      mode === "hotel"
+        ? "Hotel Reservation"
+        : mode === "spot"
+          ? "Attraction Pass"
+          : "Travel Reservation";
+  }
+
   document.getElementById("bookingModalTitle").textContent =
-    `Book Hotel · ${item.hotel.name}`;
+    mode === "spot"
+      ? `Book Attraction · ${item.spot?.name || "Attraction"}`
+      : `Book Hotel · ${item.hotel.name}`;
+
+  /* -- Show/hide reservation type selector -- */
+  const typeSection = document.getElementById("reservationTypeSection");
+  if (typeSection) {
+    if (mode === "both") {
+      typeSection.style.display = "";
+      typeSection
+        .querySelectorAll(".package-choice")
+        .forEach((el) => (el.style.display = ""));
+    } else {
+      typeSection.style.display = "none";
+    }
+  }
+
+  /* -- Hotel info box: hide for spot-only -- */
   document.getElementById("modalTargetHotelName").textContent = item.hotel.name;
-  document.getElementById("modalTargetDistance").textContent = item.distance;
+  document.getElementById("modalTargetDistance").textContent =
+    item.distance || "Central Area";
+  const hotelInfoBox = document.getElementById(
+    "modalTargetHotelName",
+  )?.parentElement;
+  if (hotelInfoBox) hotelInfoBox.style.display = mode === "spot" ? "none" : "";
 
   roomLines = [];
   nextRoomId = 1;
@@ -761,6 +860,11 @@ function closeBookingModal() {
 }
 
 function selectBookingPackage(type) {
+  // Enforce mode restrictions — prevent switching to an unavailable type
+  const mode = bookingState.bookingMode || "both";
+  if (mode === "hotel" && type !== "hotel_only") type = "hotel_only";
+  if (mode === "spot" && type !== "spot_only") type = "spot_only";
+
   bookingState.packageType = type;
 
   document.querySelectorAll(".package-choice").forEach((card) => {
@@ -788,7 +892,7 @@ function selectBookingPackage(type) {
 
   document.getElementById("confirmBookingBtn").textContent = isHotel
     ? "Confirm Hotel Reservation"
-    : "Attraction Reservation";
+    : "Confirm Attraction Reservation";
 
   updateBookingSummary();
 }
@@ -955,7 +1059,10 @@ async function processConfirmBooking(e) {
     );
   } finally {
     confirmButton.disabled = false;
-    confirmButton.textContent = "Confirm Hotel Reservation";
+    confirmButton.textContent =
+      bookingState.packageType === "hotel_only"
+        ? "Confirm Hotel Reservation"
+        : "Confirm Attraction Reservation";
   }
 }
 
@@ -983,6 +1090,11 @@ function showHotelReservationQR(booking) {
   const heading = modal.querySelector(".modal-header-banner h3");
   if (heading) heading.textContent = "Your Hotel Reservation QR";
 
+  const desc = document.getElementById("qrPassDescription");
+  if (desc)
+    desc.textContent =
+      "Present this official digital pass on your phone screen or printed paper at the hotel reception desk.";
+
   const statusPill = passCards[1]?.querySelector(".pass-status-pill");
   if (statusPill) statusPill.textContent = "PENDING PAYMENT";
 
@@ -1007,6 +1119,11 @@ function showGeneratedDualPass(booking) {
 
   const heading = modal.querySelector(".modal-header-banner h3");
   if (heading) heading.textContent = "Your Digital Travel Passes";
+
+  const desc = document.getElementById("qrPassDescription");
+  if (desc)
+    desc.textContent =
+      "Present these official digital passes on your phone screen or printed paper at the attraction entrance gate and hotel reception desk.";
 
   document.getElementById("passSpotName").textContent = item.spot.name;
   document.getElementById("passSpotQrImg").src = qrImageUrl(
