@@ -19,7 +19,7 @@ const NAV_ITEMS = [
     page: "explore",
     href: "explore.html",
     icon: "map",
-    label: "Explore",
+    label: "Tourist Spots",
     mobile: "Explore",
   },
   {
