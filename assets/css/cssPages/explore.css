@@ -15,6 +15,7 @@
   gap: 14px;
   margin-bottom: 18px;
 }
+
 .explore-type-pills {
   display: flex;
   align-items: center;
@@ -45,6 +46,242 @@
   color: #ffffff !important;
 }
 
+@media (max-width: 992px) {
+  .explore-controls-bar {
+    padding: 18px 20px;
+  }
+  .explore-filter-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .explore-controls-bar {
+    padding: 16px;
+  }
+  .explore-filter-grid {
+    grid-template-columns: 1fr;
+  }
+  .explore-type-pills {
+    gap: 6px;
+  }
+  .type-pill {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
+/* =========================================================
+   EXPLORE DATABASE CARDS (TOURIST SPOTS ONLY)
+========================================================= */
+
+#exploreCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+}
+
+.explore-record-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.explore-record-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--line-strong);
+}
+
+.explore-card-image {
+  height: 240px;
+  position: relative;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+.explore-card-image > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.explore-record-card:hover .explore-card-image > img {
+  transform: scale(1.04);
+}
+
+.explore-category {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  color: var(--navy);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+  letter-spacing: 0.02em;
+}
+
+.explore-card-image .fav-toggle-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.explore-card-image .fav-toggle-btn:hover {
+  background: #ffffff;
+  color: var(--coral);
+}
+
+.explore-card-image .fav-toggle-btn.favorited {
+  background: #ffffff;
+  color: var(--coral);
+}
+
+.explore-card-content {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.explore-card-heading h3 {
+  font-family: "Fraunces", serif;
+  font-size: 21px;
+  line-height: 1.35;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+
+.explore-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 12.5px;
+  margin: 0 0 14px;
+}
+
+.explore-location svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--teal);
+}
+
+.explore-description {
+  color: var(--ink);
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin: 0 0 18px;
+  flex: 1;
+}
+
+.explore-spot-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.explore-spot-details > div {
+  background: var(--bg-app);
+  border-radius: 10px;
+  padding: 10px 14px;
+  min-width: 0;
+}
+
+.explore-spot-details span {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+
+.explore-spot-details strong {
+  display: block;
+  font-size: 12.5px;
+  color: var(--navy);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.explore-card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.explore-image-fallback {
+  width: 100%;
+  height: 100%;
+  background: #eeeeee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+  padding: 10px;
+}
+
+.explore-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px 20px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.explore-message-error {
+  color: #b42318;
+}
+
 @media (max-width: 840px) {
-  .explore-filter-grid { grid-template-columns: 1fr; }
+  #exploreCardsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .explore-card-image {
+    height: 200px;
+  }
+
+  .explore-card-content {
+    padding: 16px;
+  }
+
+  .explore-spot-details {
+    grid-template-columns: 1fr;
+  }
 }
