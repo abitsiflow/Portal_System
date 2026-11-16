@@ -53,7 +53,7 @@ async function renderQrPass() {
 
         <div class="pass-ticket-footer">
           <small>Keep this QR code for hotel reservation verification.</small>
-          <button type="button" class="btn btn-primary" onclick="window.print()">Print QR Pass</button>
+          <button type="button" class="btn btn-primary" onclick="window.print()">Download QR Pass</button>
         </div>
       </div>
     </div>`;

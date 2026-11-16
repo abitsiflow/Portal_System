@@ -82,7 +82,7 @@ function buildSidebarHtml(activePage) {
         <a href="home.html" class="brand-section">
           <div class="brand-icon-wrap"><i data-lucide="compass"></i></div>
           <div class="brand-text">
-            <div class="brand-title">Tourist Portal</div>
+            <div class="brand-title">TouristEase</div>
             <div class="brand-subtitle">Travel discovery &amp; planning</div>
           </div>
         </a>
