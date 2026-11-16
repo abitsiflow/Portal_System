@@ -175,37 +175,46 @@ const MODALS_HTML = `
             </button>
           </div>
 
-          <!-- HOTEL DATES -->
-          <div id="hotelDateSelection">
-            <strong
-              style="display: block; margin-bottom: 12px; color: var(--navy)"
-            >
-              Reservation Dates
-            </strong>
+         <!-- HOTEL DATES -->
+          <div id="hotelDateSelection" class="date-range">
+            <div class="date-range-head">
+              <strong>Reservation dates</strong>
+              <span class="date-nights-chip" id="nightsChip" hidden></span>
+            </div>
 
-            <div class="booking-form-grid">
-              <div class="explore-field">
-                <label for="bookCheckIn">Check-in Date</label>
-                <input
-                  type="date"
-                  id="bookCheckIn"
-                  onchange="updateBookingSummary()"
-                  required
-                />
-                <small>Check-in time: 2:00 PM</small>
+            <div class="date-range-grid">
+              <!-- Check-in -->
+              <div class="date-field" id="checkInField">
+                <label for="bookCheckIn">Check-in</label>
+                <div class="date-input-wrap">
+                  <svg class="date-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+                  </svg>
+                  <input type="date" id="bookCheckIn" required aria-describedby="dateError" />
+                </div>
+                <small>From 2:00 PM</small>
               </div>
 
-              <div class="explore-field">
-                <label for="bookCheckOut">Check-out Date</label>
-                <input
-                  type="date"
-                  id="bookCheckOut"
-                  onchange="updateBookingSummary()"
-                  required
-                />
-                <small>Check-out time: 12:00 PM</small>
+              <div class="date-range-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M13 6l6 6-6 6"/>
+                </svg>
+              </div>
+
+              <!-- Check-out -->
+              <div class="date-field" id="checkOutField">
+                <label for="bookCheckOut">Check-out</label>
+                <div class="date-input-wrap">
+                  <svg class="date-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+                  </svg>
+                  <input type="date" id="bookCheckOut" required disabled aria-describedby="dateError" />
+                </div>
+                <small>Until 12:00 PM</small>
               </div>
             </div>
+
+            <p class="date-error" id="dateError" role="alert" hidden></p>
           </div>
 
           <!-- ATTRACTION DATE -->
@@ -846,11 +855,23 @@ function openBookingModal(pairIndex, defaultPackage = "hotel_only") {
   document.getElementById("bookCheckIn").value = fmt(checkIn);
   document.getElementById("bookCheckOut").value = fmt(checkOut);
   document.getElementById("bookVisitDate").value = fmt(checkIn);
+  setMinimumBookingDates();
 
   selectBookingPackage(defaultPackage);
 
   modal.classList.remove("hidden");
   document.body.style.overflow = "hidden";
+}
+
+function setMinimumBookingDates() {
+  const today = new Date();
+
+  const minDate =
+    `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+
+  document.getElementById("bookCheckIn").min = minDate;
+  document.getElementById("bookCheckOut").min = minDate;
+  document.getElementById("bookVisitDate").min = minDate;
 }
 
 function closeBookingModal() {
@@ -990,6 +1011,16 @@ async function processConfirmBooking(e) {
 
   if (!guestName || !guestEmail || !contactNumber || !address) {
     showToast("Please complete all guest information.");
+    return;
+  }
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  const selectedCheckDates = new Date(`${checkInDate}T00:00:00`);
+
+  if(selectBookingPackage < today){
+    showToast("You cannot book a past check-in date.")
     return;
   }
 
