@@ -12,6 +12,7 @@
     />
     <link rel="stylesheet" href="../assets/css/style.css" />
     <link rel="stylesheet" href="../assets/css/landing.css" />
+    <link rel="stylesheet" href="../assets/css/register.css">
   </head>
   <body>
     <!-- ─── Top Guest Navigation Bar ─── -->
@@ -465,7 +466,55 @@
             <ul>
               <li><a href="login.html">Sign In</a></li>
               <li><a href="register.html">Create Account</a></li>
-              <li><a href="register.html">Terms of Service</a></li>
+              <li>
+                <a href="#" onclick="showTermsModal(event)">Terms of Service</a>
+              
+                  <!-- Terms Modal -->
+                  <div
+                    id="termsModal"
+                    class="modal-overlay hidden"
+                    onclick="closeTermsModal(event)"
+                  >
+                    <div class="modal-card" onclick="event.stopPropagation()">
+                      <div class="modal-header">
+                        <h3>Terms of Service &amp; Privacy Policy</h3>
+                        <button type="button" class="modal-close" onclick="closeTermsModal()">
+                          &times;
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p>
+                          Welcome to the <strong>Tourist Portal Subsystem</strong>. By
+                          registering an account, you agree to our standard platform terms:
+                        </p>
+                        <ul>
+                          <li>
+                            Your account credentials are confidential and used to secure your
+                            saved itineraries and digital passes.
+                          </li>
+                          <li>
+                            Accommodation rates, distance calculations, and attraction
+                            schedules are based on verified destination data.
+                          </li>
+                          <li>
+                            Direct booking arrangements and digital passes are subject to
+                            individual partner hotel and attraction policies.
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          onclick="closeTermsModal()"
+                        >
+                          Understood
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  
+              </li>
             </ul>
           </div>
 
@@ -1218,6 +1267,7 @@
         })
         .join("");
     </script>
+    <script src="../assets/scripts/register.js"></script>
     <script src="../assets/scripts/landing.js"></script>
   </body>
 </html>
