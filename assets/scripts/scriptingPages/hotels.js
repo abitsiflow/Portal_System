@@ -262,13 +262,9 @@ function triggerHotelBooking(hotelId) {
     return;
   }
 
-  // If this hotel maps directly to a destinationData pairIndex, use it
-  if (hotel.pairIndex !== undefined) {
-    openBookingModal(hotel.pairIndex, "hotel_only");
-    return;
-  }
-
-  // Otherwise, pass the raw hotel object to our enhanced openBookingModal
+  // Always pass the raw hotel object so openBookingModal detects hotel-only mode.
+  // Even fallback hotels (with pairIndex from destinationsData) should open
+  // hotel-only — the hotels page should never show attraction booking UI.
   openBookingModal(hotel, "hotel_only");
 }
 

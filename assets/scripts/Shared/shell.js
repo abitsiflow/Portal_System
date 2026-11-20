@@ -80,7 +80,9 @@ function buildSidebarHtml(activePage) {
     <aside class="sidebar" id="appSidebar">
       <div class="sidebar-header">
         <a href="home.html" class="brand-section">
-          <div class="brand-icon-wrap"><i data-lucide="compass"></i></div>
+          <div class="brand-icon-wrap">
+            <img src="../assets/images/logo.png" alt="TouristEase Logo" class="brand-logo-img" />
+          </div>
           <div class="brand-text">
             <div class="brand-title">TouristEase</div>
             <div class="brand-subtitle">Travel discovery &amp; planning</div>

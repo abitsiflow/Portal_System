@@ -2,6 +2,32 @@
  * QR Tourist Pass page — latest hotel reservation pass.
  */
 
+async function downloadQrPass(qrUrl, bookingReference) {
+  try {
+    const response = await fetch(qrUrl);
+
+    if (!response.ok) {
+      throw new Error("Failed to download QR code.");
+    }
+
+    const blob = await response.blob();
+    const downloadUrl = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.download = `Hotel-QR-Pass-${bookingReference}.png`;
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(downloadUrl);
+  } catch (error) {
+    console.error("QR Download Error:", error);
+    alert("Unable to download QR Pass. Please try again.");
+  }
+}
+
 async function renderQrPass() {
   const container = document.getElementById("qrContent");
   if (!container) return;
@@ -19,7 +45,9 @@ async function renderQrPass() {
   }
 
   const latest = reservations[0];
-  const qrUrl = qrImageUrl(`HOTEL-RESERVATION|REF:${latest.booking_reference}|STATUS:${latest.payment_status}`);
+  const qrUrl = qrImageUrl(
+    `HOTEL-RESERVATION|REF:${latest.booking_reference}|STATUS:${latest.payment_status}`,
+  );
   const roomCount = latest.hotel_records?.length || 0;
 
   const row = (label, value) => `
@@ -53,7 +81,9 @@ async function renderQrPass() {
 
         <div class="pass-ticket-footer">
           <small>Keep this QR code for hotel reservation verification.</small>
-          <button type="button" class="btn btn-primary" onclick="window.print()">Download QR Pass</button>
+          <button type="button" class="btn btn-primary" onclick="downloadQrPass('${qrUrl}', '${latest.booking_reference}')">
+  <i data-lucide="download"></i> Download QR Pass
+</button>
         </div>
       </div>
     </div>`;

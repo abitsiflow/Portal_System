@@ -6,33 +6,25 @@
     <title>Discover the Philippines &middot; Tourist Portal Subsystem</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" href="/assets/images/favicon.png" />
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../assets/css/style.css" />
     <link rel="stylesheet" href="../assets/css/landing.css" />
-    <link rel="stylesheet" href="../assets/css/register.css">
+    <link rel="stylesheet" href="../assets/css/register.css" />
   </head>
   <body>
     <!-- ─── Top Guest Navigation Bar ─── -->
     <header class="landing-navbar">
       <div class="nav-container">
         <a href="landing-page.html" class="nav-brand">
-          <svg
+          <img
+            src="/assets/images/logo.png"
+            alt="TouristEase Logo"
             class="nav-brand-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="12" cy="12" r="10"></circle>
-            <polygon
-              points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"
-            ></polygon>
-          </svg>
+          />
           <span>TouristEase</span>
         </a>
 
@@ -45,15 +37,30 @@
             </li>
             <li><a href="#whyProximity" class="nav-link">Why Stay Close</a></li>
             <li><a href="../pages/hotels.html" class="nav-link">Hotels</a></li>
-            <li><a href="../pages/explore.html" class="nav-link">Tourist Spots</a></li>
+            <li>
+              <a href="../pages/explore.html" class="nav-link">Tourist Spots</a>
+            </li>
           </ul>
         </nav>
 
         <div class="nav-auth-actions">
           <a href="login.html" class="btn btn-secondary">Sign in</a>
           <a href="register.html" class="btn btn-primary">Create account</a>
-          <button type="button" class="landing-menu-toggle" id="landingMenuToggle" onclick="toggleLandingMenu()" aria-label="Toggle navigation menu">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <button
+            type="button"
+            class="landing-menu-toggle"
+            id="landingMenuToggle"
+            onclick="toggleLandingMenu()"
+            aria-label="Toggle navigation menu"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <line x1="3" y1="12" x2="21" y2="12"></line>
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -65,12 +72,30 @@
       <!-- Mobile dropdown drawer for landing page -->
       <div class="landing-mobile-menu" id="landingMobileMenu">
         <ul class="landing-mobile-links">
-          <li><a href="#featuredPairs" onclick="closeLandingMenu()">Nearby Stays &amp; Spots</a></li>
-          <li><a href="#whyProximity" onclick="closeLandingMenu()">Why Stay Close</a></li>
+          <li>
+            <a href="#featuredPairs" onclick="closeLandingMenu()"
+              >Nearby Stays &amp; Spots</a
+            >
+          </li>
+          <li>
+            <a href="#whyProximity" onclick="closeLandingMenu()"
+              >Why Stay Close</a
+            >
+          </li>
         </ul>
         <div class="landing-mobile-actions">
-          <a href="login.html" class="btn btn-secondary" style="width:100%; justify-content:center;">Sign in</a>
-          <a href="register.html" class="btn btn-primary" style="width:100%; justify-content:center;">Create account</a>
+          <a
+            href="login.html"
+            class="btn btn-secondary"
+            style="width: 100%; justify-content: center"
+            >Sign in</a
+          >
+          <a
+            href="register.html"
+            class="btn btn-primary"
+            style="width: 100%; justify-content: center"
+            >Create account</a
+          >
         </div>
       </div>
     </header>
@@ -456,7 +481,9 @@
                 <a href="landing-page.html">Discover Stays &amp; Spots</a>
               </li>
               <li><a href="../pages/hotels.html">Hotels Directory</a></li>
-              <li><a href="../pages/attractions.html">Attractions Directory</a></li>
+              <li>
+                <a href="../pages/attractions.html">Attractions Directory</a>
+              </li>
               <li><a href="../index.html">Interactive Workspace</a></li>
             </ul>
           </div>
@@ -468,52 +495,59 @@
               <li><a href="register.html">Create Account</a></li>
               <li>
                 <a href="#" onclick="showTermsModal(event)">Terms of Service</a>
-              
-                  <!-- Terms Modal -->
-                  <div
-                    id="termsModal"
-                    class="modal-overlay hidden"
-                    onclick="closeTermsModal(event)"
-                  >
-                    <div class="modal-card" onclick="event.stopPropagation()">
-                      <div class="modal-header">
-                        <h3>Terms of Service &amp; Privacy Policy</h3>
-                        <button type="button" class="modal-close" onclick="closeTermsModal()">
-                          &times;
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <p>
-                          Welcome to the <strong>Tourist Portal Subsystem</strong>. By
-                          registering an account, you agree to our standard platform terms:
-                        </p>
-                        <ul>
-                          <li>
-                            Your account credentials are confidential and used to secure your
-                            saved itineraries and digital passes.
-                          </li>
-                          <li>
-                            Accommodation rates, distance calculations, and attraction
-                            schedules are based on verified destination data.
-                          </li>
-                          <li>
-                            Direct booking arrangements and digital passes are subject to
-                            individual partner hotel and attraction policies.
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          onclick="closeTermsModal()"
-                        >
-                          Understood
-                        </button>
-                      </div>
+
+                <!-- Terms Modal -->
+                <div
+                  id="termsModal"
+                  class="modal-overlay hidden"
+                  onclick="closeTermsModal(event)"
+                >
+                  <div class="modal-card" onclick="event.stopPropagation()">
+                    <div class="modal-header">
+                      <h3>Terms of Service &amp; Privacy Policy</h3>
+                      <button
+                        type="button"
+                        class="modal-close"
+                        onclick="closeTermsModal()"
+                      >
+                        &times;
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>
+                        Welcome to the
+                        <strong>Tourist Portal Subsystem</strong>. By
+                        registering an account, you agree to our standard
+                        platform terms:
+                      </p>
+                      <ul>
+                        <li>
+                          Your account credentials are confidential and used to
+                          secure your saved itineraries and digital passes.
+                        </li>
+                        <li>
+                          Accommodation rates, distance calculations, and
+                          attraction schedules are based on verified destination
+                          data.
+                        </li>
+                        <li>
+                          Direct booking arrangements and digital passes are
+                          subject to individual partner hotel and attraction
+                          policies.
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        onclick="closeTermsModal()"
+                      >
+                        Understood
+                      </button>
                     </div>
                   </div>
-                  
+                </div>
               </li>
             </ul>
           </div>

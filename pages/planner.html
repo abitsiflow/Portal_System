@@ -10,6 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" href="/assets/images/favicon.png" />
     <link rel="stylesheet" href="../assets/css/style.css" />
     <link rel="stylesheet" href="../assets/css/dashboard.css" />
     <link rel="stylesheet" href="../assets/css/cssPages/planner.css" />
@@ -22,11 +23,18 @@
         <main class="main-content" id="viewContainer" aria-live="polite">
           <div class="section-head" style="margin-bottom: 18px">
             <div>
-              <p class="eyebrow">AI Travel Assistant &middot; Conversational Itinerary Builder</p>
+              <p class="eyebrow">
+                AI Travel Assistant &middot; Conversational Itinerary Builder
+              </p>
               <h2>Trip Planner Chatbot</h2>
-              <p>Chat with our AI bot to generate custom day-by-day itineraries, estimate budgets, and generate booking QR passes.</p>
+              <p>
+                Chat with our AI bot to generate custom day-by-day itineraries,
+                estimate budgets, and generate booking QR passes.
+              </p>
             </div>
-            <button type="button" class="btn btn-primary" id="bookActiveBtn">Book Active Itinerary</button>
+            <button type="button" class="btn btn-primary" id="bookActiveBtn">
+              Book Active Itinerary
+            </button>
           </div>
 
           <div class="planner-chat-layout">
@@ -40,27 +48,116 @@
                   </div>
                   <div class="bot-title-group">
                     <h3>TravelBot AI Assistant</h3>
-                    <span><i data-lucide="sparkles" style="width: 12px; height: 12px"></i> AI Trip Planner &middot; Active</span>
+                    <span
+                      ><i
+                        data-lucide="sparkles"
+                        style="width: 12px; height: 12px"
+                      ></i>
+                      AI Trip Planner &middot; Active</span
+                    >
                   </div>
                 </div>
-                <button type="button" class="chat-reset-btn" onclick="resetChatConversation()">Clear Chat</button>
+                <button
+                  type="button"
+                  class="chat-reset-btn"
+                  onclick="resetChatConversation()"
+                >
+                  Clear Chat
+                </button>
               </div>
 
               <div class="chat-messages" id="chatMessagesFeed"></div>
 
               <div class="chat-quick-prompts">
-                <button type="button" class="prompt-pill" onclick="sendQuickPrompt('Plan 3 days in Boracay with beach activities')">🏖️ 3 Days in Boracay</button>
-                <button type="button" class="prompt-pill" onclick="sendQuickPrompt('Create 2 days Baguio mountain getaway')">🏔️ 2 Days in Baguio</button>
-                <button type="button" class="prompt-pill" onclick="sendQuickPrompt('4 days luxury island hopping in El Nido Palawan')">🌊 4 Days in El Nido</button>
-                <button type="button" class="prompt-pill" onclick="sendQuickPrompt('1 day historical walking tour in Manila Intramuros')">🏰 1 Day in Intramuros</button>
-                <button type="button" class="prompt-pill" onclick="sendQuickPrompt('Weekend relaxing trip in Tagaytay Volcano Ridge')">🌋 Weekend in Tagaytay</button>
-                <button type="button" class="prompt-pill" onclick="sendQuickPrompt('2 days heritage cobblestone walk in Vigan')">🏛️ 2 Days in Vigan</button>
-                <button type="button" class="prompt-pill" onclick="sendQuickPrompt('3 days surfing and beach in Siargao Cloud 9')">🏄 3 Days in Siargao</button>
+                <button
+                  type="button"
+                  class="prompt-pill"
+                  onclick="
+                    sendQuickPrompt(
+                      'Plan 3 days in Boracay with beach activities',
+                    )
+                  "
+                >
+                  🏖️ 3 Days in Boracay
+                </button>
+                <button
+                  type="button"
+                  class="prompt-pill"
+                  onclick="
+                    sendQuickPrompt('Create 2 days Baguio mountain getaway')
+                  "
+                >
+                  🏔️ 2 Days in Baguio
+                </button>
+                <button
+                  type="button"
+                  class="prompt-pill"
+                  onclick="
+                    sendQuickPrompt(
+                      '4 days luxury island hopping in El Nido Palawan',
+                    )
+                  "
+                >
+                  🌊 4 Days in El Nido
+                </button>
+                <button
+                  type="button"
+                  class="prompt-pill"
+                  onclick="
+                    sendQuickPrompt(
+                      '1 day historical walking tour in Manila Intramuros',
+                    )
+                  "
+                >
+                  🏰 1 Day in Intramuros
+                </button>
+                <button
+                  type="button"
+                  class="prompt-pill"
+                  onclick="
+                    sendQuickPrompt(
+                      'Weekend relaxing trip in Tagaytay Volcano Ridge',
+                    )
+                  "
+                >
+                  🌋 Weekend in Tagaytay
+                </button>
+                <button
+                  type="button"
+                  class="prompt-pill"
+                  onclick="
+                    sendQuickPrompt('2 days heritage cobblestone walk in Vigan')
+                  "
+                >
+                  🏛️ 2 Days in Vigan
+                </button>
+                <button
+                  type="button"
+                  class="prompt-pill"
+                  onclick="
+                    sendQuickPrompt(
+                      '3 days surfing and beach in Siargao Cloud 9',
+                    )
+                  "
+                >
+                  🏄 3 Days in Siargao
+                </button>
               </div>
 
               <form class="chat-input-bar" onsubmit="handleChatSubmit(event)">
-                <input type="text" id="chatUserInput" placeholder="Tell AI where you want to go (e.g. 'Plan 3 days in Boracay under 15k')..." autocomplete="off" />
-                <button type="submit" class="chat-send-btn" title="Send request"><i data-lucide="send"></i></button>
+                <input
+                  type="text"
+                  id="chatUserInput"
+                  placeholder="Tell AI where you want to go (e.g. 'Plan 3 days in Boracay under 15k')..."
+                  autocomplete="off"
+                />
+                <button
+                  type="submit"
+                  class="chat-send-btn"
+                  title="Send request"
+                >
+                  <i data-lucide="send"></i>
+                </button>
               </form>
             </div>
 

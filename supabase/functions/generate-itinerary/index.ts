@@ -6,11 +6,11 @@ const GEMINI_API_URL =
 
 const GEMINI_MODELS = [
   "gemini-3.8-flash",
-  "gemini-3.7-flash",
+  "gemini-3.5-flash",
 ];
 
-const MAX_RECORDS = 15;
-const GEMINI_TIMEOUT_MS = 20000;
+const MAX_RECORDS = 8;
+const GEMINI_TIMEOUT_MS = 55000;
 const MAX_HISTORY_MESSAGES = 6;
 const MAX_HISTORY_CHARS = 1200;
 const MAX_ITINERARY_CONTEXT_CHARS = 10000;
@@ -79,12 +79,9 @@ function getGeminiText(data: GeminiInteractionResponse): string {
   const textParts: string[] = [];
 
   for (const step of data.steps ?? []) {
-    if (step.type !== "model_output") {
-      continue;
-    }
-
+    // Accept text from any step type, not just "model_output"
     for (const part of step.content ?? []) {
-      if (part.type === "text" && typeof part.text === "string") {
+      if (typeof part.text === "string" && part.text.trim()) {
         textParts.push(part.text);
       }
     }
@@ -334,6 +331,7 @@ export default {
 
         if (destination && availableSpots.length === 0) {
           return Response.json({
+            success: true,
             is_travel_related: true,
             reply:
               `I couldn't find any active tourist spots in ${destination} in our database. Please try another destination available in our records.`,
@@ -476,7 +474,7 @@ When an itinerary is requested, use this structure:
             "type": "attraction",
             "spot_id": 1,
             "name": "Exact tourist spot name",
-            "description": "Short description",
+            "description": "Maximum 12 words",
             "estimated_cost": 100
           }
         ]
@@ -539,6 +537,7 @@ Generate your response following the system instructions.
           },
           generation_config: {
             temperature: 0.2,
+            max_output_tokens: 8192,
           },
         };
 
@@ -600,6 +599,7 @@ Generate your response following the system instructions.
 
         if (!result.is_travel_related) {
           return Response.json({
+            success: true,
             is_travel_related: false,
             reply: result.reply,
             itinerary: null,
@@ -610,6 +610,7 @@ Generate your response following the system instructions.
 
         if (!result.itinerary) {
           return Response.json({
+            success: true,
             is_travel_related: true,
             reply: result.reply,
             itinerary: null,
@@ -701,6 +702,7 @@ Generate your response following the system instructions.
         );
 
         return Response.json({
+          success: true,
           is_travel_related: true,
           reply: result.reply,
           itinerary: validatedItinerary,
@@ -722,6 +724,7 @@ Generate your response following the system instructions.
         return Response.json(
           {
             error: "The AI service could not process your request.",
+            debug: errorMessage,
           },
           { status: 502 },
         );
